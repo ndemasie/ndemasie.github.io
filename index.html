@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html class="" lang="en">
+
+<head>
+	<title>Nathan DeMasie</title>
+    
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	
+	<meta name="description" content=""/>
+	<meta name="keywords" content="nathan, demasie, nathan demasie, front end, front-end, developer"/>	
+	
+  <link href="./style.css" rel="stylesheet">
+  <script src="./js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1 class="header-text">Nathan DeMasie</h1>
+
+    <div class="selectList js-selectList-open">
+      <span class="selectList-option selectList-option_current">English</span>
+      <ul class="selectList-list">
+        <li class="selectList-option js-set-lang" data-value="de">Deutsch</li>
+        <li class="selectList-option js-set-lang" data-value="en">English</li>
+      </ul>
+    </div>
+
+  </header> 
+
+  <nav role="nav" class="nav">
+
+    <section class="section js-section-open">
+      <div class="section-brand">
+        <h1 class="section-title">About</h1>
+        <i class="section-icon"></i>
+      </div>
+      <div class="section-content">
+
+      </div>
+    </section>
+    
+    <section class="section js-section-open">
+      <div class="section-brand">
+        <h1 class="section-title">Experience</h1>
+        <i class="section-icon"></i>
+      </div>
+      <div class="section-content"></div>
+    </section>
+ 
+    <section class="section js-section-open">
+      <div class="section-brand">      
+        <h1 class="section-title">CV</h1>
+        <i class="section-icon"></i>
+      </div>
+      <div class="section-content">
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-brand section_spaceEvenly">
+        <h1 class="section-title_slim">Contact</h1>
+        <a><i class="contact-icon"></i></a>
+      </div>
+    </section>
+
+  </nav>
+
+  <footer role="footer" class="footer">
+    <p class="copyright">© 2019 Nathan DeMasie</p>
+  </footer>
+
+</body>
+
+<script>
+
+  function toggleOpen(classString) {
+    $(`.${classString}`).toggleClass(`${classString}_open`);
+  }
+
+  $(document).ready(function() {
+    // Opening SelectList dropdown
+    $('.js-selectList-open').click(function() {
+      toggleOpen('selectList-list');
+    });
+
+    // Setting language
+    $('.js-set-lang').click(function() {
+      document.documentElement.lang = $(this).data('value');
+      $('.selectList-option_current').text($(this).text());
+    });
+
+    // Section open dropdown 
+    $('.js-section-open').click(function() {
+      $(this).toggleClass('section_open');
+      $('.section').not(this).toggleClass('section_hidden');
+
+      $(this).find('.section-content').toggleClass('section-content_open');
+
+      const icon = $(this).find('.section-icon');
+      icon.toggleClass('section-icon_open');
+
+      $('.section-icon').not(icon).removeClass('section-icon_open');
+    });
+  });
+  
+</script>
+
+</html>

@@ -28,9 +28,10 @@
   border: solid 1px #474747;
   border-radius: 1rem;
   box-shadow: 0 0 0.5rem 0.3rem #333333;
-  flex: 0 0 500px;
+  flex: 0 0 450px;
   justify-content: start;
   margin: 0 0 10vh;
+  max-width: 800px;
   overflow: hidden;
   position: relative;
   z-index: -1;
@@ -52,16 +53,16 @@
   padding: 1rem;
 }
 
-.card-media {
+.card-background {
   position: absolute;
   z-index: -1;
 }
 
-.card-media_fillHeight {
+.card-background_fillHeight {
   height: 100%;
 }
 
-.card-media_fillWidth {
+.card-background_fillWidth {
   width: 100%;
 }
 
@@ -5918,7 +5919,7 @@ html[lang=de] [lang]:not([lang=de]) {
 body {
   background-color: black;
   color: white;
-  height: 90vh;
+  height: 80vh;
 }
 
 .header {

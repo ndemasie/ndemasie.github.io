@@ -75,7 +75,7 @@
           <div class="card-section">
             <video class="card-background card-background_fillWidth" src="assets/video/scuba.mp4" autoplay loop muted playsinline></video>
             <span class="card-text">
-              <span lang="en">Scuba diving</span>
+              <span lang="en">Scuba</span>
               <span lang="de">Gerätetauchen</span>
             </span>
           </div>                          
@@ -143,7 +143,9 @@
         <i class="icon-section"></i>
       </div>
       <div class="section-content">
-        <img class="" src="assets/img/cv.jpg"/>
+        <div class="card-section">
+          <img class="card-background_fillHeight" src="assets/img/cv.jpg"/>
+        </div>
         <a class="link-bar" href="assets/pdf/cv.pdf" download="Nathan DeMasie CV">
           <h1>
             <span lang="en">Download</span>
@@ -189,7 +191,6 @@
 
     // Section open dropdown 
     $('.js-section-open').click(function(){
-      $(this).toggleClass('section_open');
       $('.section').not(this).toggleClass('section_hidden');
 
       $(this).find('.section-content').toggleClass('section-content_open');

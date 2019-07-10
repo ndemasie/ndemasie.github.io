@@ -1,5 +1,8 @@
 @charset 'utf-8'
 
+@import "sass/_mixins"
+@import "sass/_variables" 
+
 @font-face
   font-family: Quicksand
   src: url(./fonts/quicksand/Quicksand-Light.ttf) format("opentype")
@@ -8,23 +11,6 @@
   font-family: Quicksand
   src: url(./fonts/quicksand/Quicksand-LightItalic.ttf) format("opentype")
   
-$fa-font-path: "./webfonts"
-@import "scss/fontawesome.scss"
-@import "scss/solid.scss"
-
-$color-background: black
-$color-text: white
-$color-list: mix($color-background, white, 60%)
-$font-size: 1rem
-
-@mixin rotate($deg)
-  transform: rotate($deg)
-
-@mixin transition($transition...)
-  transition: $transition
-  -moz-transition: $transition
-  -webkit-transition: $transition
-
 %flexRow
   align-items: center
   display: flex
@@ -39,133 +25,10 @@ $font-size: 1rem
   justify-content: center
   width: 100%
 
-html
-  font-family: Quicksand
-
-*,
-*:before,
-*:after
-  margin: 0
-  padding: 0
-  -webkit-box-sizing: border-box
-  -moz-box-sizing: border-box
-  box-sizing: border-box
-
-body
-  display: flex
-  box-sizing: border-box
-  flex-flow: column nowrap
-  background-color: $color-background
-  color: $color-text
-
-// @for $i from 2 through 4
-//   .col#{$i}
-//     width: percentage(1 / $i - 1)
-
-.contact-icon
-  cursor: pointer
-  @extend .fas
-  @extend .fa-envelope
-  @extend .fa-border-circle 
-
-.copyright
-  font-size: .8rem
-  
-.header
-  @extend %flexRow
-  flex-shrink: 0
-  justify-content: space-between
-
-.header-text
-  font-size: 1rem
-  margin-left: 1rem
-
-.footer
-  align-self: center
-  flex-shrink: 0
-  margin-top: .5rem
-
-.nav
-  @extend %flexCol
-  flex-grow: 1
-  min-height: 90vh
-
-.section
-  @extend %flexCol
-  align-items: center
-  border-top: 1px solid white
-  cursor: pointer
-  flex: 1
-  font-size: 1.6rem
-  justify-content: center
-  overflow: hidden
-  @include transition(flex .6s ease-out)
-  &:last-child
-    cursor: auto
-  
-.section_hidden
-  flex: 0
-  min-height: 0
-
-.section_open
-  border-bottom: 1px solid white
-
-.section_spaceEvenly
-  justify-content: space-evenly
-
-.section-brand
-  @extend %flexRow
-  flex: 0
-
-.section-content
-  @extend %flexCol
-  display: none
-  flex: 0
-  @include transition(all .5s ease)
-
-.section-content_open
-  display: flex
-  flex: 1
-  height: 100%
-
-.section-icon
-  @extend .fas 
-  @extend .fa-chevron-down
-  @include transition(all 0.5s)
-
-.section-icon_open
-  @include rotate(-180deg)
-
-.section-title
-  padding: .5rem
-  text-align: center
-  width: 80%
-
-.section-title_slim
-  width: 30%
-
-.selectList
-  background-color: $color-list
-  border: solid 1px mix($color-list, white, 90%)
-  border-radius: .2rem
-  line-height: 2rem
-  margin: .4rem
-  width: 30vw
-
-.selectList-list
-  background-color: inherit
-  border-radius: .1rem
-  box-shadow: 0 0 0 1px rgba($color-background, .1)
-  list-style: none
-  margin-top: .3rem
-  position: absolute
-  width: inherit
-  visibility: hidden
-
-.selectList-list_open
-  visibility: visible
- 
-.selectList-option
-  padding-left: 1rem
-  &:hover
-    background-color: mix($color-list, black, 90%)
+@import "sass/card"
+@import "sass/icons"
+@import "sass/layout"
+@import "sass/links"
+@import "sass/section"
+@import "sass/selectList"
+@import "sass/slider"

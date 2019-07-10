@@ -1,0 +1,12 @@
+@mixin animation($params...)
+  animation: $params
+  -moz-animation: $params
+  -webkit-animation: $params
+
+@mixin rotate($deg)
+  transform: rotate($deg)
+
+@mixin transition($params...)
+  transition: $params
+  -moz-transition: $params
+  -webkit-transition: $params

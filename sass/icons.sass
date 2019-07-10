@@ -1,0 +1,19 @@
+@import "../scss/fontawesome.scss"
+@import "../scss/solid.scss"
+
+.icon
+  cursor: pointer
+  &-contact
+    @extend .fas
+    @extend .fa-envelope
+    @extend .fa-border-circle
+  &-download
+    @extend .fas
+    @extend .fa-file-download
+    @extend .fa-border-circle
+  &-section
+    @extend .fas 
+    @extend .fa-chevron-down
+    @include transition(all 0.5s)
+  &-section_open
+    @include rotate(-180deg)

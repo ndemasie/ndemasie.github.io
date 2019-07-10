@@ -7,14 +7,92 @@
   font-family: Quicksand;
   src: url(./fonts/quicksand/Quicksand-LightItalic.ttf) format("opentype");
 }
+.section-brand, .footer, .header {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.section-content, .section, .nav, body, .card-section, .card {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.card {
+  background-color: #333333;
+  border: solid 1px #474747;
+  border-radius: 1rem;
+  box-shadow: 0 0 0.5rem 0.3rem #333333;
+  flex: 0 0 500px;
+  justify-content: start;
+  margin: 5vh 0 15vh;
+  overflow: hidden;
+  position: relative;
+  z-index: -1;
+  transition: all ease-in 0.5s 0.5s;
+  -moz-transition: all ease-in 0.5s 0.5s;
+  -webkit-transition: all ease-in 0.5s 0.5s;
+}
+
+.card_fitContent {
+  flex: 1;
+  overflow: visible;
+}
+
+.card_flex_space-between {
+  justify-content: space-between;
+}
+
+.card-header {
+  padding: 1rem;
+}
+
+.card-media {
+  position: absolute;
+  z-index: -1;
+}
+
+.card-media_fillHeight {
+  height: 100%;
+}
+
+.card-media_fillWidth {
+  width: 100%;
+}
+
+.card-section {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.card-text {
+  padding: 1rem 0.5rem;
+}
+
+.card-text_left {
+  text-align: left;
+}
+
+.card-text_right {
+  text-align: right;
+}
+
 /*!
  * Font Awesome Free 5.9.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
 .fas,
-.section-icon,
-.contact-icon,
+.icon-section,
+.icon-download,
+.icon-contact,
 .far,
 .fal,
 .fab {
@@ -109,7 +187,7 @@
   padding: 0.2em 0.25em 0.15em;
 }
 
-.fa-border-circle, .contact-icon {
+.fa-border-circle, .icon-download, .icon-contact {
   border: solid 0.1em #eee;
   border-radius: 50%;
   padding: 0.5em;
@@ -125,8 +203,9 @@
 
 .fa.fa-pull-left,
 .fas.fa-pull-left,
-.fa-pull-left.section-icon,
-.fa-pull-left.contact-icon,
+.fa-pull-left.icon-section,
+.fa-pull-left.icon-download,
+.fa-pull-left.icon-contact,
 .far.fa-pull-left,
 .fal.fa-pull-left,
 .fab.fa-pull-left {
@@ -134,8 +213,9 @@
 }
 .fa.fa-pull-right,
 .fas.fa-pull-right,
-.fa-pull-right.section-icon,
-.fa-pull-right.contact-icon,
+.fa-pull-right.icon-section,
+.fa-pull-right.icon-download,
+.fa-pull-right.icon-contact,
 .far.fa-pull-right,
 .fal.fa-pull-right,
 .fab.fa-pull-right {
@@ -1184,7 +1264,7 @@ readers do not read off random characters that represent icons */
   content: "";
 }
 
-.fa-chevron-down:before, .section-icon:before {
+.fa-chevron-down:before, .icon-section:before {
   content: "";
 }
 
@@ -1848,7 +1928,7 @@ readers do not read off random characters that represent icons */
   content: "";
 }
 
-.fa-envelope:before, .contact-icon:before {
+.fa-envelope:before, .icon-contact:before {
   content: "";
 }
 
@@ -2040,7 +2120,7 @@ readers do not read off random characters that represent icons */
   content: "";
 }
 
-.fa-file-download:before {
+.fa-file-download:before, .icon-download:before {
   content: "";
 }
 
@@ -5793,40 +5873,49 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 900;
   font-display: auto;
-  src: url("./webfonts/fa-solid-900.eot");
-  src: url("./webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("./webfonts/fa-solid-900.woff2") format("woff2"), url("./webfonts/fa-solid-900.woff") format("woff"), url("./webfonts/fa-solid-900.ttf") format("truetype"), url("./webfonts/fa-solid-900.svg#fontawesome") format("svg");
+  src: url("webfonts/fa-solid-900.eot");
+  src: url("webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("webfonts/fa-solid-900.woff2") format("woff2"), url("webfonts/fa-solid-900.woff") format("woff"), url("webfonts/fa-solid-900.ttf") format("truetype"), url("webfonts/fa-solid-900.svg#fontawesome") format("svg");
 }
 .fa,
 .fas,
-.section-icon,
-.contact-icon {
+.icon-section,
+.icon-download,
+.icon-contact {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
 }
 
-.section-brand, .header {
-  align-items: center;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  width: 100%;
+.icon {
+  cursor: pointer;
 }
-
-.section-content, .section, .nav {
-  align-items: center;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  width: 100%;
+.icon-section {
+  transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+.icon-section_open {
+  transform: rotate(-180deg);
 }
 
 html {
   font-family: Quicksand;
 }
 
+/* Language selector css to toggle lang */
+html[lang=en] [lang]:not([lang=en]),
+html[lang=de] [lang]:not([lang=de]) {
+  display: none;
+}
+
+/* Remove scroll bar from Safari & Chrome */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -5835,24 +5924,15 @@ html {
 }
 
 body {
-  display: flex;
-  box-sizing: border-box;
-  flex-flow: column nowrap;
   background-color: black;
   color: white;
-}
-
-.contact-icon {
-  cursor: pointer;
-}
-
-.copyright {
-  font-size: 0.8rem;
+  height: 100vh;
 }
 
 .header {
-  flex-shrink: 0;
+  flex: 0 0 auto;
   justify-content: space-between;
+  padding: 0.5rem;
 }
 
 .header-text {
@@ -5860,15 +5940,27 @@ body {
   margin-left: 1rem;
 }
 
-.footer {
-  align-self: center;
-  flex-shrink: 0;
-  margin-top: 0.5rem;
+.nav {
+  flex: 1 100%;
+  overflow: hidden;
 }
 
-.nav {
-  flex-grow: 1;
-  min-height: 90vh;
+.footer {
+  padding: 0.5rem;
+}
+
+.copyright {
+  font-size: 0.8rem;
+}
+
+.link-bar {
+  align-items: center;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem;
+  text-decoration: none;
+  width: 100%;
 }
 
 .section {
@@ -5878,10 +5970,10 @@ body {
   flex: 1;
   font-size: 1.6rem;
   justify-content: center;
-  overflow: hidden;
-  transition: flex 0.6s ease-out;
-  -moz-transition: flex 0.6s ease-out;
-  -webkit-transition: flex 0.6s ease-out;
+  overflow-y: hidden;
+  transition: flex 0.6s ease;
+  -moz-transition: flex 0.6s ease;
+  -webkit-transition: flex 0.6s ease;
 }
 .section:last-child {
   cursor: auto;
@@ -5889,7 +5981,7 @@ body {
 
 .section_hidden {
   flex: 0;
-  min-height: 0;
+  height: 0;
 }
 
 .section_open {
@@ -5900,32 +5992,20 @@ body {
   justify-content: space-evenly;
 }
 
-.section-brand {
-  flex: 0;
-}
-
 .section-content {
-  display: none;
-  flex: 0;
-  transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  justify-content: start;
+  height: 0;
+  overflow: scroll;
+  padding: 0 5vw;
+  width: 100%;
 }
 
 .section-content_open {
-  display: flex;
   flex: 1;
-  height: 100%;
-}
-
-.section-icon {
-  transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-}
-
-.section-icon_open {
-  transform: rotate(-180deg);
+  padding: 5vh 5vw;
 }
 
 .section-title {
@@ -5939,12 +6019,12 @@ body {
 }
 
 .selectList {
-  background-color: #666666;
-  border: solid 1px #757575;
+  background-color: #333333;
+  border: solid 1px #474747;
   border-radius: 0.2rem;
+  flex: 0 0 120px;
   line-height: 2rem;
   margin: 0.4rem;
-  width: 30vw;
 }
 
 .selectList-list {
@@ -5954,8 +6034,9 @@ body {
   list-style: none;
   margin-top: 0.3rem;
   position: absolute;
-  width: inherit;
+  width: 120px;
   visibility: hidden;
+  z-index: 10;
 }
 
 .selectList-list_open {
@@ -5966,7 +6047,7 @@ body {
   padding-left: 1rem;
 }
 .selectList-option:hover {
-  background-color: #5c5c5c;
+  background-color: #333333;
 }
 
 /*# sourceMappingURL=style.css.map */

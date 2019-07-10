@@ -1,0 +1,51 @@
+@import "_variables"
+
+.card
+  background-color: $color-primary
+  border: solid 1px $color-primary-accent
+  border-radius: 1rem
+  box-shadow: 0 0 .5rem .3rem $color-primary
+  flex: 0 0 500px
+  justify-content: start
+  margin: 5vh 0 15vh
+  overflow: hidden
+  position: relative
+  z-index: -1
+  @extend %flexCol
+  @include transition(all ease-in .5s .5s)
+
+.card_fitContent
+  flex: 1
+  overflow: visible
+
+.card_flex_space-between
+  justify-content: space-between
+
+.card-header
+  padding: 1rem
+
+.card-media
+  position: absolute
+  z-index: -1
+
+.card-media_fillHeight
+  height: 100%
+
+.card-media_fillWidth
+  width: 100%
+
+.card-section
+  @extend %flexCol
+  flex: 1
+  overflow: hidden
+  position: relative
+  width: 100%
+
+.card-text
+  padding: 1rem .5rem
+
+.card-text_left
+  text-align: left
+
+.card-text_right
+  text-align: right

@@ -5919,7 +5919,7 @@ html[lang=de] [lang]:not([lang=de]) {
 body {
   background-color: black;
   color: white;
-  height: 80vh;
+  height: 100%;
 }
 
 .header {

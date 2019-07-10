@@ -30,7 +30,7 @@
   box-shadow: 0 0 0.5rem 0.3rem #333333;
   flex: 0 0 500px;
   justify-content: start;
-  margin: 5vh 0 15vh;
+  margin: 0 0 10vh;
   overflow: hidden;
   position: relative;
   z-index: -1;
@@ -74,14 +74,6 @@
 
 .card-text {
   padding: 1rem 0.5rem;
-}
-
-.card-text_left {
-  text-align: left;
-}
-
-.card-text_right {
-  text-align: right;
 }
 
 /*!
@@ -5926,7 +5918,7 @@ html[lang=de] [lang]:not([lang=de]) {
 body {
   background-color: black;
   color: white;
-  height: 100vh;
+  height: 90vh;
 }
 
 .header {
@@ -5941,7 +5933,7 @@ body {
 }
 
 .nav {
-  flex: 1 100%;
+  flex: 1;
   overflow: hidden;
 }
 
@@ -6005,7 +5997,6 @@ body {
 
 .section-content_open {
   flex: 1;
-  padding: 5vh 5vw;
 }
 
 .section-title {

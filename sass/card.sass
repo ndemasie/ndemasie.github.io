@@ -7,13 +7,14 @@
   box-shadow: 0 0 .5rem .3rem $color-primary
   flex: 0 0 450px
   justify-content: start
-  margin: 0 0 10vh
+  margin: 5vh 0
   max-width: 800px
   overflow: hidden
   position: relative
-  z-index: -1
   @extend %flexCol
   @include transition(all ease-in .5s .5s)
+  &:first-child
+    margin: 0 0 5vh
 
 .card_fitContent
   flex: 1 0 auto
@@ -24,10 +25,10 @@
 
 .card-header
   padding: 1rem
+  z-index: 10
 
 .card-background
   position: absolute
-  z-index: -1
 
 .card-background_fillHeight
   height: 100%
@@ -41,6 +42,8 @@
   overflow: hidden
   position: relative
   width: 100%
+  z-index: 10
 
 .card-text
   padding: 1rem .5rem
+  z-index: 10

@@ -30,14 +30,16 @@
   box-shadow: 0 0 0.5rem 0.3rem #333333;
   flex: 0 0 450px;
   justify-content: start;
-  margin: 0 0 10vh;
+  margin: 5vh 0;
   max-width: 800px;
   overflow: hidden;
   position: relative;
-  z-index: -1;
   transition: all ease-in 0.5s 0.5s;
   -moz-transition: all ease-in 0.5s 0.5s;
   -webkit-transition: all ease-in 0.5s 0.5s;
+}
+.card:first-child {
+  margin: 0 0 5vh;
 }
 
 .card_fitContent {
@@ -51,11 +53,11 @@
 
 .card-header {
   padding: 1rem;
+  z-index: 10;
 }
 
 .card-background {
   position: absolute;
-  z-index: -1;
 }
 
 .card-background_fillHeight {
@@ -71,10 +73,12 @@
   overflow: hidden;
   position: relative;
   width: 100%;
+  z-index: 10;
 }
 
 .card-text {
   padding: 1rem 0.5rem;
+  z-index: 10;
 }
 
 /*!
@@ -5919,7 +5923,7 @@ html[lang=de] [lang]:not([lang=de]) {
 body {
   background-color: black;
   color: white;
-  height: 84vh;
+  height: 86vh;
 }
 
 .header {
@@ -5952,8 +5956,10 @@ body {
   display: flex;
   justify-content: space-around;
   margin: 2rem;
+  position: relative;
   text-decoration: none;
   width: 100%;
+  z-index: 5;
 }
 
 .section {

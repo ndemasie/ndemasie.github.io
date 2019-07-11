@@ -12,8 +12,9 @@
 	<meta name="description" content=""/>
 	<meta name="keywords" content="nathan, demasie, nathan demasie, front end, front-end, developer"/>	
 	
-  <link href="./style.css" rel="stylesheet">
-  <script src="./js/jquery-3.4.1.min.js"></script>
+  <link href="style.css" rel="stylesheet">
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/lozad.min.js"></script>
 </head>
 
 <body>
@@ -44,7 +45,7 @@
       <div class="section-content">
 
         <article class="card">
-          <video class="card-background card-background_fillHeight" src="assets/video/PVg8F1k.mp4" autoplay loop muted playsinline></video>
+          <video class="lozad card-background card-background_fillHeight" data-src="assets/video/PVg8F1k.mp4" autoplay loop muted playsinline></video>
           <h3 class="card-header">
             <span lang="en">I am a Chicago proud expat living in Germany.</span>
             <span lang="de">Ich bin ein stolzer Expat aus Chicago, der in Deutschland lebt.</span>
@@ -57,7 +58,7 @@
             <span lang="de">Hobbys</span>
           </h3>
           <div class="card-section">
-            <video class="card-background card-background_fillWidth" src="assets/video/skydiving.mp4" autoplay loop muted playsinline></video>
+            <video class="lozad card-background card-background_fillWidth" data-src="assets/video/skydiving.mp4" autoplay loop muted playsinline></video>
             <span class="card-text">
               <span lang="en">Skydiving</span>
               <span lang="de">Fallschirmspringen</span>
@@ -65,7 +66,7 @@
           </div>
 
           <div class="card-section">
-            <video class="card-background card-background_fillWidth" src="assets/video/cycling.mp4" autoplay loop muted playsinline></video>
+            <video class="lozad card-background card-background_fillWidth" data-src="assets/video/cycling.mp4" autoplay loop muted playsinline></video>
             <span class="card-text">
               <span lang="en">Cycling</span>
               <span lang="de">Radfahren</span>
@@ -73,7 +74,7 @@
           </div>
 
           <div class="card-section">
-            <video class="card-background card-background_fillWidth" src="assets/video/scuba.mp4" autoplay loop muted playsinline></video>
+            <video class="lozad card-background card-background_fillWidth" data-src="assets/video/scuba.mp4" autoplay loop muted playsinline></video>
             <span class="card-text">
               <span lang="en">Scuba</span>
               <span lang="de">Gerätetauchen</span>
@@ -82,7 +83,7 @@
         </article>
 
         <article class="card card_flex_space-between">
-          <img class="card-background card-background_fillHeight" src="assets/img/love.jpg"/>
+          <img class="lozad card-background card-background_fillHeight" data-src="assets/img/love.jpg"/>
           <h3 class="card-header">
             <span lang="en">Love</span>
             <span lang="de">Liebe</span>
@@ -123,8 +124,8 @@
             <span lang="de">So lernte ich an Nächten, Wochenenden und Feiertagen das Programmieren.</span>
           </span>
           <span class="card-text">
-            <span lang="en">I have experience with HTML, CSS, Javascript, MySQL.</span>
-            <span lang="de">Ich habe Erfahrung mit HTML, CSS, Javascript, MySQL.</span>
+            <span lang="en">I have experience with HTML, CSS, Javascript, & MySQL.</span>
+            <span lang="de">Ich habe Erfahrung mit HTML, CSS, Javascript, & MySQL.</span>
           </span>
           <a class="link-bar" href="mailto:nathan.demasie@gmail.com">
             <h1>
@@ -144,7 +145,7 @@
       </div>
       <div class="section-content">
         <div class="card-section">
-          <img class="card-background_fillHeight" src="assets/img/cv.jpg"/>
+          <img class="lozad card-background_fillHeight" data-src="assets/img/cv.jpg"/>
         </div>
         <a class="link-bar" href="assets/pdf/cv.pdf" download="Nathan DeMasie CV">
           <h1>
@@ -177,6 +178,9 @@
 </body>
 
 <script>
+  const observer = lozad(); // lazy load img & video
+  observer.observe();
+
   $(document).ready(function() {
     // Opening SelectList dropdown
     $('.js-selectList-open').click(function(){

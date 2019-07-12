@@ -7,13 +7,13 @@
   font-size: 1.6rem
   justify-content: center
   overflow-y: hidden
-  @include transition(flex .6s ease)
+  @include prefix(transition, flex .6s ease)
   &:last-child
     cursor: auto
   
 .section_hidden
   flex: 0
-  height: 0
+  height: 0 // so hidden section don't take flex space
 
 .section_spaceEvenly
   justify-content: space-evenly
@@ -23,9 +23,9 @@
 
 .section-content
   @extend %flexCol  
-  @include transition(all .5s linear)
+  @include prefix(transition, all .5s linear)
   justify-content: start
-  height: 0 // so unopened content doesn't take space
+  height: 0 // so unopened content doesn't take flex space
   overflow: scroll
   padding: 0 5vw
 

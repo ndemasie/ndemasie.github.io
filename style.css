@@ -7,7 +7,7 @@
   font-family: Quicksand;
   src: url(./fonts/quicksand/Quicksand-LightItalic.ttf) format("opentype");
 }
-.section-brand, .footer, .header {
+.section-brand, .header, .footer {
   align-items: center;
   display: flex;
   flex-flow: row nowrap;
@@ -34,12 +34,15 @@
   max-width: 800px;
   overflow: hidden;
   position: relative;
-  transition: all ease-in 0.5s 0.5s;
-  -moz-transition: all ease-in 0.5s 0.5s;
   -webkit-transition: all ease-in 0.5s 0.5s;
+  -moz-transition: all ease-in 0.5s 0.5s;
+  transition: all ease-in 0.5s 0.5s;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 .card:first-child {
-  margin: 0 0 5vh;
+  margin: 2vh 0 5vh;
 }
 
 .card_fitContent {
@@ -49,6 +52,10 @@
 
 .card_flex_space-between {
   justify-content: space-between;
+}
+
+.card_align_start {
+  align-items: start;
 }
 
 .card-header {
@@ -5886,11 +5893,13 @@ readers do not read off random characters that represent icons */
   cursor: pointer;
 }
 .icon-section {
-  transition: all 0.5s;
-  -moz-transition: all 0.5s;
   -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
 }
 .icon-section_open {
+  -webkit-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
   transform: rotate(-180deg);
 }
 
@@ -5926,6 +5935,18 @@ body {
   height: 86vh;
 }
 
+.break {
+  padding: 1px;
+}
+
+.copyright {
+  font-size: 0.8rem;
+}
+
+.footer {
+  padding: 0.5rem;
+}
+
 .header {
   flex: 0 0 auto;
   justify-content: space-between;
@@ -5942,15 +5963,8 @@ body {
   overflow: hidden;
 }
 
-.footer {
-  padding: 0.5rem;
-}
-
-.copyright {
-  font-size: 0.8rem;
-}
-
 .link-bar {
+  align-self: center;
   align-items: center;
   color: white;
   display: flex;
@@ -5959,7 +5973,6 @@ body {
   position: relative;
   text-decoration: none;
   width: 100%;
-  z-index: 5;
 }
 
 .section {
@@ -5970,9 +5983,9 @@ body {
   font-size: 1.6rem;
   justify-content: center;
   overflow-y: hidden;
-  transition: flex 0.6s ease;
-  -moz-transition: flex 0.6s ease;
   -webkit-transition: flex 0.6s ease;
+  -moz-transition: flex 0.6s ease;
+  transition: flex 0.6s ease;
 }
 .section:last-child {
   cursor: auto;
@@ -5988,9 +6001,9 @@ body {
 }
 
 .section-content {
-  transition: all 0.5s linear;
-  -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  transition: all 0.5s linear;
   justify-content: start;
   height: 0;
   overflow: scroll;
@@ -6015,6 +6028,7 @@ body {
   background-color: #333333;
   border: solid 1px #474747;
   border-radius: 0.2rem;
+  cursor: pointer;
   flex: 0 0 120px;
   line-height: 2rem;
   margin: 0.4rem;
@@ -6023,24 +6037,24 @@ body {
 .selectList-list {
   background-color: inherit;
   border-radius: 0.1rem;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 1px #474747;
   list-style: none;
   margin-top: 0.3rem;
   position: absolute;
   width: 120px;
   visibility: hidden;
-  z-index: 10;
 }
 
 .selectList-list_open {
   visibility: visible;
+  z-index: 10;
 }
 
 .selectList-option {
   padding-left: 1rem;
 }
 .selectList-option:hover {
-  background-color: #333333;
+  background-color: #474747;
 }
 
 /*# sourceMappingURL=style.css.map */

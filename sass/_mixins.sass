@@ -1,12 +1,7 @@
-@mixin animation($params...)
-  animation: $params
-  -moz-animation: $params
-  -webkit-animation: $params
+@mixin prefix($property, $params...)
+  -webkit-#{$property}: $params
+  -moz-#{$property}: $params
+  #{$property}: $params
 
 @mixin rotate($deg)
-  transform: rotate($deg)
-
-@mixin transition($params...)
-  transition: $params
-  -moz-transition: $params
-  -webkit-transition: $params
+  @include prefix(transform, rotate($deg))

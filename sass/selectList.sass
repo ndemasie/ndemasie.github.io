@@ -1,7 +1,8 @@
 .selectList
   background-color: $color-primary
-  border: solid 1px mix($color-primary, white, 90%)
+  border: solid 1px $color-primary-accent
   border-radius: .2rem
+  cursor: pointer
   flex: 0 0 120px
   line-height: 2rem
   margin: .4rem
@@ -9,18 +10,18 @@
 .selectList-list
   background-color: inherit
   border-radius: .1rem
-  box-shadow: 0 0 0 1px rgba($color-background, .1)
+  box-shadow: 0 0 0 1px $color-primary-accent
   list-style: none
   margin-top: .3rem
   position: absolute
   width: 120px
   visibility: hidden
-  z-index: 10
 
 .selectList-list_open
   visibility: visible
+  z-index: 10
  
 .selectList-option
   padding-left: 1rem
   &:hover
-    background-color: $color-primary
+    background-color: $color-primary-accent

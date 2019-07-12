@@ -1,6 +1,7 @@
 @import "_variables"
 
 .card
+  @extend %flexCol
   background-color: $color-primary
   border: solid 1px $color-primary-accent
   border-radius: 1rem
@@ -11,10 +12,10 @@
   max-width: 800px
   overflow: hidden
   position: relative
-  @extend %flexCol
-  @include transition(all ease-in .5s .5s)
+  @include prefix(transition, all ease-in .5s .5s)
+  @include prefix(transform, translate3d(0, 0, 0)) // Fix absolute elements ignoring border-radius
   &:first-child
-    margin: 0 0 5vh
+    margin: 2vh 0 5vh
 
 .card_fitContent
   flex: 1 0 auto
@@ -22,6 +23,9 @@
 
 .card_flex_space-between
   justify-content: space-between
+
+.card_align_start
+  align-items: start
 
 .card-header
   padding: 1rem

@@ -1,19 +1,21 @@
-@import "../scss/fontawesome.scss"
-@import "../scss/solid.scss"
-
 .icon
-  cursor: pointer
-  &-contact
-    @extend .fas
-    @extend .fa-envelope
-    @extend .fa-border-circle
+  height: 2rem
+  width: 2rem
+  &-outline
+    border: .15rem solid $color-text
+    border-radius: 50%
+    overflow: visible
+    padding: .5rem
+    height: 3.5rem
+    width: 3.5rem
   &-download
-    @extend .fas
-    @extend .fa-file-download
-    @extend .fa-border-circle
+    background: url(assets/svg/i-download.svg) no-repeat center center
+    background-size: 2rem
+  &-mail
+    background: url(assets/svg/i-mail.svg) no-repeat center center
+    background-size: 2rem
   &-section
-    @extend .fas 
-    @extend .fa-chevron-down
+    background: url(assets/svg/i-chevron-bottom.svg) no-repeat center center
     @include prefix(transition, all 0.5s)
   &-section_open
-    @include rotate(-180deg)
+    @include rotate(-180deg)  

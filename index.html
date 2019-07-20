@@ -39,9 +39,9 @@
       <div class="section-brand">
         <h1 class="section-title">
           <span lang="en">About</span>
-          <span lang="de">Über</span>
+          <span lang="de">Über Mich</span>
         </h1>
-        <i class="icon-section"></i>
+        <i class="icon icon-section"></i>
       </div>
       <div class="section-content">
 
@@ -90,8 +90,8 @@
             <span lang="de">Liebe</span>
           </h3>
           <span class="card-text">
-            <span lang="en">Brought me to Germany</span>
-            <span lang="de">Brachte mich nach Deutschland</span>
+            <span lang="en">brought me to Germany</span>
+            <span lang="de">brachte mich nach Deutschland</span>
           </span>
         </article>
         <div class="break"></div> <!-- so bottom margin added in flex -->
@@ -104,7 +104,7 @@
           <span lang="en">Experience</span>
           <span lang="de">Erfahrung</span>
         </h1>
-        <i class="icon-section"></i>
+        <i class="icon icon-section"></i>
       </div>
       <div class="section-content">
         <article class="card card_fitContent card_align_start">
@@ -145,7 +145,7 @@
               <span lang="en">Contact</span>
               <span lang="de">Kontakt</span>
             </h1>
-            <i class="icon-contact"></i>
+            <i class="icon icon-outline icon-mail"></i>
           </a>
         </article>
         <div class="break"></div> <!-- so bottom margin added in flex -->
@@ -155,7 +155,7 @@
     <section class="section js-section-open">
       <div class="section-brand">
         <h1 class="section-title">CV</h1>
-        <i class="icon-section"></i>
+        <i class="icon icon-section"></i>
       </div>
       <div class="section-content">
         <div class="card-section">
@@ -166,7 +166,7 @@
             <span lang="en">Download</span>
             <span lang="de">Herunterladen</span>
           </h1>
-          <i class="icon-download"></i>
+          <i class="icon icon-outline icon-download"></i>
         </a>
       </div>
     </section>
@@ -178,7 +178,7 @@
             <span lang="en">Contact</span>
             <span lang="de">Kontakt</span>
           </h1>
-          <i class="icon-contact"></i>
+          <i class="icon icon-outline icon-mail"></i>
         </a>
       </div>
     </section>
@@ -196,18 +196,18 @@
   observer.observe();
 
   $(document).ready(function() {
-    // Opening SelectList dropdown
+    // Open SelectList
     $('.js-selectList-open').click(function(){
       $(this).find('.selectList-list').toggleClass('selectList-list_open');
     });
 
-    // Setting language
+    // Set language
     $('.js-set-lang').click(function(){
       document.documentElement.lang = $(this).data('value');
       $('.selectList-option_current').text($(this).text());
     });
 
-    // Section open dropdown 
+    // Open section 
     $('.js-section-open').click(function(){
       $('.section').not(this).toggleClass('section_hidden');
 

@@ -6,7 +6,7 @@
   font-family: Quicksand;
   src: url(./fonts/quicksand/Quicksand-LightItalic.ttf) format("opentype");
 }
-.section-brand, .header, .footer {
+.selectList-option, .section-brand, .header, .footer {
   align-items: center;
   display: flex;
   flex-flow: row nowrap;
@@ -148,18 +148,7 @@ html[lang=de] [lang]:not([lang=de]) {
 body {
   background-color: black;
   color: white;
-  height: 86vh;
-}
-
-svg {
-  fill: none;
-  stroke: currentcolor;
-  stroke-width: 6.25%;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  overflow: visible;
-  padding: 0.5rem;
-  width: 3.5rem;
+  height: 85vh;
 }
 
 .break {
@@ -265,23 +254,40 @@ svg {
   background-color: inherit;
   border-radius: 0.1rem;
   box-shadow: 0 0 0 1px #474747;
-  list-style: none;
   margin-top: 0.3rem;
   position: absolute;
   width: 120px;
   visibility: hidden;
+  z-index: 10;
 }
 
 .selectList-list_open {
   visibility: visible;
-  z-index: 10;
 }
 
 .selectList-option {
-  padding-left: 1rem;
+  justify-content: start;
+  padding: 0.2rem 0.5rem;
 }
 .selectList-option:hover {
   background-color: #474747;
+}
+.selectList-option:active {
+  background-color: #474747;
+}
+.selectList-option_current {
+  padding-left: 1rem;
+}
+.selectList-option_current:hover {
+  background-color: #474747;
+}
+.selectList-option_current:active {
+  background-color: #474747;
+}
+
+.selectList-img {
+  margin: 0 0.5rem 0 0;
+  width: 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */

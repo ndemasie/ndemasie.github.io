@@ -11,17 +11,30 @@
   background-color: inherit
   border-radius: .1rem
   box-shadow: 0 0 0 1px $color-primary-accent
-  list-style: none
   margin-top: .3rem
   position: absolute
   width: 120px
   visibility: hidden
+  z-index: 10
 
 .selectList-list_open
   visibility: visible
-  z-index: 10
  
 .selectList-option
-  padding-left: 1rem
+  @extend %flexRow
+  justify-content: start
+  padding: .2rem .5rem
   &:hover
     background-color: $color-primary-accent
+  &:active
+    background-color: $color-primary-accent
+  &_current
+    padding-left: 1rem
+    &:hover
+      background-color: $color-primary-accent
+    &:active
+      background-color: $color-primary-accent    
+
+.selectList-img
+  margin: 0 .5rem 0 0
+  width: 2rem

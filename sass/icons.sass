@@ -4,10 +4,14 @@
   &-outline
     border: .15rem solid $color-text
     border-radius: 50%
-    overflow: visible
+    display: flex
     padding: .5rem
     height: 3.5rem
     width: 3.5rem
+    &:hover,
+    &:active
+      color: $color-primary-accent
+      border-color: $color-primary-accent
   &-download
     background: url(assets/svg/i-download.svg) no-repeat center center
     background-size: 2rem
@@ -18,4 +22,4 @@
     background: url(assets/svg/i-chevron-bottom.svg) no-repeat center center
     @include prefix(transition, all 0.5s)
   &-section_open
-    @include rotate(-180deg)  
+    @include rotate(-180deg)

@@ -13,13 +13,13 @@
 	<meta name="keywords" content="nathan, demasie, nathan demasie, front end, front-end, developer"/>	
 	
   <link href="style.css" rel="stylesheet">
+  <link href="assets/svg/icons.svg" rel="stylesheet">
   <link rel="icon" href="favicon.ico" type="img/x-icon">
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/lozad.min.js"></script>
 </head>
 
 <body>
-
   <header class="header">
     <h1 class="header-text">Nathan DeMasie</h1>
 
@@ -144,7 +144,7 @@
             <span lang="en">Product Owner:<br>I get feedback and continuously make the product better.</span>
             <span lang="de">Product Owner:<br>Ich bekomme Feedback und verbessere ständig das Produkt.</span>
           </span>
-          <a class="link-bar" href="mailto:nathan.demasie@gmail.com">
+          <a class="link-bar js-stop-propagation" href="mailto:nathan.demasie@gmail.com">
             <h1>
               <span lang="en">Contact</span>
               <span lang="de">Kontakt</span>
@@ -165,7 +165,7 @@
         <div class="card-section">
           <img class="lozad card-background_fillHeight" data-src="assets/img/cv.jpg"/>
         </div>
-        <a class="link-bar" href="assets/pdf/cv.pdf" download="Nathan DeMasie CV.pdf">
+        <a class="link-bar js-stop-propagation" href="assets/pdf/cv.pdf" download="Nathan DeMasie CV.pdf">
           <h1>
             <span lang="en">Download</span>
             <span lang="de">Herunterladen</span>
@@ -221,6 +221,11 @@
       icon.toggleClass('icon-section_open');
       $('.icon-section').not(icon).removeClass('icon-section_open');
     });
+
+    // Stop Event Propagation
+    $('.js-stop-propagation').click(function(e){
+      e.stopPropagation(); // prevent default so event dosen't bubble up
+    })
   });
 </script>
 

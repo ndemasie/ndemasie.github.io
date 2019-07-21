@@ -94,10 +94,14 @@
 .icon-outline {
   border: 0.15rem solid white;
   border-radius: 50%;
-  overflow: visible;
+  display: flex;
   padding: 0.5rem;
   height: 3.5rem;
   width: 3.5rem;
+}
+.icon-outline:hover, .icon-outline:active {
+  color: #474747;
+  border-color: #474747;
 }
 .icon-download {
   background: url(assets/svg/i-download.svg) no-repeat center center;
@@ -258,7 +262,7 @@ body {
   position: absolute;
   width: 120px;
   visibility: hidden;
-  z-index: 10;
+  z-index: 90;
 }
 
 .selectList-list_open {

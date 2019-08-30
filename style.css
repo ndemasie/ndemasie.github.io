@@ -153,6 +153,8 @@ body {
   background-color: black;
   color: white;
   height: 85vh;
+  max-width: 786px;
+  margin: auto;
 }
 
 .break {
@@ -226,7 +228,8 @@ body {
   transition: all 0.5s linear;
   justify-content: start;
   height: 0;
-  overflow: scroll;
+  overflow-y: scroll;
+  scrollbar-width: none;
   padding: 0 5vw;
 }
 

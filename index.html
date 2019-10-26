@@ -313,62 +313,59 @@
       //Initialize deferred scripts
       const observer = lozad(); // lazy load image & video
       observer.observe();
-
-      // SELECT LIST
-      const selectList = document.querySelector(".js-selectList-open");
-
-      // Open / close select List
-      selectList.addEventListener("click", event => {
-        const selectListUl = event.currentTarget.querySelector(
-          ".selectList-list"
-        );
-        selectListUl.classList.toggle("selectList-list_open");
-      });
-
-      // Set language
-      const langOptions = document.querySelectorAll(".js-set-language");
-      [...langOptions].map(option => {
-        option.addEventListener("click", event => {
-          const { target } = event;
-          const currentListOption = selectList.querySelector(
-            ".selectList-option_current"
-          );
-
-          document.documentElement.lang = target.dataset.value;
-          currentListOption.textContent = target.textContent;
-        });
-      });
-
-      // SECTIONS
-      const sections = document.querySelectorAll(".js-section-open");
-
-      // Open / close section
-      for (section of sections) {
-        section.addEventListener("click", event => {
-          const sectionContent = event.currentTarget.querySelector(
-            ".section-content"
-          );
-          const sectionIcon = event.currentTarget.querySelector(
-            ".icon-section"
-          );
-          const otherSections = getSiblings(event.currentTarget);
-
-          sectionContent.classList.toggle("section-content_open");
-          sectionIcon.classList.toggle("icon-section_open");
-          otherSections.map(section =>
-            section.classList.toggle("section_hidden")
-          );
-        });
-      }
-
-      // Stop Event Propagation
-      const stopPropElements = document.querySelectorAll(
-        ".js-stop-propagation"
-      );
-      [...stopPropElements].map(el =>
-        el.addEventListener("click", event => event.stopPropagation())
-      );
     });
+
+    // SELECT LIST
+    const selectList = document.querySelector(".js-selectList-open");
+
+    // Open / close select List
+    selectList.addEventListener("click", event => {
+      const selectListUl = event.currentTarget.querySelector(
+        ".selectList-list"
+      );
+      selectListUl.classList.toggle("selectList-list_open");
+    });
+
+    // Set language
+    const langOptions = document.querySelectorAll(".js-set-language");
+    langOptions.forEach(option => {
+      option.addEventListener("click", event => {
+        const { target } = event;
+        const currentListOption = selectList.querySelector(
+          ".selectList-option_current"
+        );
+
+        document.documentElement.lang = target.dataset.value;
+        currentListOption.textContent = target.textContent;
+      });
+    });
+
+    // SECTIONS
+    const sections = document.querySelectorAll(".js-section-open");
+
+    // Open / close section
+    for (section of sections) {
+      section.addEventListener("click", event => {
+        const sectionContent = event.currentTarget.querySelector(
+          ".section-content"
+        );
+        const sectionIcon = event.currentTarget.querySelector(".icon-section");
+        const otherSections = getSiblings(event.currentTarget);
+
+        sectionContent.classList.toggle("section-content_open");
+        sectionIcon.classList.toggle("icon-section_open");
+        otherSections.map(section =>
+          section.classList.toggle("section_hidden")
+        );
+      });
+    }
+
+    // Stop Event Propagation
+    const stopPropElements = document.querySelectorAll(".js-stop-propagation");
+    stopPropElements.forEach(el =>
+      el.addEventListener("click", event => event.stopPropagation())
+    );
+
     // HELPERS
     function getSiblings(element) {
       let siblings = [];

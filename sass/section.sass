@@ -23,12 +23,13 @@
 
 .section-content
   @extend %flexCol  
-  @include prefix(transition, all .5s linear)
+  background-image: linear-gradient(to top, #111111, $color-background)  
   justify-content: start
   height: 0 // so unopened content doesn't take flex space
   overflow-y: scroll
   scrollbar-width: none
   padding: 0 5vw
+  @include prefix(transition, all .5s linear)
 
 .section-content_open
   flex: 1

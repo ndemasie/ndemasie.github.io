@@ -26,7 +26,7 @@
   background-color: #333333;
   border: solid 1px #474747;
   border-radius: 1rem;
-  box-shadow: 0 0 0.5rem 0.3rem #333333;
+  box-shadow: 0 0 0.5rem 0.1rem #333333;
   flex: 0 0 450px;
   justify-content: start;
   margin: 5vh 0;
@@ -223,14 +223,15 @@ body {
 }
 
 .section-content {
-  -webkit-transition: all 0.5s linear;
-  -moz-transition: all 0.5s linear;
-  transition: all 0.5s linear;
+  background-image: linear-gradient(to top, #111111, black);
   justify-content: start;
   height: 0;
   overflow-y: scroll;
   scrollbar-width: none;
   padding: 0 5vw;
+  -webkit-transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  transition: all 0.5s linear;
 }
 
 .section-content_open {

@@ -1,0 +1,102 @@
+---
+import packageJson from '../../package.json'
+
+import localStrings from '@locals/strings'
+import { Language, Page } from '@enums'
+
+export interface Params {
+  page: Page
+  lang: Language
+}
+
+const {
+  lang = Language.EN,
+  page
+} = Astro.params as unknown as Params
+
+const strings = localStrings[lang]
+---
+
+<header>
+  <h1>{packageJson.author.name}</h1>
+
+  <nav class='navigation'>
+    <a href={page === Page.Home ? `/${lang}/` : '#'}>{strings.navigation.home}</a>
+    <a href={page === Page.Blog ? `/${lang}/blog` : '#'}>{strings.navigation.blog}</a>
+    <a href="/pdf/cv.pdf">{strings.navigation.cv}</a>
+  </nav>
+
+  <div>
+    <label for="select-lang">Pick language</label>
+    <select id="select-lang" name="lang" required
+      onchange="location.href=(location.origin + location.pathname.split('/').fill(this.value, 1, 2).join('/'))">
+      {Object.values(Language).map(language =>
+      <option value={language} selected={language===lang}>
+        {strings.base.language[language]}
+      </option>
+      )}
+    </select>
+  </div>
+</header>
+
+<style lang="scss">
+  header {
+    display: flex;
+    align-content: center;
+
+    margin: 0 auto;
+    padding: 1rem 2rem;
+
+    width: 100%;
+    max-width: 1200px;
+
+    >*:not(:first-child) {
+      margin-left: auto;
+    }
+
+    h1 {
+      --header-gradient: linear-gradient(-90deg, #adfbda 0, #35c3ff 50%, #ebf38b 80%, #adfbda 100%);
+
+      background-image: var(--header-gradient, var(--theme-light-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      font-weight: 700;
+      margin: 0;
+    }
+
+    nav {
+      display: flex;
+
+      a {
+        font-size: 1.4rem;
+        font-weight: 500;
+
+        margin: auto .5rem;
+        padding: .1em;
+
+        position: relative;
+        text-decoration: none;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          border: solid 1.4px var(--theme-light-primary);
+          width: 100%;
+
+          transition: transform 500ms ease;
+          transform: scaleX(0);
+          transform-origin: right;
+        }
+
+        &:hover::after,
+        &:focus::after {
+          transform-origin: left;
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+</style>

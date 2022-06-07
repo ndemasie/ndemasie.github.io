@@ -1,0 +1,28 @@
+:root {
+  --theme-light-background: #1a1d2d;
+  --theme-light-primary: #bdbfd5;
+  --theme-light-secondary: #b18c19;
+  --theme-light-accent: #f1f1e6;
+
+  --theme-light2-background: #1a1d2d;
+  --theme-light2-primary: #678cf6;
+  --theme-light2-secondary: #f7f8ff;
+  --theme-light2-accent: #f1f1e6;
+}
+
+html,
+body {
+  color: var(--theme-light-primary);
+  background-color: var(--theme-light-background);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a {
+    color: var(--theme-light-primary);
+  }
+}

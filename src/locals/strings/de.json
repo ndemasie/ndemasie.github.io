@@ -1,0 +1,17 @@
+{
+  "navigation": {
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "cv": "CV",
+    "home": "Home"
+  },
+  "home": {
+    "_meta": {
+      "title": "Nathan DeMasie",
+      "description": "Webseite von Nathan DeMasie"
+    },
+    "title": "Hallo Welt!",
+    "description": "Dies ist eine Testlokalisierung"
+  },
+  "blog": {}
+}

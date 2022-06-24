@@ -1,10 +1,11 @@
 ---
-import Layout from '@layouts/PageLayout.astro'
-
 import { Language } from '@enums'
 ---
 
-<Layout>
+<!DOCTYPE html>
+<html>
+
+<body>
   <script is:inline define:vars={{ Language }}>
     window.addEventListener('DOMContentLoaded', () => {
       const clientLanguage = navigator.languages
@@ -14,4 +15,6 @@ import { Language } from '@enums'
       window.location.href = new URL(`${clientLanguage}/`, window.origin)
     })
   </script>
-</Layout>
+</body>
+
+</html>

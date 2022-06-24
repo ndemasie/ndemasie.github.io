@@ -1,6 +1,6 @@
 FROM node:16-alpine
 
-ENV NODE_ENV development
+ENV ENVIRONMENT_MODE development
 
 WORKDIR /root
 
@@ -13,6 +13,9 @@ RUN npm ci
 COPY ./astro.config.mjs ./
 COPY ./tsconfig.json ./
 COPY ./postcss.config.js ./
+# COPY ./.prettierrc.json ./
+# COPY ./.eslintrc.json ./
+# COPY ./.stylelintrc.json ./
 
 EXPOSE 3000
 

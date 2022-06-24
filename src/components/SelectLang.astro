@@ -1,0 +1,60 @@
+---
+import localStrings from '@locals/strings'
+import { Language } from '@enums'
+
+export interface Props {
+  lang: Language
+  isShort?: boolean
+}
+
+const {
+  lang = Language.EN,
+  isShort,
+} = Astro.props as Props
+
+const strings = localStrings[lang]
+---
+
+<label class="select prepend-icon" alt={strings.component.SelectLang.label_alt}>
+  <select name="lang" tabindex="0" required
+    onchange="location.href=(location.origin + location.pathname.split('/').fill(this.value, 1, 2).join('/'))">
+    {Object
+    .values(Language)
+    .map((language) =>
+    <option value={language} selected={language===lang}>
+      {isShort ? language.toUpperCase() : strings.base.language[language]}
+    </option>
+    )}
+  </select>
+  <span class="prepend-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M0 0h24v24H0z" fill="none"></path>
+      <path
+        d=" M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z ">
+      </path>
+    </svg>
+  </span>
+  <ul class="select-options" aria-hidden>
+    {Object
+    .values(Language)
+    .filter((language) => language !== lang)
+    .map((language) =>
+    <li class="select-option ripple" data-value={language}>
+      {isShort ? language.toUpperCase() : strings.base.language[language]}
+    </li>
+    )}
+  </ul>
+</label>
+
+<style lang="scss">
+  @import '../styles/abstracts/variables.scss';
+  @import '../styles/abstracts/mixins.scss';
+
+  label {
+    font-size: 1.2rem;
+
+    @include md {
+      font-style: 1.4rem;
+    }
+  }
+</style>

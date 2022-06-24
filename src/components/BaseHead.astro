@@ -3,13 +3,19 @@ import localStrings from '@locals/strings'
 import { Language, Page } from '@enums'
 
 export interface Props {
-  page: Page
-  permalink: string
   lang: Language
+  page: Page
+  title?: string
+  description?: string
 }
 
-const { lang, page, permalink } = Astro.props as Props
-const { title, description } = (localStrings as any)[lang][page]._meta
+const { lang, page } = Astro.props as Props
+const {
+  title = (localStrings as any)[lang].page[page]._meta_title,
+  description = (localStrings as any)[lang].page[page]._meta_description
+} = Astro.props as Props
+
+const permalink = 'https://www.nathandemasie.com'
 ---
 
 <head>
@@ -39,6 +45,9 @@ const { title, description } = (localStrings as any)[lang][page]._meta
   <meta property="twitter:image" content="" />
 
   <!-- Fonts -->
+
+  <!-- JS -->
+  <script src="/js/init.js" defer></script>
 
   <slot />
 </head>

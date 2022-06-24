@@ -1,0 +1,94 @@
+@use "sass:color";
+@use "sass:map";
+
+@use '../abstracts/mixins.scss' as mixin;
+@use '../base/theme.scss' as theme;
+
+label.select {
+  position: relative;
+  clip-path: polygon(0% 0%, 103% 0%, 103% 100%, 0% 100%);
+  transition: clip-path ease 500ms;
+
+  @include sm {
+    &:hover,
+    &:focus-within {
+      clip-path: polygon(0% 0%, 103% 0%, 103% 500%, 0% 500%);
+    }
+  }
+
+  > select {
+    --color: var(--theme-primary);
+    border: solid 1.2px var(--color);
+    border-radius: 6px;
+    outline: none;
+  
+    background-color: var(--theme-background);
+    color: var(--color);
+  
+    padding: 0.25em 0.4em;
+    appearance: none;
+    z-index: 10;
+
+    // State styling
+    &:hover,
+    &:focus,
+    &:hover ~ .prepend-icon,
+    &:focus ~ .prepend-icon,
+    & ~ .select-options:hover,
+    & ~ .select-options:focus,
+    & ~ .select-options > .select-option:hover,
+    & ~ .select-options > .select-option:focus {
+      --color: var(--theme-primary-hover);
+    }
+
+    &:active,
+    &:active ~ .prepend-icon,
+    & ~ .select-options:active,
+    & ~ .select-options > .select-option:active {
+      --color: var(--theme-accent);
+    }
+  }
+
+  > .select-options {
+    --color: var(--theme-primary);
+    border: solid 1.2px var(--color);
+    border-radius: 6px;
+
+    // background-color: var(--theme-background);
+    position: absolute;
+    margin: 0.4rem 0 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    z-index: 10;
+
+    > .select-option {
+      padding: 0.25em 0.4em;
+      color: var(--theme-primary);
+      @include mixin.ripple;
+    }
+  }
+
+  &.prepend-icon > .prepend-icon {
+    --color: var(--theme-primary);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+
+    margin: auto 0.3em;
+    padding: 0.3em;
+    height: 1.7em;
+    width: 1.7em;
+
+    fill: var(--color);
+  }
+
+  &.prepend-icon > select {
+    padding-left: calc(1.7em + 0.3em + 0.25em);
+  }
+
+  &.prepend-icon > .select-options > .select-option {
+    padding-left: calc(1.7em + 0.3em + 0.25em + calc(0.3em / 2));
+  }
+}

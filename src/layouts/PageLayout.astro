@@ -1,32 +1,31 @@
 ---
 import 'modern-normalize/modern-normalize.css'
-import '@styles/theme.scss'
-import '@styles/font.scss'
-import '@styles/base.scss'
+import '@styles/main.scss'
+
+import localContent from '@locals/data'
 
 import BaseHead from '@components/BaseHead.astro'
 import BaseHeader from '@components/BaseHeader.astro'
-import { Language, Page } from '@enums'
+
+import { Language } from '@enums'
 
 export interface Props {
   page: string
-  permalink: string
   lang?: Language
+  title?: string
+  description?: string
 }
 
-const {
-  lang = Language.EN,
-  page = Page.Home,
-  permalink
-} = Astro.props as Props
+const { lang, page, title, description } = Astro.props as Props
+const content = localContent[lang]
 ---
-<!DOCTYPE html>
-<html lang={lang}>
 
-<BaseHead {lang} {page} {permalink}></BaseHead>
+<!DOCTYPE html>
+<html {lang} data-theme="light">
+<BaseHead {lang} {page} {title} {description} />
 
 <body>
-  <BaseHeader />
+  <BaseHeader {lang} {page} />
   <main>
     <slot />
   </main>

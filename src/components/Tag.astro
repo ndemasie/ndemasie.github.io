@@ -1,0 +1,17 @@
+---
+const { url, tag } = Astro.props
+---
+
+<a class="tag" href={url}>{tag}</a>
+
+<style lang="scss">
+  .tag {
+    background-color: var(--theme-secondary);
+    border-radius: 10px;
+    padding: 0.2em 0.4em;
+  }
+
+  .tag+.tag {
+    margin-left: 0.5em;
+  }
+</style>

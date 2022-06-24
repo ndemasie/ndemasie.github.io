@@ -1,101 +1,125 @@
 ---
 import packageJson from '../../package.json'
 
+import SelectLang from './SelectLang.astro'
+
 import localStrings from '@locals/strings'
 import { Language, Page } from '@enums'
 
-export interface Params {
+export interface Props {
   page: Page
   lang: Language
 }
 
-const {
-  lang = Language.EN,
-  page
-} = Astro.params as unknown as Params
+const { lang = Language.EN, page } = Astro.props as Props
 
 const strings = localStrings[lang]
 ---
 
-<header>
-  <h1>{packageJson.author.name}</h1>
+<header class="BaseHeader">
+  <a class="BaseHeader-wordmark" href={page===Page.Home ? '#' : `/${lang}/`}>
+    <h1 class="mobile-only">
+      {String(packageJson.author.name)
+      .split(' ')
+      .map(w => w[0])
+      .join('')
+      }
+    </h1>
+    <h1 class="desktop-only">{packageJson.author.name}</h1>
+  </a>
 
-  <nav class='navigation'>
-    <a href={page === Page.Home ? `/${lang}/` : '#'}>{strings.navigation.home}</a>
-    <a href={page === Page.Blog ? `/${lang}/blog` : '#'}>{strings.navigation.blog}</a>
-    <a href="/pdf/cv.pdf">{strings.navigation.cv}</a>
+  <nav class='BaseHeader-nav'>
+    {page!==Page.Home && <a href={`/${lang}/`}>{strings.page.home._nav_text}</a>}
+    {page!==Page.Blog && <a href={`/${lang}/blog`}>{strings.page.blog._nav_text}</a>}
+    {page!==Page.CV && <a href="/pdf/cv.pdf">{strings.page.cv._nav_text}</a>}
   </nav>
 
-  <div>
-    <label for="select-lang">Pick language</label>
-    <select id="select-lang" name="lang" required
-      onchange="location.href=(location.origin + location.pathname.split('/').fill(this.value, 1, 2).join('/'))">
-      {Object.values(Language).map(language =>
-      <option value={language} selected={language===lang}>
-        {strings.base.language[language]}
-      </option>
-      )}
-    </select>
-  </div>
+  <SelectLang class="mobile-only" {lang} isShort>
+    <SelectLang class="desktop-only" {lang}>
 </header>
 
 <style lang="scss">
-  header {
+  @import '../styles/abstracts/variables.scss';
+  @import '../styles/abstracts/mixins.scss';
+
+  .BaseHeader {
     display: flex;
-    align-content: center;
+    align-items: center;
 
-    margin: 0 auto;
-    padding: 1rem 2rem;
-
+    margin: 0 auto 1rem;
     width: 100%;
-    max-width: 1200px;
 
-    >*:not(:first-child) {
-      margin-left: auto;
+    @include md {
+      max-width: $screen-lg-min;
     }
 
-    h1 {
-      --header-gradient: linear-gradient(-90deg, #adfbda 0, #35c3ff 50%, #ebf38b 80%, #adfbda 100%);
+    >:global(*):not(:first-child) {
+      margin-left: auto;
+    }
+  }
 
-      background-image: var(--header-gradient, var(--theme-light-primary));
-      -webkit-background-clip: text;
+  .BaseHeader-wordmark {
+    text-decoration: none;
+
+    @keyframes diagonal {
+      0% {
+        background-position: 0% 50%
+      }
+
+      50% {
+        background-position: 100% 50%
+      }
+
+      100% {
+        background-position: 0% 50%
+      }
+    }
+
+    >h1 {
+      --header-gradient: linear-gradient(90deg, var(--theme-primary) 0%, var(--theme-secondary) 100%);
+      background-image: var(--header-gradient, var(--theme-primary));
+      background-size: 500% 500%;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
 
       font-weight: 700;
       margin: 0;
+
+      animation: diagonal alternate 10s infinite;
     }
+  }
 
-    nav {
-      display: flex;
+  .BaseHeader-nav {
+    display: flex;
 
-      a {
-        font-size: 1.4rem;
-        font-weight: 500;
+    a {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--theme-primary);
 
-        margin: auto .5rem;
-        padding: .1em;
+      margin: auto .5rem;
+      padding: .1em;
 
-        position: relative;
-        text-decoration: none;
+      position: relative;
+      text-decoration: none;
 
-        &::after {
-          content: '';
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          border: solid 1.4px var(--theme-light-primary);
-          width: 100%;
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border: solid 1.4px var(--theme-primary);
+        width: 100%;
 
-          transition: transform 500ms ease;
-          transform: scaleX(0);
-          transform-origin: right;
-        }
+        transition: transform 500ms ease;
+        transform: scaleX(0);
+        transform-origin: right;
+      }
 
-        &:hover::after,
-        &:focus::after {
-          transform-origin: left;
-          transform: scaleX(1);
-        }
+      &:hover::after,
+      &:focus::after {
+        transform: scaleX(1);
+        transform-origin: left;
       }
     }
   }

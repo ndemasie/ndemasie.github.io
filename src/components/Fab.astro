@@ -1,0 +1,43 @@
+---
+const { action, url } = Astro.props
+---
+
+{action === 'link' &&
+<a class="fab bottom right animate-sine" href={url}></a>
+}
+
+<style lang="scss">
+  @import '../styles/abstracts/mixins.scss';
+
+  .fab {
+    position: fixed;
+    height: 60px;
+    width: 60px;
+
+    @each $side in top right bottom left {
+      &.#{$side} {
+        #{$side}: 30px;
+      }
+    }
+
+    @include animate-sine(calc(30px + 60px));
+  }
+
+  .fab[href^="https://github.com"]::after {
+    content: '';
+    height: 100%;
+    width: 100%;
+    display: block;
+    border-radius: 50%;
+    background-color: var(--theme-primary);
+    background-image: url(/icons/github-icon.svg);
+    background-size: 103%;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 1px 1px 3px 1px var(--theme-background-box-shadow);
+
+    &:hover {
+      background-color: var(--theme-accent);
+    }
+  }
+</style>

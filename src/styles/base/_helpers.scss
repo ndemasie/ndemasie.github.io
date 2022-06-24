@@ -1,0 +1,11 @@
+.mobile-only {
+  @media (min-width: #{$screen-md-min}) {
+    display: none;
+  }
+}
+
+.desktop-only {
+  @media (max-width: #{$screen-md-min}) {
+    display: none;
+  }
+}

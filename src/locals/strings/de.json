@@ -1,17 +1,25 @@
 {
-  "navigation": {
-    "blog": "Blog",
-    "contact": "Kontakt",
-    "cv": "CV",
-    "home": "Home"
+  "component": {
+    "SelectLang": {
+      "label_alt": "Sprache auswählen"
+    }
   },
-  "home": {
-    "_meta": {
-      "title": "Nathan DeMasie",
-      "description": "Webseite von Nathan DeMasie"
+  "page": {
+    "home": {
+      "_nav_text": "Home",
+      "_meta_title": "Nathan DeMasie",
+      "_description": "Webseite von Nathan DeMasie",
+      "intro_title": "Hallo Welt!",
+      "intro_description": "Dies ist eine Testlokalisierung"
     },
-    "title": "Hallo Welt!",
-    "description": "Dies ist eine Testlokalisierung"
-  },
-  "blog": {}
+    "blog": {
+      "_nav_text": "Blog",
+      "_meta_title": "Blog",
+      "_meta_description": "Blog von Nathan DeMasie",
+      "intro_title": "Blog Posts"
+    },
+    "cv": {
+      "_nav_text": "CV"
+    }
+  }
 }

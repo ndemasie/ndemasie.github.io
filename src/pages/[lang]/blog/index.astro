@@ -1,0 +1,70 @@
+---
+import readingTime, { ReadTimeResults } from 'reading-time'
+import { parse } from 'node-html-parser'
+
+import BlogPostPreview from '@components/BlogPostPreview.astro'
+import PageLayout from '@layouts/PageLayout.astro'
+import localStrings from '@locals/strings'
+
+import { Language, Page } from '@enums'
+export interface Params {
+  lang: Language
+}
+export interface Props {
+  posts: any[]
+}
+
+export async function getStaticPaths() {
+  const languages = Object.values(Language)
+  const posts = await Astro.glob(`../../../locals/blog-posts/**/*.md`)
+  type Post = (typeof posts)[number]
+  type PostEnhanced = Post & {
+    readingStats: ReadTimeResults
+    url?: string
+    title?: string
+    description?: string
+  }
+
+  const fetchPosts = async (lang: Language): Promise<PostEnhanced[]> => {
+
+    const enhancePost = async (post: Post): Promise<PostEnhanced> => {
+      const html = parse(await post.compiledContent())
+      return {
+        ...post,
+        url: new URL(`/${lang}/blog/${post.file.split('/').reverse()[1]}`, Astro.site).toString(),
+        readingStats: readingTime(post.rawContent()),
+        title: html.querySelector('h1:first-of-type')?.innerText,
+        description: html.querySelector('p:first-of-type')?.innerText.substring(0, 397) + '...'
+      }
+    }
+
+    return await Promise.all(
+      posts
+        .filter((post: Post) => post.file.split('/').pop() === `${lang}.md`)
+        .map(async (post: Post) => enhancePost(post))
+    )
+  }
+
+  const routes = await Promise.all(
+    languages
+      .map(async (lang: Language) => ({
+        params: { lang },
+        props: { posts: await fetchPosts(lang) }
+      }))
+  )
+
+  return routes
+}
+
+const { lang } = Astro.params as unknown as Params
+const { posts } = Astro.props as Props
+
+const page = Page.Blog
+const strings = localStrings[lang].page[page]
+---
+
+<PageLayout {lang} {page}>
+  <h2>{strings.intro_title}</h2>
+  {posts.map((post) => ((console.log(post), true) &&
+  <BlogPostPreview {lang} {post} />))}
+</PageLayout>

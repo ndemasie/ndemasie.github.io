@@ -1,5 +1,5 @@
 ---
-import Layout from '@layouts/PageLayout.astro'
+import PageLayout from '@layouts/PageLayout.astro'
 import localStrings from '@locals/strings'
 
 import { Language, Page } from '@enums'
@@ -7,26 +7,17 @@ export interface Params {
   lang: Language
 }
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
   const languages = Object.values(Language)
   return languages.map((lang: Language) => ({ params: { lang } }))
 }
 
-const {
-  lang = Language.EN
-} = Astro.params as unknown as Params
+const { lang = Language.EN } = Astro.params as unknown as Params
 
 const page = Page.Home
-const strings = localStrings[lang][page]
-const permalink = 'https://www.nathandemasie.com/'
-
-// Data Fetching: List all Markdown posts in the repo.
-// let allPosts = await Astro.glob('./blog/*.md')
-// allPosts = allPosts.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf())
+const strings = localStrings[lang].page[page]
 ---
 
-<Layout {lang} {page} {permalink}>
-  <h3>{strings.title}</h3>
-  <p>{strings.description}</p>
-  <a href={permalink}>{permalink}</a>
-</Layout>
+<PageLayout {lang} {page}>
+  <h3>{strings.intro_description}</h3>
+</PageLayout>

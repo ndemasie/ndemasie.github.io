@@ -1,85 +1,98 @@
 ---
+import { ReadTimeResults } from 'reading-time'
+
+import localStrings from '@locals/strings'
+
+import Fab from '@components/Fab.astro'
+
+import { Language } from '@enums'
+
 export interface Props {
-	title: string;
-	author: string;
-	publishDate: string;
-	heroImage: string;
-	alt: string;
+  lang: Language
+  post: {
+    [key: string]: any
+    readingStats: ReadTimeResults
+  }
 }
 
-const { title, author, publishDate, heroImage, alt } = Astro.props as Props;
+const { lang, post } = Astro.props as Props
+const {
+  author,
+  tags,
+  urls,
+  datePublished,
+  dateUpdated,
+  heroImage,
+  heroImageAlt
+} = post.frontmatter
+
+const componentStrings = (localStrings as any)[lang].component.BlogPost
 ---
 
-<div class="layout">
-	<article class="content">
-		<div>
-			<header>
-				{heroImage && <img width="720" height="420" class="hero-image" loading="lazy" src={heroImage} alt={alt} />}
-				<p class="publish-date">{publishDate}</p>
-				<h1 class="title">{title}</h1>
-			</header>
-			<main>
-				<slot />
-			</main>
-		</div>
-	</article>
-</div>
+<article class="BlogPost">
+  <header class="BlogPost-header">
+    {heroImage &&
+    <img width="720" height="420" class="hero-image" loading="lazy" decoding="async" src={heroImage}
+      alt={heroImageAlt} />
+    }
+
+    <dl class="BlogPost-meta">
+      {tags &&
+      <div class="BlogPost-meta-item">
+        <dt>{componentStrings.meta_fields.tags}</dt>
+        <dd>
+          <ul class="BlogPost-meta-item-list">
+            {tags.map((tag: string) =>
+            <li class="BlogPost-meta-item-list-item">
+              <a href={`/${lang}/blog?tag=${tag}`}>#{tag}</a>
+            </li>
+            )}
+          </ul>
+        </dd>
+      </div>
+      }
+    </dl>
+  </header>
+
+  <div class="BlogPost-content">
+    <slot />
+  </div>
+
+  {urls && urls.github &&
+  <Fab action="link" url={urls.github} />}
+</article>
 
 <style lang="scss">
-	.hero-image {
-		width: 100vw;
-		object-fit: cover;
-		object-position: center;
-		margin-top: 2rem;
-		margin-bottom: 4rem;
-		max-width: 1280px;
-	}
+  .BlogPost {
+    margin-top: 2rem;
+  }
 
-	@media (max-width: 50em) {
-		.hero-image {
-			height: 260px;
-			margin-top: 0;
-			margin-bottom: 2rem;
-		}
-	}
+  .BlogPost-meta {
+    background: rgba(0 0 0 / 18%);
+    border-radius: 10px;
+    border: var(--theme-secondary) 0.8px solid;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
 
-	.content {
-		margin-bottom: 8rem;
-	}
+  .BlogPost-meta-item {
+    display: flex;
 
-	.content :global(main > * + *) {
-		margin-top: 1rem;
-	}
+    &:not(:last-of-type) {
+      margin-bottom: 0.5rem;
+    }
+  }
 
-	.content :global(h2) {
-		margin-top: 4rem;
-	}
+  .BlogPost-meta-item-list {
+    list-style-position: inside;
+    padding: 0;
+  }
 
-	header {
-		display: flex;
-		flex-direction: column;
-		text-align: center;
-		align-items: center;
-		justify-content: center;
+  .BlogPost-meta-item-list-item {
+    display: inline-block;
 
-		padding-bottom: 2rem;
-		margin-bottom: 2rem;
-		border-bottom: 4px solid var(--theme-divider);
-	}
-
-	.title,
-	.author,
-	.publish-date {
-		margin: 0;
-	}
-
-	.publish-date,
-	.author {
-		color: var(--theme-text-lighter);
-	}
-
-	.title {
-		font-size: 2.25rem;
-		font-weight: 700;
-	}
+    &:not(:last-child) {
+      margin-right: 0.4em;
+    }
+  }
 </style>

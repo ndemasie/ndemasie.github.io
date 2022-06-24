@@ -1,0 +1,53 @@
+---
+import readingTime, { ReadTimeResults } from 'reading-time'
+import { parse } from 'node-html-parser'
+
+import PageLayout from '@layouts/PageLayout.astro'
+import BlogPost from '@components/BlogPost.astro'
+
+import { Language, Page } from '@enums'
+
+export interface Params {
+  lang: Language
+  slug: string
+}
+export interface Props {
+  post: any
+  readingStats: ReadTimeResults
+  title?: string
+  description?: string
+}
+
+export async function getStaticPaths(): Promise<any[]> {
+  const posts = await Astro.glob(`../../../locals/blog-posts/**/*.md`)
+
+  type Post = (typeof posts)[number]
+  const buildRouteOptions = async (post: Post) => {
+    const [filename, slug] = post.file.split('/').reverse()
+    const html = parse(await post.compiledContent())
+
+    const lang = filename.split('.')[0]
+    const readingStats = readingTime(post.rawContent())
+    const title = html.querySelector('h1:first-of-type')?.innerText
+    const description = html.querySelector('p:first-of-type')?.innerText.substring(77) + '...'
+
+    return {
+      params: { lang, slug },
+      props: { post, readingStats, title, description }
+    }
+  }
+
+  const routes = await Promise.all(posts.map(post => buildRouteOptions(post)))
+  return routes
+}
+
+const { lang } = Astro.params as unknown as Params
+const { post, readingStats, title, description } = Astro.props as Props
+const page = Page.Blog
+---
+
+<PageLayout {lang} {page} {title} {description}>
+  <BlogPost {lang} {post} {readingStats}>
+    <post.Content />
+  </BlogPost>
+</PageLayout>

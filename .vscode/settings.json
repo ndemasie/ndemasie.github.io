@@ -1,0 +1,35 @@
+{
+  "editor.formatOnSave": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // "editor.codeActionsOnSave": {
+  //   "source.formatDocument": true,
+  //   "source.fixAll.eslint": true,
+  // },
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ],
+  // Disable native VS Code linters covered by stylelint to avoid double logs
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": [
+    "css",
+    "scss"
+  ],
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode",
+    "editor.codeActionsOnSave": {
+      "source.formatDocument": true,
+      "source.fixAll.eslint": true,
+    },
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint",
+    "editor.codeActionsOnSave": {
+      "source.formatDocument": true,
+      "source.fixAll.stylelint": true,
+    }
+  }
+}

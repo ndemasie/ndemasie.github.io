@@ -15,7 +15,9 @@ export default defineConfig({
   publicDir: './public',
   integrations: [preact(), sitemap()],
   trailingSlash: 'ignore',
-  site: 'https://www.nathandemasie.com',
+  site: process.env.ENVIRONMENT_MODE === 'production'
+    ? 'https://www.nathandemasie.com'
+    : `http://localhost:3000`,
   vite: {
     ssr: {
       noExternal: ['modern-normalize'],

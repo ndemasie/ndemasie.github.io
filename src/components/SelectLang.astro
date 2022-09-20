@@ -15,7 +15,7 @@ const {
 const strings = localStrings[lang]
 ---
 
-<label class="select prepend-icon" alt={strings.component.SelectLang.label_alt}>
+<label class="select prepend-icon">
   <select name="lang" tabindex="0" required
     onchange="location.href=(location.origin + location.pathname.split('/').fill(this.value, 1, 2).join('/'))">
     {Object
@@ -34,7 +34,7 @@ const strings = localStrings[lang]
       </path>
     </svg>
   </span>
-  <ul class="select-options" aria-hidden>
+  <ul class="select-options" aria-hidden="true">
     {Object
     .values(Language)
     .filter((language) => language !== lang)

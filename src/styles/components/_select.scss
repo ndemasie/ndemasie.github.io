@@ -17,13 +17,13 @@ label.select {
   }
 
   > select {
-    --color: var(--theme-primary);
-    border: solid 1.2px var(--color);
+    // --color: var(--theme-primary);
+    border: solid 1.2px;
     border-radius: 6px;
     outline: none;
   
     background-color: var(--theme-background);
-    color: var(--color);
+    color: var(--theme-primary);
   
     padding: 0.25em 0.4em;
     appearance: none;
@@ -38,20 +38,22 @@ label.select {
     & ~ .select-options:focus,
     & ~ .select-options > .select-option:hover,
     & ~ .select-options > .select-option:focus {
-      --color: var(--theme-primary-hover);
+      // --color: var(--theme-primary-hover);
+      color: var(--theme-primary-hover);
     }
 
     &:active,
     &:active ~ .prepend-icon,
     & ~ .select-options:active,
     & ~ .select-options > .select-option:active {
-      --color: var(--theme-accent);
+      // --color: var(--theme-accent);
+      color: var(--theme-accent);
     }
   }
 
   > .select-options {
-    --color: var(--theme-primary);
-    border: solid 1.2px var(--color);
+    // --color: var(--theme-primary);
+    border: solid 1.2px;
     border-radius: 6px;
 
     // background-color: var(--theme-background);
@@ -63,32 +65,30 @@ label.select {
     z-index: 10;
 
     > .select-option {
-      padding: 0.25em 0.4em;
+      padding: 0.2em;
       color: var(--theme-primary);
       @include mixin.ripple;
     }
   }
 
   &.prepend-icon > .prepend-icon {
-    --color: var(--theme-primary);
+    // fill: var(--theme-primary);
+
     position: absolute;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
 
     margin: auto 0.3em;
-    padding: 0.3em;
-    height: 1.7em;
-    width: 1.7em;
-
-    fill: var(--color);
+    height: 1em;
+    width: 1em;
   }
 
   &.prepend-icon > select {
-    padding-left: calc(1.7em + 0.3em + 0.25em);
+    padding-left: calc(1em + 0.2em);
   }
 
   &.prepend-icon > .select-options > .select-option {
-    padding-left: calc(1.7em + 0.3em + 0.25em + calc(0.3em / 2));
+    padding-left: calc(1em + 0.2em + calc(0.3em / 2));
   }
 }

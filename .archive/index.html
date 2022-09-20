@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>Nathan DeMasie</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <meta
+      name="description"
+      content="A webpage about a Chicago expat in Germany."
+    />
+    <meta
+      name="keywords"
+      content="nathan, demasie, nathan demasie, front end, front-end, developer"
+    />
+
+    <link href="style.css" rel="stylesheet" />
+    <link href="assets/svg/icons.svg" rel="stylesheet" />
+    <link rel="icon" href="favicon.ico" type="img/x-icon" />
+    <script defer src="js/lozad.min.js"></script>
+  </head>
+
+  <body>
+    <header class="header">
+      <h1 class="header-text">Nathan DeMasie</h1>
+
+      <div class="selectList js-selectList-open">
+        <div class="selectList-option_current">English</div>
+        <ul class="selectList-list">
+          <li
+            class="selectList-option js-set-language"
+            data-value="de"
+            aria-label="deutsch"
+          >
+            <img
+              class="selectList-img"
+              type="image/svg+xml"
+              src="assets/svg/flag-de.svg"
+              alt="Flag of Germany"
+            />Deutsch
+          </li>
+          <li
+            class="selectList-option js-set-language"
+            data-value="en"
+            aria-label="english"
+          >
+            <img
+              class="selectList-img"
+              type="image/svg+xml"
+              src="assets/svg/flag-us.svg"
+              alt="Flag of USA"
+            />English
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <nav aria-label="primary" class="nav">
+      <section aria-labelledby="SectionAbout" class="section js-section-open">
+        <div class="section-brand">
+          <h2 id="SectionAbout" class="section-title">
+            <span lang="en">About</span>
+            <span lang="de">Über Mich</span>
+          </h2>
+          <i class="icon icon-section"></i>
+        </div>
+        <div class="section-content">
+          <article class="card">
+            <video
+              class="lozad card-background"
+              data-src="assets/video/PVg8F1k.mp4"
+              autoplay
+              loop
+              muted
+              playsinline
+              aria-hidden="true"
+            ></video>
+            <h3 class="card-header">
+              <span lang="en"
+                >I am a Chicago proud expat living in Germany.</span
+              >
+              <span lang="de"
+                >Ich bin ein stolzer Auswanderer aus Chicago, der in Deutschland
+                lebt.</span
+              >
+            </h3>
+          </article>
+
+          <article class="card">
+            <h3 class="card-header">
+              <span lang="en">Hobbies</span>
+              <span lang="de">Hobbys</span>
+            </h3>
+            <div class="card-section">
+              <video
+                class="lozad card-background card-background_fillWidth"
+                data-src="assets/video/skydiving.mp4"
+                autoplay
+                loop
+                muted
+                playsinline
+                aria-hidden="true"
+              ></video>
+              <span class="card-text">
+                <span lang="en">Skydiving</span>
+                <span lang="de">Fallschirmspringen</span>
+              </span>
+            </div>
+
+            <div class="card-section">
+              <video
+                class="lozad card-background card-background_fillWidth"
+                data-src="assets/video/cycling.mp4"
+                autoplay
+                loop
+                muted
+                playsinline
+                aria-hidden="true"
+              ></video>
+              <span class="card-text">
+                <span lang="en">Cycling</span>
+                <span lang="de">Radfahren</span>
+              </span>
+            </div>
+
+            <div class="card-section">
+              <video
+                class="lozad card-background card-background_fillWidth"
+                data-src="assets/video/scuba.mp4"
+                autoplay
+                loop
+                muted
+                playsinline
+                aria-hidden="true"
+              ></video>
+              <span class="card-text">
+                <span lang="en">Scuba diving</span>
+                <span lang="de">Gerätetauchen</span>
+              </span>
+            </div>
+          </article>
+
+          <article class="card card_flex_space-between">
+            <img
+              class="lozad card-background card-background_fillHeight"
+              data-src="assets/img/love.jpg"
+              alt=""
+            />
+            <h3 class="card-header">
+              <span lang="en">Love</span>
+              <span lang="de">Liebe</span>
+            </h3>
+            <span class="card-text">
+              <span lang="en">brought me to Germany</span>
+              <span lang="de">brachte mich nach Deutschland</span>
+            </span>
+          </article>
+          <div class="break"></div>
+          <!-- so bottom margin added in flex -->
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="SectionExperience"
+        class="section js-section-open"
+      >
+        <div class="section-brand">
+          <h2 id="SectionExperience" class="section-title">
+            <span lang="en">Experience</span>
+            <span lang="de">Erfahrung</span>
+          </h2>
+          <i class="icon icon-section"></i>
+        </div>
+        <div class="section-content">
+          <article class="card card_fitContent card_align_start">
+            <span class="card-text">
+              <span lang="en"
+                >I have 5 years startup experience in full lifecycle feature
+                development.</span
+              >
+              <span lang="de"
+                >Ich habe 5 Jahre full lifecycle feature development Erfahrung
+                bei einem Start-Up Unternehmen.</span
+              >
+            </span>
+            <span class="card-text">
+              <span lang="en"
+                >Designer:<br />I can sketch intuitive user interfaces for rapid
+                development.</span
+              >
+              <span lang="de"
+                >Designer:<br />Ich kann intuitive Benutzeroberflächen für
+                schnelle Entwicklung entwerfen.</span
+              >
+            </span>
+            <span class="card-text">
+              <span lang="en"
+                >Ticket Manager:<br />I can create and maintain tickets to keep
+                changes logged.</span
+              >
+              <span lang="de"
+                >Ticket Manager:<br />Ich kann Tickets entwerfen und auf dem
+                neusten Stand halten, die Veränderungen protokollieren.<br
+              /></span>
+            </span>
+            <span class="card-text">
+              <span lang="en"
+                >Builder:<br />I have experience coding website pages and REST
+                APIs.</span
+              >
+              <span lang="de"
+                >Builder:<br />Ich habe Erfahrung im Programmieren von Webseiten
+                und REST APIs.</span
+              >
+            </span>
+            <span class="card-text">
+              <span lang="en"
+                >Debuger:<br />I am a thorough tester with excellent database
+                skills who can verify front and back-ends.</span
+              >
+              <span lang="de"
+                >Debuger:<br />Ich bin ein sorgfältiger Tester mit exzellenten
+                Datenbank-Faehigkeiten und kann Front- und Backends
+                überpruefen.</span
+              >
+            </span>
+            <span class="card-text">
+              <span lang="en"
+                >Developer:<br />I know HTML, CSS, Javascript, and MySQL. I am
+                learning VueJs.</span
+              >
+              <span lang="de"
+                >Developer:<br />Ich habe Kenntnisse über HTML, CSS, Javascript
+                und MySQL. Ich bilde mich in VueJS weiter.</span
+              >
+            </span>
+            <span class="card-text">
+              <span lang="en"
+                >Product Owner:<br />I get feedback and continuously make the
+                product better.</span
+              >
+              <span lang="de"
+                >Product Owner:<br />Ich bekomme Feedback und verbessere ständig
+                das Produkt.</span
+              >
+            </span>
+            <a
+              class="link-bar js-stop-propagation"
+              href="mailto:nathan.demasie@gmail.com"
+            >
+              <h1>
+                <span lang="en">Contact</span>
+                <span lang="de">Kontakt</span>
+              </h1>
+              <i class="icon icon-outline icon-mail"></i>
+            </a>
+          </article>
+          <div class="break"></div>
+          <!-- so bottom margin added in flex -->
+        </div>
+      </section>
+
+      <section aria-labelledby="SectionCV" class="section js-section-open">
+        <div class="section-brand">
+          <h2 id="SectionCV" class="section-title">CV</h2>
+          <i class="icon icon-section"></i>
+        </div>
+        <div class="section-content">
+          <div class="card-section">
+            <img
+              class="lozad card-background_fillHeight"
+              data-src="assets/img/cv.jpg"
+              alt="CV"
+            />
+          </div>
+          <a
+            class="link-bar js-stop-propagation"
+            href="assets/pdf/cv.pdf"
+            download="Nathan DeMasie CV.pdf"
+          >
+            <h1>
+              <span lang="en">Download</span>
+              <span lang="de">Herunterladen</span>
+            </h1>
+            <i class="icon icon-outline icon-download"></i>
+          </a>
+        </div>
+      </section>
+
+      <section aria-labelledby="SectionContact" class="section">
+        <div class="section-brand section_spaceEvenly">
+          <a class="link-bar" href="mailto:nathan.demasie@gmail.com">
+            <h2 id="SectionContact">
+              <span lang="en">Contact</span>
+              <span lang="de">Kontakt</span>
+            </h2>
+            <i class="icon icon-outline icon-mail"></i>
+          </a>
+        </div>
+      </section>
+    </nav>
+
+    <footer class="footer">
+      <p class="copyright">© 2019 Nathan DeMasie</p>
+    </footer>
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", event => {
+      //Initialize deferred scripts
+      const observer = lozad(); // lazy load image & video
+      observer.observe();
+    });
+
+    // SELECT LIST
+    const selectList = document.querySelector(".js-selectList-open");
+
+    // Open / close select List
+    selectList.addEventListener("click", event => {
+      const selectListUl = event.currentTarget.querySelector(
+        ".selectList-list"
+      );
+      selectListUl.classList.toggle("selectList-list_open");
+    });
+
+    // Set language
+    const langOptions = document.querySelectorAll(".js-set-language");
+    langOptions.forEach(option => {
+      option.addEventListener("click", event => {
+        const { target } = event;
+        const currentListOption = selectList.querySelector(
+          ".selectList-option_current"
+        );
+
+        document.documentElement.lang = target.dataset.value;
+        currentListOption.textContent = target.textContent;
+      });
+    });
+
+    // SECTIONS
+    const sections = document.querySelectorAll(".js-section-open");
+
+    // Open / close section
+    for (section of sections) {
+      section.addEventListener("click", event => {
+        const sectionContent = event.currentTarget.querySelector(
+          ".section-content"
+        );
+        const sectionIcon = event.currentTarget.querySelector(".icon-section");
+        const otherSections = getSiblings(event.currentTarget);
+
+        sectionContent.classList.toggle("section-content_open");
+        sectionIcon.classList.toggle("icon-section_open");
+        otherSections.map(section =>
+          section.classList.toggle("section_hidden")
+        );
+      });
+    }
+
+    // Stop Event Propagation
+    const stopPropElements = document.querySelectorAll(".js-stop-propagation");
+    stopPropElements.forEach(el =>
+      el.addEventListener("click", event => event.stopPropagation())
+    );
+
+    // HELPERS
+    function getSiblings(element) {
+      let siblings = [];
+      let sibling = element.parentNode.firstChild;
+
+      while (sibling) {
+        if (sibling.nodeType === 1 && sibling !== element) {
+          siblings.push(sibling);
+        }
+        sibling = sibling.nextSibling;
+      }
+
+      return siblings;
+    }
+  </script>
+</html>

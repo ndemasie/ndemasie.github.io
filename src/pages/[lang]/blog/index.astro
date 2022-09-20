@@ -1,70 +1,43 @@
 ---
-import readingTime, { ReadTimeResults } from 'reading-time'
-import { parse } from 'node-html-parser'
+import { BlogPostManager } from 'src/BlogPostManager'
 
-import BlogPostPreview from '@components/BlogPostPreview.astro'
 import PageLayout from '@layouts/PageLayout.astro'
+import BlogPostPreview from '@components/BlogPostPreview.astro'
 import localStrings from '@locals/strings'
 
 import { Language, Page } from '@enums'
+import  { BlogPost } from '@interfaces'
+
 export interface Params {
   lang: Language
 }
 export interface Props {
-  posts: any[]
+  posts: BlogPost[]
 }
 
-export async function getStaticPaths() {
-  const languages = Object.values(Language)
-  const posts = await Astro.glob(`../../../locals/blog-posts/**/*.md`)
-  type Post = (typeof posts)[number]
-  type PostEnhanced = Post & {
-    readingStats: ReadTimeResults
-    url?: string
-    title?: string
-    description?: string
-  }
-
-  const fetchPosts = async (lang: Language): Promise<PostEnhanced[]> => {
-
-    const enhancePost = async (post: Post): Promise<PostEnhanced> => {
-      const html = parse(await post.compiledContent())
-      return {
-        ...post,
-        url: new URL(`/${lang}/blog/${post.file.split('/').reverse()[1]}`, Astro.site).toString(),
-        readingStats: readingTime(post.rawContent()),
-        title: html.querySelector('h1:first-of-type')?.innerText,
-        description: html.querySelector('p:first-of-type')?.innerText.substring(0, 397) + '...'
-      }
+export async function getStaticPaths(): Promise<{ params: Params; props: Props }[]> {
+  const buildRoute = (lang: Language, posts: BlogPost[]) => {
+    const filteredPosts = posts.filter((post) => post.lang === lang)
+    return {
+      params: { lang },
+      props: { posts: filteredPosts },
     }
-
-    return await Promise.all(
-      posts
-        .filter((post: Post) => post.file.split('/').pop() === `${lang}.md`)
-        .map(async (post: Post) => enhancePost(post))
-    )
   }
 
-  const routes = await Promise.all(
-    languages
-      .map(async (lang: Language) => ({
-        params: { lang },
-        props: { posts: await fetchPosts(lang) }
-      }))
-  )
-
+  const posts = (await BlogPostManager.getInstance()).posts
+  const routes = Object.values(Language).map((lang) => buildRoute(lang, posts))
   return routes
 }
 
 const { lang } = Astro.params as unknown as Params
 const { posts } = Astro.props as Props
-
 const page = Page.Blog
 const strings = localStrings[lang].page[page]
 ---
 
-<PageLayout {lang} {page}>
+<PageLayout lang={lang} page={page}>
   <h2>{strings.intro_title}</h2>
-  {posts.map((post) => ((console.log(post), true) &&
-  <BlogPostPreview {lang} {post} />))}
+  {posts.map((post) => <BlogPostPreview lang={lang} post={post} />)}
+  
+  {JSON.stringify(posts)}
 </PageLayout>

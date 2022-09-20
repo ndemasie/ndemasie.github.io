@@ -1,20 +1,5 @@
 ---
-import { Language } from '@enums'
+import RedirectHomeLayout from '@layouts/RedirectHomeLayout.astro'
 ---
 
-<!DOCTYPE html>
-<html>
-
-<body>
-  <script is:inline define:vars={{ Language }}>
-    window.addEventListener('DOMContentLoaded', () => {
-      const clientLanguage = navigator.languages
-        .map(lang => lang && lang.slice(0, 2).toLowerCase())
-        .find(lang => Object.values(Language).includes(lang))
-
-      window.location.href = new URL(`${clientLanguage}/`, window.origin)
-    })
-  </script>
-</body>
-
-</html>
+<RedirectHomeLayout />

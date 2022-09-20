@@ -2,7 +2,7 @@ function initSelectJs() {
   if (window.innerWidth <= 576) return // Desktop only
 
   document
-    .querySelector(`label.select select`)
+    .querySelectorAll(`label.select select`)
     .forEach((select) =>
       select.addEventListener('mousedown', (event) => event.preventDefault())
     )
@@ -28,7 +28,7 @@ function initRippleJs() {
       element.addEventListener(
         'animationend',
         () => element.classList.remove('pulse'),
-        { once: true }
+        { once: true, passive: true }
       )
     })
   }
@@ -36,6 +36,10 @@ function initRippleJs() {
   document
     .querySelectorAll('.ripple')
     .forEach((element) => initElement(element))
+}
+
+function navTo(path) {
+  location.href = location.origin + location.pathname.split('/').fill(path, 1, 2).join('/')
 }
 
 document.addEventListener('DOMContentLoaded', () => {

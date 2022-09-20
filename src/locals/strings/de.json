@@ -21,5 +21,10 @@
     "cv": {
       "_nav_text": "CV"
     }
+  },
+  "tag": {
+    "astro": "Astro",
+    "oss": "Open source",
+    "blog_template": "Blog template"
   }
 }

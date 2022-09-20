@@ -1,14 +1,15 @@
 ---
-import Tag from '../components/Tag.astro'
-import { Language } from '@enums'
+import TagComponent from '../components/Tag.astro'
+
+import  { Language, Tag } from '@enums'
+import  { BlogPost } from '@interfaces'
 
 export interface Props {
   lang: Language
-  post: any
+  post: BlogPost
 }
 
 const { lang, post } = Astro.props as Props
-
 ---
 
 <div class="BlogPostPreview">
@@ -21,31 +22,43 @@ const { lang, post } = Astro.props as Props
   <h3 class="BlogPostPreview-title">{post.title}</h3>
   <p class="BlogPostPreview-content">
     {post.description}
-    <a href={post.url}><i>Read More ></i></a>
+    <a href={post.url}><i>Read More...</i></a>
   </p>
 
   <dl class="BlogPostPreview-footer">
-    {post.readingStats &&
+    {post.readTimeResults?.minutes &&
     <div>
-      <dt data-icon style="--url: url(/icons/clock-reshot-UENFYSVQ53.svg)">
-      </dt>
-      <dd>{post.readingStats.text}</dd>
+      <dt data-icon style="--url: url(/icons/clock-reshot-UENFYSVQ53.svg)"></dt>
+      <dd>{new Intl.NumberFormat(lang, {
+          style: 'unit',
+          unit: 'minute',
+          unitDisplay: 'long',
+          maximumFractionDigits: 0
+        }).format(Math.ceil(post.readTimeResults.minutes))}
+      </dd>
     </div>
     }
+
     {post.frontmatter?.datePublished &&
     <div>
       <dt data-icon style="--url: url(/icons/calendar-reshot-RTYJNSX56M.svg)"></dt>
-      <dd>{post.frontmatter.datePublished.substring(0,10)}</dd>
+      <dd>{new Intl.DateTimeFormat(lang, {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric'
+      }).format(new Date(post.frontmatter.datePublished))}
+      </dd>
     </div>
     }
-    {post.frontmatter?.tags?.length > 0 &&
+
+    {post.frontmatter.tags?.length && post.frontmatter.tags.length > 0 &&
     <div>
       <dt data-icon style="--url: url(/icons/tag-reshot-AV8PD3NS5T.svg)"></dt>
       <dd>
         <ul>
-          {post.frontmatter.tags.map((tag: string) =>
+          {post.frontmatter.tags.map((tag: Tag) =>
           <li>
-            <Tag url={`/${lang}/blog?tag=${tag}`} {tag} />
+            <TagComponent url={`/${lang}/blog?tag=${tag}`} lang={lang} tag={tag} />
           </li>
           )}
         </ul>
@@ -56,7 +69,7 @@ const { lang, post } = Astro.props as Props
 </div>
 
 <br />
-<div>{JSON.stringify(post)}</div>
+{JSON.stringify(Astro.props)}
 
 <style lang="scss">
   .BlogPostPreview {

@@ -1,8 +1,19 @@
 ---
-const { url, tag } = Astro.props
+import localStrings from '@locals/strings'
+
+import { Language, Tag } from '@enums'
+
+export interface Props {
+  url: string
+  lang: Language
+  tag: Tag
+}
+
+const { lang, url, tag } = Astro.props as Props
+const strings = localStrings[lang]
 ---
 
-<a class="tag" href={url}>{tag}</a>
+<a class="tag" href={url}>{strings.tag[tag]}</a>
 
 <style lang="scss">
   .tag {
@@ -11,7 +22,7 @@ const { url, tag } = Astro.props
     padding: 0.2em 0.4em;
   }
 
-  .tag+.tag {
+  .tag + .tag {
     margin-left: 0.5em;
   }
 </style>

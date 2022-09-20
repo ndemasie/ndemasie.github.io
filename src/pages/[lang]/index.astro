@@ -1,23 +1,16 @@
 ---
-import PageLayout from '@layouts/PageLayout.astro'
-import localStrings from '@locals/strings'
+import RedirectHomeLayout from '@layouts/RedirectHomeLayout.astro'
+import { Language } from '@enums'
 
-import { Language, Page } from '@enums'
 export interface Params {
   lang: Language
 }
 
+const { lang } = Astro.params as unknown as Params
+
 export async function getStaticPaths() {
-  const languages = Object.values(Language)
-  return languages.map((lang: Language) => ({ params: { lang } }))
+  return Object.values(Language).map((lang) => ({ params: { lang } }))
 }
-
-const { lang = Language.EN } = Astro.params as unknown as Params
-
-const page = Page.Home
-const strings = localStrings[lang].page[page]
 ---
 
-<PageLayout {lang} {page}>
-  <h3>{strings.intro_description}</h3>
-</PageLayout>
+<RedirectHomeLayout lang={lang} />

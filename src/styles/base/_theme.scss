@@ -16,7 +16,7 @@ $themes: (
   )
 );
 
-html {
+:root {
   @each $theme, $themeVal in $themes {
     &[data-theme="#{$theme}"] {
 

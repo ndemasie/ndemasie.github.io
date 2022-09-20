@@ -1,39 +1,31 @@
 ---
-import { ReadTimeResults } from 'reading-time'
-
 import localStrings from '@locals/strings'
 
 import Fab from '@components/Fab.astro'
 
-import { Language } from '@enums'
+import  { Language } from '@enums'
+import  { BlogPost } from '@interfaces'
 
 export interface Props {
   lang: Language
-  post: {
-    [key: string]: any
-    readingStats: ReadTimeResults
-  }
+  post: BlogPost
 }
 
 const { lang, post } = Astro.props as Props
 const {
-  author,
   tags,
   urls,
-  datePublished,
-  dateUpdated,
   heroImage,
-  heroImageAlt
 } = post.frontmatter
 
-const componentStrings = (localStrings as any)[lang].component.BlogPost
+const componentStrings = localStrings[lang].component.BlogPost
 ---
 
 <article class="BlogPost">
   <header class="BlogPost-header">
     {heroImage &&
-    <img width="720" height="420" class="hero-image" loading="lazy" decoding="async" src={heroImage}
-      alt={heroImageAlt} />
+    <img width="720" height="420" class="hero-image" loading="lazy" decoding="async" src={heroImage.url}
+      alt={heroImage.alt} />
     }
 
     <dl class="BlogPost-meta">
@@ -42,7 +34,7 @@ const componentStrings = (localStrings as any)[lang].component.BlogPost
         <dt>{componentStrings.meta_fields.tags}</dt>
         <dd>
           <ul class="BlogPost-meta-item-list">
-            {tags.map((tag: string) =>
+            {tags.map((tag) =>
             <li class="BlogPost-meta-item-list-item">
               <a href={`/${lang}/blog?tag=${tag}`}>#{tag}</a>
             </li>
@@ -55,12 +47,14 @@ const componentStrings = (localStrings as any)[lang].component.BlogPost
   </header>
 
   <div class="BlogPost-content">
-    <slot />
+    <post.Content />
   </div>
 
   {urls && urls.github &&
   <Fab action="link" url={urls.github} />}
 </article>
+
+{JSON.stringify(Astro.props)}
 
 <style lang="scss">
   .BlogPost {

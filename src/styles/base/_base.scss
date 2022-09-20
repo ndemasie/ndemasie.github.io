@@ -5,6 +5,8 @@ body {
 }
 
 body {
+  background-image: url(/bg/Firefly-9s-1084px/Firefly-9s-1084px.gif);
+
   padding: 1rem;
 
   @include md {
@@ -34,7 +36,6 @@ p {
   margin-left: 0;
   margin-right: 0;
 }
-
 
 dl {
   margin: 0 0 1rem;

@@ -13,15 +13,34 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     // Enable local file paths
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@enums": ["src/types/enums"],
-      "@layouts/*": ["src/layouts/*"],
-      "@locals/*": ["src/locals/*"],
-      "@styles/*": ["src/styles/*"]
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@enums": [
+        "src/types/enums"
+      ],
+      "@interfaces": [
+        "src/types/interfaces"
+      ],
+      // "@types/*": [
+      //   "src/types/*"
+      // ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@locals/*": [
+        "src/locals/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ]
     },
     // Add type definitions for our Vite runtime.
-    "types": ["vite/client"]
+    "types": [
+      "vite/client"
+    ]
   }
 }

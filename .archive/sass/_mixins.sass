@@ -1,7 +1,0 @@
-@mixin prefix($property, $params...)
-  -webkit-#{$property}: $params
-  -moz-#{$property}: $params
-  #{$property}: $params
-
-@mixin rotate($deg)
-  @include prefix(transform, rotate($deg))

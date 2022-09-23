@@ -1,5 +1,5 @@
 import $RefParser from '@apidevtools/json-schema-ref-parser'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 
 import schema from './schema.json'
 

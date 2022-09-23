@@ -1,4 +1,4 @@
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 
 import base from './base.json'
 import de from './de.json'

@@ -33,6 +33,6 @@ const { post } = Astro.props as Props
 const page = Page.Blog
 ---
 
-<PageLayout lang={lang} page={page} title={post?.title} description={post?.description}>
+<PageLayout lang={lang} page={page} title={post?.title} description={post?.introParagraph}>
   <BlogPostComponent lang={lang} post={post} />
 </PageLayout>

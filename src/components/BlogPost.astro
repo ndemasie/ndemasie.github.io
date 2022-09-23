@@ -1,0 +1,82 @@
+---
+import BlogPostMeta from '@components/BlogPostMeta.astro'
+import BaseFab from '@components/BaseFab.astro'
+
+import  { Language } from '@enums'
+import  { BlogPost } from '@interfaces'
+
+export interface Props {
+  lang: Language
+  post: BlogPost
+}
+
+const { lang, post } = Astro.props as Props
+const { urls, heroImage } = post.frontmatter
+---
+
+<article class="BlogPost">
+  <header class="BlogPost-header">
+    {heroImage &&
+    <img width="720" height="420" class="hero-image" loading="lazy" decoding="async" src={heroImage.url}
+      alt={heroImage.alt} />
+    }
+
+    <BlogPostMeta lang={lang} post={post} />
+  </header>
+
+  <div class="BlogPost-content">
+    <post.Content />
+  </div>
+
+  {urls && urls.github &&
+  <BaseFab action="link" url={urls.github} />}
+</article>
+
+<style lang="scss">
+  .BlogPost {
+    margin-top: 2rem;
+  }
+
+  .BlogPost-header {
+    background: linear-gradient(
+        rgba(0 0 0 / 0.6) 15%,
+        rgba(0 0 0 / 0.8) 25%,
+        rgba(0 0 0 / 0.8) 90%,
+        rgba(0 0 0 / 0.6) 100%);
+    border-radius: 10px;
+    box-shadow: 1px 2px 5px 2px var(--theme-background-box-shadow);
+
+    padding: 1rem;
+    margin: 0 auto 1.6rem;
+    max-width: 70ch;
+  }
+
+  .BlogPost-meta {
+    background: rgba(0 0 0 / 18%);
+    border-radius: 10px;
+    border: var(--theme-secondary) 0.8px solid;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .BlogPost-meta-item {
+    display: flex;
+
+    &:not(:last-of-type) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .BlogPost-meta-item-list {
+    list-style-position: inside;
+    padding: 0;
+
+    li {
+      display: inline-block;
+
+      &:not(:last-child) {
+        margin-right: 0.4em;
+      }
+    }
+  }
+</style>

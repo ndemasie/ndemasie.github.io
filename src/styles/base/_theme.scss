@@ -1,0 +1,85 @@
+@use "sass:color" as color;
+@use "sass:map" as map;
+
+$themes: (
+  light: (
+    primary: #bdbfd5,
+    secondary: #b18c19,
+    accent: #f1f1e6,
+    background: #1a1d2d,
+  ),
+  light2: (
+    primary: #678cf6,
+    secondary: #f7f8ff,
+    accent: #f1f1e6,
+    background: #1a1d2d,
+  ),
+);
+
+:root {
+  @each $theme, $themeVal in $themes {
+    &[data-theme="#{$theme}"] {
+
+      @each $color, $colorVal in $themeVal {
+        --theme-#{$color}: #{$colorVal};
+      }
+
+      --theme-primary-hover: #{color.adjust(map.get($themeVal, 'primary'), $lightness: 10%)};
+      --theme-primary-active: #{color.adjust(map.get($themeVal, 'primary'), $lightness: 20%)};
+      --transparent: rgb(255 255 255 / 0%);
+      --theme-background-box-shadow: #{color.adjust(map.get($themeVal, 'background'), $lightness: -10%)};
+      --theme-background-gradient: linear-gradient(
+        -200deg,
+        #{color.adjust(map.get($themeVal, 'background'), $lightness: 0%)} 50%,
+        #{color.adjust(map.get($themeVal, 'background'), $lightness: 5%)} 80%,
+        #{color.adjust(map.get($themeVal, 'background'), $lightness: 10%)}
+      );
+    }
+  }
+}
+
+html {
+  color: var(--theme-primary);
+  background: var(--theme-background-gradient);
+}
+
+h1, h2, h3, h4, h5, h6,
+ol, ul, dl,
+p {
+  color: var(--theme-primary);
+}
+
+dt {
+  color: var(--theme-secondary);
+}
+
+a {
+  color: var(--theme-secondary);
+
+  &:hover,
+  &:focus {
+    color: var(--theme-primary-hover);
+  }
+
+  &:active {
+    color: var(--theme-primary-active);
+  }
+}
+
+a.tag {
+  background-color: var(--theme-secondary);
+  color: var(--theme-background);
+
+  &:hover,
+  &:focus {
+    color: var(--theme-primary-hover);
+  }
+
+  &:active {
+    color: var(--theme-primary-active);
+  }
+
+  &[style~="icon-url:"]::before {
+    background-color: var(--theme-primary);
+  }
+}

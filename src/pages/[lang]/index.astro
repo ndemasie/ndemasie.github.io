@@ -1,0 +1,16 @@
+---
+import RedirectHomeLayout from '@layouts/RedirectHomeLayout.astro'
+import { Language } from '@enums'
+
+export interface Params {
+  lang: Language
+}
+
+const { lang } = Astro.params as unknown as Params
+
+export async function getStaticPaths() {
+  return Object.values(Language).map((lang) => ({ params: { lang } }))
+}
+---
+
+<RedirectHomeLayout lang={lang} />

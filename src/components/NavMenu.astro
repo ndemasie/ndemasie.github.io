@@ -1,0 +1,222 @@
+---
+import localStrings from '@locals/strings'
+import { Language, Page } from '@enums'
+
+export interface Props {
+  lang: Language
+  page: Page
+}
+
+const { lang, page } = Astro.props as Props
+const strings = localStrings[lang]
+---
+<label class="NavMenu">
+  <input class="checkbox" type="checkbox" aria-hidden="false" />
+  <!-- <span class="icon">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </span> -->
+  <div class="roller" aria-hidden="true">
+    <ul>
+      {Array.apply(null, Array(5)).map(i => <li></li>)}
+    </ul>
+  </div>
+  <nav>
+    <menu>
+      {[
+        { value: Page.Home, path: '/'},
+        { value: Page.Blog, path: '/blog'},
+        { value: Page.CV, path: '/docs/cv.pdf'},
+      ].map((item) =>
+      <li class:list={[page === item.value && 'active']} tabindex="-1">
+        <a href={`/${lang}${item.path}`} tabindex="-1">
+          {strings.page[item.value]._nav_text}
+        </a>
+      </li>
+      )}
+    </menu>
+  </nav>
+</label>
+
+<script client:only>
+  // const handleNavOpen = (event: Event) => {
+  //   const label = event.currentTarget?.closest('label') as HTMLLabelElement
+  //     label.classList.add('active')
+  // }
+
+  // const factoryHandleNavMenuClose = (navigate: boolean = true) => (event: Event) => {
+  //   const label = event.currentTarget?.closest('label') as HTMLLabelElement
+  //   label.classList.remove('active')
+
+  //   if (!navigate) return
+
+  //   const list = Array.from(label.querySelectorAll('li'))
+
+  //   const nearestLiIndex = list
+  //     .map((child) => child.getBoundingClientRect()?.top ?? 0)
+  //     .reduce((prev, _, index, array) =>  Math.abs(array[index]) < Math.abs(array[prev]) ? index : prev, 0)
+
+  //   const href = list[nearestLiIndex].querySelector('a')!.href
+  //   if (href && href !== location.href) location.href = href
+  // }
+
+  const factoryRollHandler = (el: HTMLElement) => <T extends HTMLElement>(event: Event) => {
+    const nav = el.querySelector('nav')!
+    const angle = ((): number => {
+      switch(event.type) {
+        case 'touchmove': return (event as TouchEvent).touches?.[0]?.pageY
+        default: return 0
+      }
+    })()
+    nav.style.setProperty('--rotate', String(angle - nav.offsetHeight))
+  }
+
+  const buildChainableHTML = <T extends HTMLElement>(el: T) => {
+    const ret = Object.assign(el, {
+      chainEventListener: (...args: Parameters<T['addEventListener']>) => {
+        ret.addEventListener.apply(el, args)
+        return ret
+      }
+    })
+    return ret
+  }
+
+  const label = document.querySelector<HTMLLabelElement>('.NavMenu')!
+
+  buildChainableHTML(label)
+    // .chainEventListener('touchstart', console.log)
+    // .chainEventListener('touchmove', factoryRollHandler(label), { passive: true })
+    // .chainEventListener('touchend', console.log)
+    // .chainEventListener('blur', console.log)
+    // .chainEventListener('focusin', console.log)
+    // .chainEventListener('focusout', console.log)
+
+  document.querySelector('.NavMenu nav .roller')!
+    .addEventListener('scroll', (event) => {
+      const roller = event.target as HTMLElement
+      const nav = roller.parentElement as HTMLElement
+
+      const size = roller.querySelector('li')!.clientHeight ?? 0
+      const turns = roller.scrollTop / size
+      const sideCount = nav.querySelectorAll('menu li').length
+
+      nav.style.setProperty('--rotate', String(turns * (360 / sideCount) * -1))
+    }, { passive: true })
+</script>
+
+<style lang="scss">
+  @use 'sass:math';
+  @import '../styles/base/_theme.scss';
+  @import '../styles/abstracts/variables.scss';
+  @import '../styles/abstracts/mixins.scss';
+  @import '../styles/base/typography.scss';
+
+  %animate-3d-roller {
+    $liCount: 3;
+    $liSizePx: 12 * 1.2 + 10;
+    --rotate: 0;
+    --theta: #{math.div(360, $liCount)};
+    --radius: #{math.floor(
+      math.div(
+        math.div($liSizePx, 2),
+        math.tan(math.div(math.$pi, $liCount))
+      )
+    )};
+    --scroll-rate: 1;
+
+    nav menu {
+      position: absolute;
+      top: 0;
+      margin-top: calc(var(--margin-y)/2);
+    }
+
+    nav menu li {
+      position: absolute;
+      backface-visibility: hidden;
+      &:nth-of-type(1) {
+        transform: rotateX(calc(var(--theta) * 0deg)) translateZ(calc(var(--radius) * 1px));
+      }
+      &:nth-of-type(2) {
+        transform: rotateX(calc(var(--theta) * 1deg)) translateZ(calc(var(--radius) * 1px));
+      }
+      &:nth-of-type(3) {
+        transform: rotateX(calc(var(--theta) * 2deg)) translateZ(calc(var(--radius) * 1px));
+      }
+    }
+  }
+
+
+  .NavMenu {
+    @extend %animate-3d-roller;
+
+    --border-radius: 10px;
+    --margin-y: 0.4em;
+    --item-height: var(--nav-heading-font-size);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    // border: 1px solid var(--theme-primary);
+    // border-radius: var(--border-radius);
+    outline: 1px solid;
+    height: calc(var(--item-height) + var(--margin-y) * 2);
+
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+  }
+
+  .checkbox {
+    display: none;
+  }
+
+  .roller {
+    height: 100%;
+    width: 100%;
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      scroll-snap-align: center;
+      margin-bottom: var(--margin-y);
+      height: var(--item-height);
+    }
+  }
+
+  nav {
+    position: absolute;
+    // display: inline-block;
+    // align-self: start;
+    // margin: var(--margin-y);
+    height: 100%;
+    width: 100%;
+    
+    menu {
+      list-style: none;
+      
+      margin: 0;
+      padding: 0;
+      height: calc(var(--item-height) + var(--margin-y) * 2);
+
+      transform-style: preserve-3d;
+      transform: translateZ(calc(var(--radius) * -1px)) rotateX(calc(var(--rotate, 0) * 1deg));
+      transition: transform 800ms ease;
+      
+      li {
+        // scroll-snap-align: center;
+        // margin-bottom: var(--margin-y);
+      }
+
+      li a {
+        @extend %heading-nav;
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+      }
+    }
+  }
+</style>

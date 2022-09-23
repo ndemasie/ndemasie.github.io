@@ -1,0 +1,35 @@
+---
+import 'modern-normalize/modern-normalize.css'
+import '@styles/main.scss'
+
+import BaseHead from '@components/BaseHead.astro'
+import BaseHeader from '@components/BaseHeader.astro'
+
+import { Language, Page } from '@enums'
+
+export interface Props {
+  page: Page
+  lang?: Language
+  title?: string
+  description?: string
+}
+
+const { lang = Language.EN, page, title, description } = Astro.props as Props
+---
+
+<!DOCTYPE html>
+<html lang={lang} data-theme="light">
+  <BaseHead lang={lang} page={page} title={title} description={description} />
+
+  <body>
+    <BaseHeader lang={lang} page={page} />
+
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+
+</style>

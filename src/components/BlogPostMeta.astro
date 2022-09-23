@@ -1,0 +1,101 @@
+---
+import BaseTag from '@components/BaseTag.astro'
+
+import  { Language, Tag } from '@enums'
+import  { BlogPost } from '@interfaces'
+
+export interface Props {
+  lang: Language
+  post: BlogPost
+}
+
+const { lang, post } = Astro.props as Props
+const { datePublished, tagKeys } = post.frontmatter
+---
+
+<dl class="BlogPostMeta">
+  {post.readTimeResults?.minutes &&
+  <div class="BlogPostMeta-read_time">
+    <dt data-icon style="--url: url(/icons/clock-reshot-UENFYSVQ53.svg)"></dt>
+    <dd>{new Intl.NumberFormat(lang, {
+        style: 'unit',
+        unit: 'minute',
+        unitDisplay: 'long',
+        maximumFractionDigits: 0
+      }).format(Math.ceil(post.readTimeResults.minutes))}
+    </dd>
+  </div>
+  }
+
+  {datePublished &&
+  <div class="BlogPostMeta-date_published">
+    <dt data-icon style="--url: url(/icons/calendar-reshot-RTYJNSX56M.svg)"></dt>
+    <dd>{new Intl.DateTimeFormat(lang, {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
+    }).format(new Date(datePublished))}
+    </dd>
+  </div>
+  }
+
+  {tagKeys && tagKeys.length > 0 &&
+  <div class="BlogPostMeta-tags">
+    <dt data-icon style="--url: url(/icons/tag-reshot-AV8PD3NS5T.svg)"></dt>
+    <dd>
+      <ul>
+        {tagKeys.map((tagKey) => <li><BaseTag lang={lang} tag={Tag[tagKey]} /></li>)}
+      </ul>
+    </dd>
+  </div>
+  }
+</dl>
+
+<style lang="scss">
+.BlogPostMeta {
+    font-size: 0.8em;
+    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 1.4em 1em;
+    
+    .BlogPostMeta-read_time {
+      grid-area: 1/1;
+    }
+    .BlogPostMeta-date_published {
+      grid-area: 1/2;
+    }
+
+    .BlogPostMeta-tags {
+      grid-area: 2/2;
+      dd>ul {
+        list-style: none;
+        padding: 0;
+
+        >li {
+          display: inline-block;
+        }
+        > li + li {
+          margin-left: 0.5em;
+        }
+      }
+    }
+
+    *[data-icon]::before {
+      content: '';
+      background-color: var(--theme-secondary);
+      mask-image: var(--url);
+      display: inline-block;
+      vertical-align: text-top;
+      margin-right: 0.4em;
+      height: 1.4em;
+      width: 1.4em;
+    }
+
+    dd {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+</style>

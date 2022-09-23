@@ -1,0 +1,37 @@
+{
+  "editor.formatOnSave": true,
+  "eslint.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "prettier.documentSelectors": "**/*.astro",
+  "prettier.stylelintIntegration": true,
+  "prettier.eslintIntegration": true,
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss"
+  ],
+  "[postcss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "svg.preview.background": "dark-transparent",
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-action.json": "file:///Users/nathandemasie/code/ndemasie.github.io/.github/workflows/deploy.yml"
+  }
+}

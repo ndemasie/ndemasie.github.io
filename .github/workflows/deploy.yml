@@ -16,24 +16,8 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v2
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-
-      - name: Install packages
-        shell: "bash"
-        run: npm ci
-
-      - name: Build
-        shell: "bash"
-        run: npm run astro:build
-
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: "dist/"
+      - name: Install, build, and upload your site
+        uses: withastro/action@v0
 
   deploy:
     needs: build
@@ -44,5 +28,5 @@ jobs:
       id-token: write
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v1
+        id: deployment

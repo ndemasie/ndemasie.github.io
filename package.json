@@ -4,7 +4,9 @@
   "author": {
     "name": "Nathan DeMasie"
   },
-  "private": true,
+  "license": "MIT",
+  "bugs": "https://github.com/ndemasie/ndemasie.github.io/issues",
+  "homepage": "https://ndemasie.github.io",
   "scripts": {
     "astro:build": "astro build",
     "astro:check": "astro check && tsc --noEmit",

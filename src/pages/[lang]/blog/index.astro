@@ -35,7 +35,7 @@ const page = Page.Blog
 const strings = localStrings[lang].page[page]
 ---
 
-<PageLayout lang={lang} page={page} client:load>
+<PageLayout lang={lang} page={page}>
   <h2>{strings.intro_title}</h2>
   {posts
     .filter((post) => Date.now() > new Date(post.frontmatter.datePublished).getTime())

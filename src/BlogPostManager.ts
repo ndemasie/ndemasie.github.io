@@ -21,7 +21,7 @@ export class BlogPostManager {
     this.#posts = Object.values(modules)
       .map((content) => this.#enhancePost(content))
       .filter((post) => post.frontmatter.state === 'live')
-      .sort((a, b) => new Date(a.frontmatter.datePublished).getTime() - new Date(b.frontmatter.datePublished).getTime())
+      .sort((a, b) => (new Date(a.frontmatter.datePublished).getTime() - new Date(b.frontmatter.datePublished).getTime()) * -1)
   }
 
   #enhancePost(post: BlogPostMarkdown): BlogPost {

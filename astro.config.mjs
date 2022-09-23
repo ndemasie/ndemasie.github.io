@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config'
 import preact from '@astrojs/preact'
+import packageJson from './package.json'
 
 // import vue from '@astrojs/vue'
 // import svelte from '@astrojs/svelte'
@@ -16,7 +17,7 @@ export default defineConfig({
   integrations: [preact(), sitemap()],
   trailingSlash: 'ignore',
   site: process.env.ENVIRONMENT_MODE === 'production'
-    ? 'https://ndemasie.github.io'
+    ? packageJson.homepage
     : `http://localhost:3000`,
   vite: {
     ssr: {

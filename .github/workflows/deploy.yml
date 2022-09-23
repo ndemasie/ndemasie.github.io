@@ -22,8 +22,13 @@ jobs:
           node-version: 16
           cache: 'npm'
 
-      - run: npm ci
-      - run: npm run astro:build
+      - name: Install packages
+        shell: "bash"
+        run: npm ci
+
+      - name: Build
+        shell: "bash"
+        run: npm run astro:build
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v1

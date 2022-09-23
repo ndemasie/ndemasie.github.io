@@ -15,7 +15,9 @@ export default defineConfig({
   publicDir: './public',
   integrations: [preact(), sitemap()],
   trailingSlash: 'ignore',
-  site: 'https://ndemasie.github.io',
+  site: process.env.ENVIRONMENT_MODE === 'production'
+    ? 'https://ndemasie.github.io'
+    : `http://localhost:3000`,
   vite: {
     ssr: {
       noExternal: ['modern-normalize'],

@@ -13,7 +13,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
+    env:
       ENVIRONMENT_MODE: production
     steps:
     - uses: actions/checkout@v2

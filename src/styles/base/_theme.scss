@@ -65,21 +65,3 @@ a {
     color: var(--theme-primary-active);
   }
 }
-
-a.tag {
-  background-color: var(--theme-secondary);
-  color: var(--theme-background);
-
-  &:hover,
-  &:focus {
-    color: var(--theme-primary-hover);
-  }
-
-  &:active {
-    color: var(--theme-primary-active);
-  }
-
-  &[style~="icon-url:"]::before {
-    background-color: var(--theme-primary);
-  }
-}

@@ -30,5 +30,8 @@
   "[typescript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  "svg.preview.background": "dark-transparent"
+  "svg.preview.background": "dark-transparent",
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-action.json": "file:///Users/nathandemasie/code/ndemasie.github.io/.github/workflows/deploy.yml"
+  }
 }

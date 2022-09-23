@@ -13,7 +13,7 @@ $themes: (
     secondary: #f7f8ff,
     accent: #f1f1e6,
     background: #1a1d2d,
-  )
+  ),
 );
 
 :root {
@@ -53,8 +53,8 @@ dt {
   color: var(--theme-secondary);
 }
 
-dd a {
-  color: var(--theme-primary);
+a {
+  color: var(--theme-secondary);
 
   &:hover,
   &:focus {
@@ -66,8 +66,9 @@ dd a {
   }
 }
 
-a {
-  color: var(--theme-secondary);
+a.tag {
+  background-color: var(--theme-secondary);
+  color: var(--theme-background);
 
   &:hover,
   &:focus {
@@ -76,5 +77,9 @@ a {
 
   &:active {
     color: var(--theme-primary-active);
+  }
+
+  &[style~="icon-url:"]::before {
+    background-color: var(--theme-primary);
   }
 }

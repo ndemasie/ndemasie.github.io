@@ -15,7 +15,7 @@ export interface Props {
   post: BlogPost
 }
 
-export async function getStaticPaths(): Promise<{ params: Params; props: Props }[]> {
+export async function getStaticPaths() {
   const buildRoute = (post: BlogPost) => {
     const { lang, slug } = post
     return {
@@ -24,8 +24,7 @@ export async function getStaticPaths(): Promise<{ params: Params; props: Props }
     }
   }
 
-  const posts = (await BlogPostManager.getInstance()).posts
-  const routes = posts.map((post) => buildRoute(post))
+  const routes = BlogPostManager.posts.map((post) => buildRoute(post))
   return routes
 }
 

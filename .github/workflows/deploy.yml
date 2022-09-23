@@ -1,18 +1,16 @@
 name: Github Pages Astro CI
 
 on:
-  # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch’s name
   push:
     branches: [main]
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  # Allows running this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-20.04
 
-    # Allow this job to push changes to your repository
+    # Allow job to push changes to your repository
     permissions:
       contents: write
 
@@ -29,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Build Astro
-        run: npm run build
+        run: npm run astro:build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

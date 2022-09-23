@@ -1,7 +1,7 @@
 ---
 import packageJson from '../../package.json'
 
-import BaseSelect from './BaseSelect.astro'
+import BaseSelect from '@components/BaseSelect.astro'
 
 import localStrings from '@locals/strings'
 import { Language, Page } from '@enums'
@@ -33,7 +33,7 @@ const strings = localStrings[lang]
     <BaseSelect
       class="mobile-only"
       name="lang"
-      alt={strings.component.SelectLang.label_alt}
+      alt={strings.component.BaseHeader.lang_label_alt}
       value={lang}
       options={Object.values(Language).map((lang) => ({ name: lang.toLocaleUpperCase(), value: lang }))}
       required
@@ -43,7 +43,7 @@ const strings = localStrings[lang]
     <BaseSelect
       class="desktop-only"
       name="lang"
-      alt={strings.component.SelectLang.label_alt}
+      alt={strings.component.BaseHeader.lang_label_alt}
       value={lang}
       options={Object.values(Language).map((lang) => ({ name: strings.base.language[lang], value: lang }))}
       required
@@ -52,10 +52,13 @@ const strings = localStrings[lang]
   </div>
 </header>
 
-<script client:only>
-  document
-    .querySelectorAll<HTMLSelectElement>('header.BaseHeader select[name="lang"]')
-    .forEach((select) => select.addEventListener('change', (event) => navTo(event.currentTarget.value as string)))
+<script>
+  document.querySelectorAll<HTMLSelectElement>('header.BaseHeader select[name="lang"]').forEach((select) =>
+    select.addEventListener('change', (event) => {
+      const select = event.currentTarget as HTMLSelectElement
+      navTo(select.value)
+    }),
+  )
 </script>
 
 <style lang="scss">
@@ -74,14 +77,6 @@ const strings = localStrings[lang]
     @include md {
       max-width: $screen-lg-min;
     }
-
-    // > div {
-    //   flex-basis: 33%;
-    // }
-
-    // > :nth-child(3) label {
-    //   float: right;
-    // }
   }
 
   .BaseHeader-wordmark {

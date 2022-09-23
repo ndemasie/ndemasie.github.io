@@ -1,7 +1,18 @@
 {
   "component": {
-    "SelectLang": {
-      "label_alt": "Sprache auswählen"
+    "BaseHeader": {
+      "lang_label_alt": "Sprache auswählen"
+    },
+    "BlogPost": {
+      "meta_fields": {
+        "author": "Autor",
+        "tags": "Tags",
+        "date_published": "Publiziert",
+        "date_updated": "Aktualisiert"
+      }
+    },
+    "BlogPostPreview": {
+      "link_out": "weiter lesen"
     }
   },
   "page": {
@@ -24,7 +35,8 @@
   },
   "tag": {
     "astro": "Astro",
-    "oss": "Open source",
-    "blog_template": "Blog template"
+    "blog_template": "Blogvorlage",
+    "github": "Github",
+    "oss": "Open source"
   }
 }

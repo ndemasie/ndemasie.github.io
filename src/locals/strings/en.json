@@ -1,7 +1,7 @@
 {
   "component": {
-    "SelectLang": {
-      "label_alt": "Select language"
+    "BaseHeader": {
+      "lang_label_alt": "Select language"
     },
     "BlogPost": {
       "meta_fields": {
@@ -10,6 +10,9 @@
         "date_published": "Published",
         "date_updated": "Updated"
       }
+    },
+    "BlogPostPreview": {
+      "link_out": "Read more"
     }
   },
   "page": {
@@ -32,7 +35,8 @@
   },
   "tag": {
     "astro": "Astro",
-    "oss": "Open source",
-    "blog_template": "Blog template"
+    "blog_template": "Blog template",
+    "github": "Github",
+    "oss": "Open source"
   }
 }

@@ -1,7 +1,6 @@
 ---
-import localStrings from '@locals/strings'
-
-import Fab from '@components/Fab.astro'
+import BlogPostMeta from '@components/BlogPostMeta.astro'
+import BaseFab from '@components/BaseFab.astro'
 
 import  { Language } from '@enums'
 import  { BlogPost } from '@interfaces'
@@ -12,13 +11,7 @@ export interface Props {
 }
 
 const { lang, post } = Astro.props as Props
-const {
-  tags,
-  urls,
-  heroImage,
-} = post.frontmatter
-
-const componentStrings = localStrings[lang].component.BlogPost
+const { urls, heroImage } = post.frontmatter
 ---
 
 <article class="BlogPost">
@@ -28,22 +21,7 @@ const componentStrings = localStrings[lang].component.BlogPost
       alt={heroImage.alt} />
     }
 
-    <dl class="BlogPost-meta">
-      {tags &&
-      <div class="BlogPost-meta-item">
-        <dt>{componentStrings.meta_fields.tags}</dt>
-        <dd>
-          <ul class="BlogPost-meta-item-list">
-            {tags.map((tag) =>
-            <li class="BlogPost-meta-item-list-item">
-              <a href={`/${lang}/blog?tag=${tag}`}>#{tag}</a>
-            </li>
-            )}
-          </ul>
-        </dd>
-      </div>
-      }
-    </dl>
+    <BlogPostMeta lang={lang} post={post} />
   </header>
 
   <div class="BlogPost-content">
@@ -51,14 +29,26 @@ const componentStrings = localStrings[lang].component.BlogPost
   </div>
 
   {urls && urls.github &&
-  <Fab action="link" url={urls.github} />}
+  <BaseFab action="link" url={urls.github} />}
 </article>
-
-{JSON.stringify(Astro.props)}
 
 <style lang="scss">
   .BlogPost {
     margin-top: 2rem;
+  }
+
+  .BlogPost-header {
+    background: linear-gradient(
+        rgba(0 0 0 / 0.6) 15%,
+        rgba(0 0 0 / 0.8) 25%,
+        rgba(0 0 0 / 0.8) 90%,
+        rgba(0 0 0 / 0.6) 100%);
+    border-radius: 10px;
+    box-shadow: 1px 2px 5px 2px var(--theme-background-box-shadow);
+
+    padding: 1rem;
+    margin: 0 auto 1.6rem;
+    max-width: 70ch;
   }
 
   .BlogPost-meta {
@@ -80,13 +70,13 @@ const componentStrings = localStrings[lang].component.BlogPost
   .BlogPost-meta-item-list {
     list-style-position: inside;
     padding: 0;
-  }
 
-  .BlogPost-meta-item-list-item {
-    display: inline-block;
+    li {
+      display: inline-block;
 
-    &:not(:last-child) {
-      margin-right: 0.4em;
+      &:not(:last-child) {
+        margin-right: 0.4em;
+      }
     }
   }
 </style>

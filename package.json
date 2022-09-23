@@ -6,9 +6,9 @@
   },
   "private": true,
   "scripts": {
-    "astro:dev": "astro dev",
     "astro:build": "astro build",
-    "astro:build:prod": "astro check && tsc --noEmit && astro build",
+    "astro:check": "astro check && tsc --noEmit",
+    "astro:dev": "astro dev",
     "docker:dev": "docker-compose -f ./docker/develop/docker-compose.yaml up --build --abort-on-container-exit"
   },
   "devDependencies": {

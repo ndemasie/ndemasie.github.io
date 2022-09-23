@@ -2,9 +2,16 @@ import { MarkdownInstance } from 'astro'
 import { ReadTimeResults } from 'reading-time'
 import { Language, Tag } from '@enums'
 
+export enum BlogState {
+  live = 'live',
+  draft = 'draft',
+}
+
 export interface BlogPostFrontmatter {
   author: string
-  tags: Tag[]
+  tagKeys: Tag['key'][]
+  lang: Language
+  state: BlogState
   datePublished: string
   dateUpdated?: string
   heroImage?: {
@@ -20,9 +27,11 @@ export interface BlogPreviewData {
   slug: string
   lang: Language
   filename: string
+  url: string
+  tags: Tag[]
   readTimeResults: ReadTimeResults
   title?: string
-  description?: string
+  introParagraph?: string
 }
 
 export type BlogPostMarkdown = MarkdownInstance<BlogPostFrontmatter>

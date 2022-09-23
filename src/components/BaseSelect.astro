@@ -12,27 +12,25 @@ export interface Props {
 
 const {
   name,
-  alt,
   required,
   value,
   options,
   onChange,
   prependIcon
 } = Astro.props as Props
-
-const prependIconUrl = `url(${prependIcon})`
 ---
 
 <label
-  class:list={[Astro.props.class, "select", {required}, prependIcon && 'prepend-icon']}
-  {alt}
+  class:list={['BaseSelect', 'select', Astro.props.class, {required}, prependIcon && 'prepend-icon']}
 >
-  <select {name} tabindex="0" {required} {onChange}>
+  <select name={name} tabindex="0" required={required} {onChange}>
     {options.map((opt) =>
       <option value={opt.value} selected={opt.value === value}>{opt.name}</option>
     )}
   </select>
-  {prependIcon && <span class="prepend-icon"></span>}
+  {prependIcon
+    && <span class="prepend-icon" style={`--icon-url: url(${prependIcon})`}></span>
+  }
   <ul class="select-options" aria-hidden>
     {options
     .filter((opt) => opt.value !== value)
@@ -42,11 +40,11 @@ const prependIconUrl = `url(${prependIcon})`
   </ul>
 </label>
 
-<style lang="scss" define:vars={{ prependIconUrl }}>
+<style lang="scss">
   @import '../styles/abstracts/variables.scss';
   @import '../styles/abstracts/mixins.scss';
 
-  .select {
+  .BaseSelect {
     font-size: 1.2rem;
     display: inline-block;
 
@@ -55,8 +53,8 @@ const prependIconUrl = `url(${prependIcon})`
     }
   }
 
-  .select.prepend-icon > .prepend-icon {
+  .BaseSelect.prepend-icon > .prepend-icon {
     background: currentColor;
-    mask: var(--prependIconUrl);
+    mask: var(--icon-url);
   }
 </style>

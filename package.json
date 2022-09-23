@@ -6,7 +6,6 @@
   },
   "private": true,
   "scripts": {
-    "build": "astro build",
     "astro:build": "astro build",
     "astro:check": "astro check && tsc --noEmit",
     "astro:dev": "astro dev",

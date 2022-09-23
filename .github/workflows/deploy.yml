@@ -1,36 +1,50 @@
-name: Deploy to Github Pages
+name: Github Pages Astro CI
 
 on:
   push:
     branches: [ main ]
-  # Allows running this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
-
-env:
-  ENVIRONMENT_MODE: production
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      ENVIRONMENT_MODE: production
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v2
 
-      - name: Install, build, and upload your site
-        uses: withastro/action@v0
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "npm"
+
+      - name: Install
+        shell: "bash"
+        run: npm install
+
+      - name: Build
+        shell: "bash"
+        run: npm run astro:build
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: "dist/"
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1

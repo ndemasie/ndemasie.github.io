@@ -1,5 +1,10 @@
 ---
-const { action, url } = Astro.props
+export interface Props {
+  action: 'link'
+  url: string
+}
+
+const { action, url } = Astro.props as unknown as Props
 ---
 
 {action === 'link' &&

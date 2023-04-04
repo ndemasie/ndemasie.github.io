@@ -1,0 +1,67 @@
+---
+import localStrings from '@locals/strings'
+import { Language, Tag } from '@enums'
+
+export interface Props {
+  lang: Language
+  tag: Tag
+}
+
+const { lang, tag } = Astro.props as Props
+---
+
+<a
+  class="BaseTag"
+  href={`/${lang}/blog?tag=${tag}`}
+  style={[tag?.logoUrl && `--logo-url: url(${tag.logoUrl});`, tag?.style].join(' ')}
+  data-logo={tag.logoUrl!!}
+>
+  {localStrings[lang].tag[tag.toString()]}
+</a>
+
+<style lang="scss">
+  .BaseTag {
+    --padding-y: 0.3em;
+
+    display: inline-block;
+    color: var(--theme-background);
+    background-color: var(--theme-secondary);
+    border-radius: 100px; // Large number for pill
+    text-decoration: none;
+    padding: var(--padding-y) 0.5em;
+    overflow: hidden;
+
+    &:hover,
+    &:focus {
+      color: var(--theme-primary-hover);
+    }
+
+    &:active {
+      color: var(--theme-primary-active);
+    }
+  }
+
+  .BaseTag + .BaseTag {
+    margin-inline-start: 0.5em;
+  }
+
+  .BaseTag[data-logo]::before {
+    --size: 1.8em;
+
+    content: '';
+    display: inline-block;
+
+    background-color: var(--theme-primary);
+    background-image: var(--logo-url);
+    background-position: var(--bg-position, 50%);
+    background-repeat: no-repeat;
+    background-size: var(--bg-size, calc(var(--size) - var(--padding-y) * 2));
+    border-radius: inherit;
+
+    margin: calc(var(--padding-y) * -1) 0 calc(var(--padding-y) * -1) calc(var(--padding-y) * -2);
+    height: var(--size);
+    width: var(--size);
+
+    vertical-align: text-top;
+  }
+</style>

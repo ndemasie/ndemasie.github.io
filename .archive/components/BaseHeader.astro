@@ -1,0 +1,134 @@
+---
+import packageJson from '../../package.json'
+
+import BaseSelect from '@components/BaseSelect.astro'
+import BlogSearch from '@components/BlogSearch.astro'
+
+import localStrings from '@locals/strings'
+import { Language, Page } from '@enums'
+
+export interface Props {
+  page: Page
+  lang: Language
+}
+
+const { lang = Language.EN, page } = Astro.props as Props
+
+const strings = localStrings[lang]
+---
+
+<header class="BaseHeader">
+  <div>
+    <a class="BaseHeader-wordmark" href={page === Page.Home ? '#' : `/${lang}/`}>
+      <h1 class="mobile-only">
+        {String(packageJson.author.name)
+          .split(' ')
+          .map((w) => w[0])
+          .join('')}
+      </h1>
+      <h1 class="desktop-only">{packageJson.author.name}</h1>
+    </a>
+  </div>
+
+  <div>
+    <BlogSearch lang={lang} />
+    <BaseSelect
+      name="lang"
+      alt={strings.component.BaseHeader.lang_label_alt}
+      value={lang}
+      options={Object.values(Language).map((lang) => ({ name: strings.base.language[lang], value: lang }))}
+      required
+      prependIcon="/icons/translate.svg"
+    />
+  </div>
+</header>
+
+<script>
+  document.querySelectorAll<HTMLSelectElement>('header.BaseHeader select[name="lang"]').forEach((select) =>
+    select.addEventListener('change', (event) => {
+      const select = event.currentTarget as HTMLSelectElement
+      const newPath = location.origin + location.pathname.split('/').fill(select.value, 1, 2).join('/')
+      location.replace(newPath)
+    }),
+  )
+</script>
+
+<style lang="scss">
+  @import '../styles/abstracts/variables.scss';
+  @import '../styles/abstracts/mixins.scss';
+  @import '../styles/base/typography.scss';
+
+  .BaseHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0 auto 1rem;
+    width: 100%;
+
+    @include md {
+      max-width: $screen-lg-min;
+    }
+  }
+
+  .BaseHeader-wordmark {
+    text-decoration: none;
+
+    @keyframes diagonal {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    > h1 {
+      --header-gradient: linear-gradient(90deg, var(--theme-primary) 0%, var(--theme-secondary) 100%);
+      background-image: var(--header-gradient, var(--theme-primary));
+      background-size: 500% 500%;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      font-weight: 700;
+      margin: 0;
+
+      animation: diagonal alternate 10s infinite;
+    }
+  }
+
+  .BaseHeader-nav {
+    display: flex;
+
+    a {
+      @extend %heading-nav;
+
+      position: relative;
+      text-decoration: none;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border: solid 1.4px var(--theme-primary);
+        width: 100%;
+
+        transition: transform 500ms ease;
+        transform: scaleX(0);
+        transform-origin: right;
+      }
+
+      &:hover::after,
+      &:focus::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+  }
+</style>

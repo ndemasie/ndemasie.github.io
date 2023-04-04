@@ -1,0 +1,23 @@
+---
+import App from 'src/apps/TutorialI18N/App'
+import PageLayout from 'src/layouts/PageLayout.astro'
+import { Language } from 'src/types/Language'
+import { Page } from 'src/types/Page'
+import { t } from 'src/locales'
+
+export async function getStaticPaths() {
+  return Object.values(Language).map((lang) => ({ params: { lang } }))
+}
+
+type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
+
+const { lang } = Astro.params as unknown as Params
+
+const page = Page.Tutorial
+---
+
+<PageLayout page={page} lang={lang}>
+  <h1>{t('tutorial.i18next.title', lang)}</h1>
+
+  <App client:only />
+</PageLayout>

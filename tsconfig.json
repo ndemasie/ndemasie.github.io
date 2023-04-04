@@ -1,0 +1,32 @@
+{
+  "extends": "astro/tsconfigs/base",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    // "verbatimModuleSyntax": true,
+    // "jsx": "preserve", // failed to resolve jsx
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      },
+      {
+        "name": "@styled/typescript-styled-plugin",
+        "tags": [
+          "css"
+        ],
+      }
+    ],
+    // Add type definitions for our Vite runtime.
+    "types": [
+      "vite/client"
+    ]
+  }
+}

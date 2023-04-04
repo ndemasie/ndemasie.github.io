@@ -1,0 +1,63 @@
+---
+export interface Props {
+  class?: string
+  name: string
+  alt: string
+  required: boolean
+  value: string | number
+  options: { name: string, value: string | number }[]
+  onChange?: Function | string
+  prependIcon?: string
+}
+
+const {
+  name,
+  required,
+  value,
+  options,
+  onChange,
+  prependIcon
+} = Astro.props as Props
+---
+
+<label
+  class:list={[
+    'BaseSelect',
+    'select',
+    Astro.props.class,
+    {required}
+  ]}
+>
+  {prependIcon
+    && <span class="prepend-icon" style={`--icon-url: url(${prependIcon})`}></span>
+  }
+  <span class="dropdown-arrow"></span>
+
+  <select name={name} tabindex="0" required={required} {onChange}>
+    {options.map((opt) =>
+      <option value={opt.value} selected={opt.value === value}>{opt.name}</option>
+    )}
+  </select>
+
+  <ul class="select-options" aria-hidden>
+    {options
+    .filter((opt) => opt.value !== value)
+    .map((opt) =>
+      <li class="select-option ripple" data-value={opt.value}>{opt.name}</li>
+    )}
+  </ul>
+</label>
+
+<style lang="scss">
+  @import '../styles/abstracts/variables.scss';
+  @import '../styles/abstracts/mixins.scss';
+
+  .BaseSelect {
+    font-size: 1.2rem;
+    display: inline-block;
+
+    @include md {
+      font-style: 1.4rem;
+    }
+  }
+</style>

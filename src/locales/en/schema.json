@@ -1,0 +1,32 @@
+{
+  "definitions": {
+    "Person": {
+      "Nathan_DeMasie": {
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "givenName": "Nathan",
+        "familyName": "DeMasie",
+        "jobTitle": "Software Developer",
+        "url": "https://www.nathandemasie.com",
+        "sameAs": [
+          {
+            "$ref": "#/definitions/URL/github"
+          }
+        ]
+      }
+    },
+    "URL": {
+      "github": {
+        "url": "https://github.com/ndemasie"
+      }
+    }
+  },
+  "author": {
+    "$ref": "#/definitions/Person/Nathan_DeMasie"
+  },
+  "social": {
+    "github": {
+      "$ref": "#/definitions/URL/github"
+    }
+  }
+}

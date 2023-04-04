@@ -1,0 +1,51 @@
+---
+import { Language } from 'src/types/Language'
+import { Page } from 'src/types/Page'
+import { t } from 'src/locales'
+
+interface Props {
+  page: Page
+  lang: Language
+}
+
+const { page, lang } = Astro.props as Props
+
+const title = t([`page.${page}._title`, 'page._title_undefined'], lang)
+const description = t([`page.${page}._description`, 'page._description_undefined'], lang)
+const permalink = 'https://www.nathandemasie.com'
+---
+
+<head>
+  <!-- Global Metadata -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- Primary Meta Tags -->
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
+
+  <meta name="theme-color" content="#1a1d2d" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={permalink} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content="" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="" />
+  <meta property="twitter:url" content={permalink} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content="" />
+
+  <!-- Fonts -->
+
+  <!-- JS -->
+
+  <slot />
+</head>

@@ -1,0 +1,33 @@
+---
+import 'src/styles/main.scss'
+import { Language } from 'src/types/Language'
+import 'modern-normalize/modern-normalize.css'
+
+import HtmlHead from 'src/components/HtmlHead.astro'
+import { Page } from 'src/types/Page'
+
+interface Props {
+  page: Page
+  lang: Language
+}
+
+const { page, lang } = Astro.props as Props
+---
+
+<!DOCTYPE html>
+<html lang={'en'} dir="ltr" data-theme="light">
+  <HtmlHead page={page} lang={lang} />
+
+  <body>
+    <main>
+      <slot />
+    </main>
+
+    <script>
+      // import { initPage } from '../helpers'
+      // initPage()
+    </script>
+
+    <style></style>
+  </body>
+</html>

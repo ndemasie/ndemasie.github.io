@@ -1,0 +1,84 @@
+---
+import { BlogPostManager } from 'src/BlogPostManager'
+
+import PageLayout from '@layouts/PageLayout.astro'
+import BlogPostPreview from '@components/BlogPostPreview.astro'
+
+import localStrings from '@locals/strings'
+
+import { Language, Page } from '@enums'
+import  { BlogPost } from '@interfaces'
+
+export interface Params {
+  lang: Language
+}
+export interface Props {
+  posts: BlogPost[]
+}
+
+export async function getStaticPaths() {
+  const buildRoute = (lang: Language, posts: BlogPost[]) => {
+    const filteredPosts = posts.filter((post) => post.lang === lang)
+    return {
+      params: { lang },
+      props: { posts: filteredPosts },
+    }
+  }
+
+  const routes = Object.values(Language).map((lang) => buildRoute(lang, BlogPostManager.posts))
+  return routes
+}
+
+const { lang } = Astro.params as unknown as Params
+const { posts } = Astro.props as Props
+const page = Page.Blog
+const strings = localStrings[lang].page[page]
+---
+
+<PageLayout lang={lang} page={page}>
+  <h2>{strings.intro_title}</h2>
+  {posts
+    .filter((post) => Date.now() > new Date(post.frontmatter.datePublished).getTime())
+    .map((post) => <BlogPostPreview lang={lang} post={post} />)
+  }
+</PageLayout>
+
+<script>
+  import { injectCustomHistoryEvents } from '../../../helpers'
+
+  injectCustomHistoryEvents()
+  window.addEventListener('history.pushState', () => filterPosts())
+  window.addEventListener('history.replaceState', () => filterPosts())
+  document.addEventListener('DOMContentLoaded', () => filterPosts())
+
+  const filterPosts = (): void => {
+    const tag = new URL(location.toString()).searchParams.get('tag')
+    document
+      .querySelectorAll<HTMLDivElement>('.BlogPostPreview')
+      .forEach((element) => {
+        element.style.display = !tag || element.dataset?.tags?.includes(tag)
+          ? 'block'
+          : 'none'
+    })
+  }
+
+  document
+    .querySelectorAll<HTMLAnchorElement>('a.BaseTag')
+    .forEach((link) => {
+      link.addEventListener('click', function (event) {
+        event.preventDefault()
+        const prevUrl = new URL(location.toString())
+        const nextUrl = new URL(this.href)
+
+        // Toggle search param 'tag' on same tag click
+        if (nextUrl.searchParams.get('tag') === prevUrl.searchParams.get('tag')) {
+          nextUrl.searchParams.delete('tag')
+        }
+
+        // Only push history when user starts searching by tag
+        !!nextUrl.searchParams.get('tag') && !prevUrl.searchParams.get('tag')
+          ? history.pushState(null, '', nextUrl)
+          : history.replaceState(null, '', nextUrl)
+      })
+    })
+</script>

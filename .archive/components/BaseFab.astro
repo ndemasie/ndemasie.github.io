@@ -1,0 +1,52 @@
+---
+export interface Props {
+  action: 'link'
+  url: string
+}
+
+const { action, url } = Astro.props as unknown as Props
+---
+
+{action === 'link' &&
+<a class="BaseFab bottom right animate-sine" href={url}></a>
+}
+
+<style lang="scss">
+  @import '../styles/abstracts/mixins.scss';
+
+  .BaseFab {
+    position: fixed;
+    height: 60px;
+    width: 60px;
+
+    @each $side in top right bottom left {
+      &.#{$side} {
+        #{$side}: 30px;
+      }
+    }
+
+    &::after {
+      content: '';
+      height: 100%;
+      width: 100%;
+      display: block;
+      border-radius: 50%;
+      background-color: var(--theme-primary);
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow: 1px 1px 3px 1px var(--theme-background-box-shadow);
+
+      &:hover {
+        background-color: var(--theme-accent);
+      }
+    }
+
+    @include animate-sine(calc(30px + 60px));
+  }
+
+  .BaseFab[href^="https://github.com"]::after {
+    background-image: url(/brands/github.svg);
+    background-size: 103%;
+  }
+</style>

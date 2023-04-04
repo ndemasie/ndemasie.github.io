@@ -1,0 +1,30 @@
+FROM node:16-alpine
+
+ENV ENVIRONMENT_MODE development
+
+WORKDIR /root
+
+# NPM install
+COPY ./package.json ./
+COPY ./package-lock.json ./
+RUN npm ci
+
+# Fix Astro Vite issue compiling JSX
+# https://github.com/withastro/astro/issues/4432#issuecomment-1309770060
+RUN sed -i 's/jsxImportSource: "react"/jsxImportSource: "@emotion\/react"/' ./node_modules/@astrojs/react/dist/index.js
+RUN sed -i 's/importSource: ReactVersion.startsWith("18.") ? "react" : "@astrojs\/react"/importSource: ReactVersion.startsWith("18.") ? "@emotion\/react" : "@astrojs\/react"/' node_modules/@astrojs/react/dist/index.js
+
+# Copy configs
+COPY ./astro.config.mjs ./
+COPY ./tsconfig.json ./
+COPY ./postcss.config.js ./
+# COPY ./.prettierrc.json ./
+# COPY ./.eslintrc.json ./
+# COPY ./.stylelintrc.json ./
+
+# Copy config dependency
+COPY ./src/types ./src/types
+
+EXPOSE 3000
+
+CMD npm run astro:dev -- --host

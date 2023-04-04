@@ -1,0 +1,13 @@
+:root {
+  --nav-heading-font-size: 1.2rem;
+}
+
+%heading-nav {
+  font-size: var(--nav-heading-font-size);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--theme-primary);
+
+  margin: auto 0.5rem;
+  padding: 0.1em;
+}

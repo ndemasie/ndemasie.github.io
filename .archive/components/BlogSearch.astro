@@ -1,0 +1,45 @@
+---
+import { Language } from '@enums'
+import { BlogPostManager } from 'src/BlogPostManager'
+
+export interface Props {
+  lang: Language
+}
+
+const { lang } = Astro.props as Props
+const searchDocs = BlogPostManager.searchDocuments.filter((doc) => doc.lang === lang)
+---
+
+<label>
+  <span class="prepend-icon"></span>
+  <input type="search" placeholder="Search.." />
+</label>
+
+<script define:vars={{ searchDocs }}> window.searchDocs = searchDocs </script>
+
+<script>
+  import lunr from 'lunr'
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.lunr) return
+
+    window.lunr = lunr(function () {
+      this.ref('slug')
+      this.field('tags')
+      this.field('title')
+      this.field('body')
+
+      searchDocs.forEach((doc) => this.add(doc), this)
+    })
+
+    const handleSearch = (search: string) => {
+      //sanitize
+      const safeSearch = search
+      const expandedSafeSearch = safeSearch
+        .split(' ')
+        .filter(Boolean)
+        .map((term) => `${term.charAt(0) !== '+' ? '+' : ''}${term}~1`)
+        .join(' ')
+    }
+  })
+</script>

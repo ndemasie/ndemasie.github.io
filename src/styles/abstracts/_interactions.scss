@@ -1,0 +1,22 @@
+%underline {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border: solid 1.4px var(--theme-primary);
+    width: 100%;
+
+    transition: transform 500ms ease;
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+
+  &:hover::after,
+  &:focus::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "[postcss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "[astro]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  },
+  "[javascript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "prettier.documentSelectors": [
+    "src/**/*.{astro,js,jsx,ts,tsx,css,scss,sass,md}"
+  ],
+  "eslint.workingDirectories": [
+    "./src"
+  ],
+  "eslint.validate": [
+    "astro",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ],
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss"
+  ],
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-action.json": "file:///Users/nathandemasie/code/ndemasie.github.io/.github/workflows/deploy.yml"
+  },
+  "cSpell.words": [
+    "apidevtools",
+    "hljs"
+  ]
+}

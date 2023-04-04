@@ -1,0 +1,20 @@
+{
+  "common": {
+    "unknown": "Unknown",
+    "undefined": "Undefined"
+  },
+  "page": {
+    "_title_undefined": "$t('common.undefined')",
+    "_description_undefined": "$t('common.undefined')",
+    "tutorial": {
+      "_title": "Tutorials",
+      "_description": "",
+      "title": "Welcome to the tutorials pages"
+    }
+  },
+  "tutorial": {
+    "i18next": {
+      "title": "Learning i18n-next"
+    }
+  }
+}

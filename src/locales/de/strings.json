@@ -1,0 +1,18 @@
+{
+  "common": {
+    "unknown": "Unbekannt"
+  },
+  "page": {
+    "_title_undefined": "$t('common.unknown')",
+    "_description_undefined": "$t('common.undefined')",
+    "tutorial": {
+      "_title": "Lehrgang",
+      "_description": ""
+    }
+  },
+  "tutorial": {
+    "i18next": {
+      "title": "Tutorial über i18n-next"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+---
+import { BlogPostManager } from 'src/BlogPostManager'
+
+import PageLayout from '@layouts/PageLayout.astro'
+import BlogPostComponent from '@components/BlogPost.astro'
+
+import { Language, Page } from '@enums'
+import { BlogPost } from '@interfaces'
+
+export interface Params {
+  lang: Language
+  slug: string
+}
+export interface Props {
+  post: BlogPost
+}
+
+export async function getStaticPaths() {
+  const buildRoute = (post: BlogPost) => {
+    const { lang, slug } = post
+    return {
+      params: { lang, slug },
+      props: { post },
+    }
+  }
+
+  const routes = BlogPostManager.posts.map((post) => buildRoute(post))
+  return routes
+}
+
+const { lang } = Astro.params as unknown as Params
+const { post } = Astro.props as Props
+const page = Page.Blog
+---
+
+<PageLayout lang={lang} page={page} title={post?.title} description={post?.introParagraph}>
+  <BlogPostComponent lang={lang} post={post} />
+</PageLayout>

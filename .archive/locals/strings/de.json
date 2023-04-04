@@ -1,0 +1,46 @@
+{
+  "component": {
+    "BaseHeader": {
+      "lang_label_alt": "Sprache auswählen"
+    },
+    "BlogPost": {
+      "meta_fields": {
+        "author": "Autor",
+        "tags": "Tags",
+        "date_published": "Publiziert",
+        "date_updated": "Aktualisiert"
+      }
+    },
+    "BlogPostPreview": {
+      "link_out": "weiter lesen"
+    }
+  },
+  "page": {
+    "home": {
+      "_nav_text": "Home",
+      "_meta_title": "Nathan DeMasie",
+      "_description": "Webseite von Nathan DeMasie",
+      "intro_title": "Hallo Welt!",
+      "intro_description": "Dies ist eine Testlokalisierung"
+    },
+    "blog": {
+      "_nav_text": "Blog",
+      "_meta_title": "Blog",
+      "_meta_description": "Blog von Nathan DeMasie",
+      "intro_title": "Posts"
+    },
+    "cv": {
+      "_nav_text": "CV"
+    }
+  },
+  "tag": {
+    "astro": "Astro",
+    "blog_template": "Blogvorlage",
+    "github": "Github",
+    "keybind": "Keybind",
+    "keyboard_shortcut": "Tastaturkürzel",
+    "snippet": "Snippet",
+    "oss": "Open source",
+    "vscode": "VSCode"
+  }
+}

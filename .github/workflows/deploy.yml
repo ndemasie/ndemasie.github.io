@@ -5,29 +5,25 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    env:
-      ENVIRONMENT_MODE: production
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    - run: bash ./scripts/build.sh
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
-    environment:
+    permissions:
+      contents: write
+    env:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-    - uses: actions/deploy-pages@v1
-      id: deployment
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: bash ./scripts/build.sh
+        env:
+          ENVIRONMENT_MODE: production
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

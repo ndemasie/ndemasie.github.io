@@ -48,7 +48,7 @@
   ],
   "typescript.tsdk": "./node_modules/typescript/lib",
   "yaml.schemas": {
-    "https://json.schemastore.org/github-action.json": "file:///Users/nathandemasie/code/ndemasie.github.io/.github/workflows/deploy.yml"
+    "https://json.schemastore.org/github-action": "/.githhub/workflows/**/*.yml"
   },
   "cSpell.words": [
     "apidevtools",

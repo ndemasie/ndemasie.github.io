@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /** @jsxImportSource @emotion/react */
 import highlightJs from 'highlight.js/lib/core'
 import typescript from 'highlight.js/lib/languages/typescript'

@@ -3,21 +3,16 @@ module.exports = {
   extends: [
     'stylelint-prettier/recommended',
     'stylelint-config-standard-scss',
-    'stylelint-config-prettier-scss'
+    'stylelint-config-prettier-scss',
   ],
   rules: {
-    'prettier/prettier': true,
     indentation: 2,
     'declaration-empty-line-before': [
       'never',
       {
-        ignore: [
-          'after-declaration'
-        ]
-      }
-    ]
+        ignore: ['after-declaration'],
+      },
+    ],
   },
-  ignoreFiles: [
-    'node_modules/*'
-  ]
+  ignoreFiles: ['node_modules/*'],
 }

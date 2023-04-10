@@ -1,12 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-const regionNamesEnglish = new Intl.DisplayNames(['en'], {
-  type: 'region',
-})
-
 export const Essentials: React.FC = () => {
   const { t, i18n } = useTranslation()
+
+  const regionNamesEnglish = new Intl.DisplayNames(['en'], {
+    type: 'region',
+  })
 
   i18n.addResourceBundle('en', 'defaultNS', {
     root: `Root string`,

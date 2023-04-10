@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /** @jsxImportSource @emotion/react */
 import React, { Suspense, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'

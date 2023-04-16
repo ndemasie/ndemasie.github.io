@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "ESNext",
+    ],
+    "target": "ESNext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true
+  }
+}

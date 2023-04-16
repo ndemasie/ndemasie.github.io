@@ -1,6 +1,32 @@
 import { css } from '@emotion/react'
 
 export const styles = {
+  app: {
+    container: css({
+      display: 'grid',
+      grid: `
+      "editor web-container"
+      "editor terminal"
+      / 50% 50%
+    `,
+    }),
+    editor: css({
+      gridArea: 'editor',
+      height: '100%',
+      width: '100%',
+    }),
+    webContainer: css({
+      gridArea: 'web-container',
+      height: '100%',
+      width: '100%',
+      background: 'white',
+    }),
+    terminal: css({
+      gridArea: 'terminal',
+    }),
+  },
+
+  // Legacy
   container: css({
     display: 'grid',
     grid: `

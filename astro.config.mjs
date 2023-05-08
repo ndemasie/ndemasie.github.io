@@ -12,10 +12,7 @@ export default defineConfig({
   outDir: './dist',
   integrations: [react(), sitemap()],
   trailingSlash: 'ignore',
-  site:
-    process.env.ENVIRONMENT_MODE === 'production'
-      ? packageJson.homepage
-      : 'http://localhost:3000',
+  site: process.env.ENVIRONMENT_MODE === 'production' ? packageJson.homepage : 'http://localhost:3000',
 
   server: {
     headers: {

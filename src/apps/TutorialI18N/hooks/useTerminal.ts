@@ -6,10 +6,16 @@ import 'xterm/css/xterm.css'
 
 export const useTerminal = () => {
   const xtermRef = useRef<HTMLElement>()
-  const terminal = useMemo(() => new Terminal({ convertEol: true }), [])
-  const fitAddon = useMemo(() => new FitAddon(), [])
-  const debouncedFit = useMemo(() => _.debounce(() => fitAddon.fit(), 100), [fitAddon])
-  const resizeObserver = useMemo(() => new ResizeObserver(() => debouncedFit()), [debouncedFit])
+
+  const { terminal, fitAddon, debouncedFit, resizeObserver } = useMemo(() => {
+    const fitAddon = new FitAddon()
+    return {
+      terminal: new Terminal({ convertEol: true }),
+      fitAddon,
+      debouncedFit: _.debounce(() => fitAddon.fit(), 100),
+      resizeObserver: new ResizeObserver(() => debouncedFit()),
+    }
+  }, [])
 
   // Setup and teardown
   useEffect(() => {

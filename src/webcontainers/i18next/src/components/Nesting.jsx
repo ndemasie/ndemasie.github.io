@@ -1,20 +1,17 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-export const Nesting: React.FC = () => {
+export default function Nesting() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'defaultNS', {
+  i18n.addResourceBundle('en', 'translation', {
     hello: 'Hello $t(world)',
     world: 'world',
   })
 
   return (
-    <dl>
+    <dl id="nesting">
       <dt>Nesting</dt>
       <dd>{t('hello')}</dd>
     </dl>
   )
 }
-
-export default Nesting

@@ -1,10 +1,9 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-export const ArraysObjects: React.FC = () => {
+export default function ObjectsAndArrays() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'defaultNS', {
+  i18n.addResourceBundle('en', 'translation', {
     tree: {
       branch: 'branch',
       squirrel: '🐿️',
@@ -14,13 +13,11 @@ export const ArraysObjects: React.FC = () => {
   })
 
   return (
-    <dl>
+    <dl id="objects-and-arrays">
       <dt>Arrays</dt>
       <dd>{t('animals')}</dd>
       <dd>{t('animals.2')}</dd>
-      <dd>
-        {t('animals', { pet: '🐶', joinArrays: ', ' })}
-      </dd>
+      <dd>{t('animals', { pet: '🐶', joinArrays: ', ' })}</dd>
       <dd>{-t('animals', { returnObjects: true })}</dd>
 
       <dt>Objects</dt>
@@ -29,5 +26,3 @@ export const ArraysObjects: React.FC = () => {
     </dl>
   )
 }
-
-export default ArraysObjects

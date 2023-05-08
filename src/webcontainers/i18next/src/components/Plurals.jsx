@@ -1,10 +1,9 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-export const Plurals: React.FC = () => {
+export default function Plurals() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'defaultNS', {
+  i18n.addResourceBundle('en', 'translation', {
     plural: 'Plural demonstration',
     plural_zero: 'No Example',
     plural_one: 'Example',
@@ -20,7 +19,7 @@ export const Plurals: React.FC = () => {
   })
 
   return (
-    <dl>
+    <dl id="plurals">
       <dt>Plurals</dt>
       <dd>{t('plural')}</dd>
       <dd>{t('plural', { count: 0 })}</dd>
@@ -44,5 +43,3 @@ export const Plurals: React.FC = () => {
     </dl>
   )
 }
-
-export default Plurals

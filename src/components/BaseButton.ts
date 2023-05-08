@@ -70,16 +70,8 @@ const template = `
 `
 
 class MyButton extends HTMLElement {
-  // static get observedAttributes() {
-  //   return [
-  //     'disabled'
-  //   ]
-  // }
-
   constructor() {
     super()
-
-    console.log(this)
 
     // Get the template and clone it into the shadow DOM
     const el = document.createElement('template')
@@ -93,11 +85,6 @@ class MyButton extends HTMLElement {
     const button = this.shadowRoot!.querySelector('button')!
     button.className = this.className
   }
-
-  // attributeChangedCallback(prop, prev, value) {
-  //   if (prev === value) return
-  //   this[prop] = value
-  // }
 }
 
 customElements.define('my-button', MyButton)

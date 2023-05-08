@@ -7,50 +7,46 @@ import { Terminal } from 'xterm'
 export const useWebContainer = (files: FileSystemTree, terminal: Terminal) => {
   const [containerUrl, setContainerUrl] = useState<string>()
 
-  const container = useAsyncRetry<WebContainer>(async () => {
-    const container = await WebContainer.boot()
-    await container.mount(files)
+  const { value: container } = useAsyncRetry<WebContainer | undefined>(async () => {
+    try {
+      const container = await WebContainer.boot()
+      await container.mount(files)
 
-    await run('npm install', container)
-    await run('npm run start', container)
+      const installProcess = await spawn('npm install', container)
+      await installProcess?.exit
 
-    container.on('server-ready', (port, url) => {
-      setContainerUrl(url)
-    })
+      await spawn('npm run start', container)
 
-    return container
-  })
-
-  const run = useCallback(
-    async (commandString: string, containerInstance?: WebContainer) => {
-      const instance = containerInstance ?? container?.value
-
-      if (!instance) {
-        return
-      }
-
-      const [cmd, ...args] = commandString.split(' ')
-      const process = await instance.spawn(cmd, args, {
-        output: true,
+      container.on('server-ready', (port, url) => {
+        setContainerUrl(url)
       })
 
-      process.output.pipeTo(
-        new WritableStream({
-          write(data) {
-            terminal.write(data)
-          },
-        }),
-      )
+      return container
+    } catch (e) {
+      console.log(e)
+    }
+  })
 
+  const spawn = useCallback(
+    async (commandString: string, containerInstance?: WebContainer) => {
+      const instance = containerInstance ?? container
+
+      if (!instance) return
+
+      const [cmd, ...args] = commandString.split(' ')
+      const process = await instance.spawn(cmd, args, { output: true })
+      const writeStream = new WritableStream({ write: (data) => terminal.write(data) })
+
+      process.output.pipeTo(writeStream)
       return process
     },
-    [container.value, terminal],
+    [container, terminal],
   )
 
   return {
     containerUrl,
     container,
-    run,
+    spawn,
     fileSystemTree: files,
   }
 }

@@ -1,10 +1,9 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-export const Interpolation: React.FC = () => {
+export default function Interpolation() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'defaultNS', {
+  i18n.addResourceBundle('en', 'translation', {
     key: 'Look! {{model}} go vroom!',
     key_fancy: 'Look! {{car.model}} go vroom!',
   })
@@ -14,7 +13,7 @@ export const Interpolation: React.FC = () => {
   }
 
   return (
-    <dl>
+    <dl id="interpolation">
       <dt>Interpolation</dt>
       <dd>{t('key', { model: car.model })}</dd>
       <dd>{t('key_fancy', { car })}</dd>
@@ -27,5 +26,3 @@ export const Interpolation: React.FC = () => {
     </dl>
   )
 }
-
-export default Interpolation

@@ -24,7 +24,10 @@ function t(key: string | string[], lng: Language) {
   return (
     [key]
       .flat(Infinity)
-      .map((key) => _.get(strings?.[lng], key) || _.get(strings?.[Language.EN], key))
+      .map(
+        (key) =>
+          _.get(strings?.[lng], key) || _.get(strings?.[Language.EN], key),
+      )
       .filter(Boolean)
       .at(0) || key
   )

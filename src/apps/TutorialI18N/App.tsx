@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React, { Suspense, useCallback, useMemo } from 'react'
+import type { FileSystemTree } from '@webcontainer/api'
+import React, { Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useCounter } from 'react-use'
+import { useAsync, useCounter, useHash } from 'react-use'
 
-import 'animate.css'
-import 'highlight.js/styles/github-dark.css'
+// import 'animate.css'
 
+import '../../components/BaseButton'
 import '../../types/global'
-import CodeQuestionAnswer from './components/CodeQuestionAnswer'
-import Intro from './components/Intro'
-import { lessons, Lesson } from './data'
+import Repl from './components/Repl'
+import { lessons } from './data'
 import './i18n'
 import { styles } from './styles'
 
@@ -20,37 +20,38 @@ const Loading: React.FC = () => {
 
 const App: React.FC = () => {
   const { t } = useTranslation()
-  const [count, counterActions] = useCounter(0)
+  const [count, countActions] = useCounter(0)
+  const [, setHash] = useHash()
 
-  const curLesson = useMemo(() => {
-    return lessons.at(count) ?? lessons.at(-1) ?? lessons[0]
-  }, [count])
+  const files = useAsync(async () => {
+    const response = await fetch(
+      '/src/webcontainers/i18next/fileSystemTree.json',
+    )
+    if (!response.ok) {
+      throw new Error('not loaded')
+    }
+    return response.json() as Promise<FileSystemTree>
+  })
 
-  const renderLesson = useCallback(
-    (type: Lesson['type']) => {
-      console.log('renderLesson', type)
-      switch (type) {
-        case 'Intro':
-          return <Intro lesson={curLesson} />
-        case 'CodeQuestionAnswer':
-          return <CodeQuestionAnswer key={curLesson.key} lesson={curLesson} />
-        default:
-      }
-    },
-    [curLesson],
-  )
+  // Sync count of lesson to URL hash
+  useEffect(() => {
+    const hash = lessons.at(count)?.key
+    setHash(`#${hash}`)
+  }, [count, setHash])
 
   return (
     <Suspense fallback={<Loading />}>
-      {renderLesson(curLesson.type)}
+      {!files.loading && !files.error && !!files.value && (
+        <Repl fileSystemTree={files.value} />
+      )}
 
       <div css={styles.footer}>
         {!!count && (
-          <my-button class="fill" onClick={() => counterActions.dec()}>
+          <my-button class="fill" onClick={() => countActions.dec()}>
             {t('common:back')}
           </my-button>
         )}
-        <my-button class="fill" onClick={() => counterActions.inc()}>
+        <my-button class="fill" onClick={() => countActions.inc()}>
           {t('common:next')}
         </my-button>
       </div>

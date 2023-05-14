@@ -1,0 +1,24 @@
+body {
+  height: 100%;
+  /* width: 100%; */
+  font-family: Sans-Serif;
+  padding: 0.4rem 1.2rem;
+}
+
+dl:target {
+  display: block;
+}
+
+dl:not(:target) {
+  display: none;
+}
+
+dt {
+  font-size: 28px;
+  margin-bottom: 0.8rem;
+}
+
+dd {
+  font-size: 20px;
+  margin-bottom: 0.4rem;
+}

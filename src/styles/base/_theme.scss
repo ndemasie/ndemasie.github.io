@@ -1,5 +1,5 @@
-@use "sass:color" as color;
-@use "sass:map" as map;
+@use 'sass:color' as color;
+@use 'sass:map' as map;
 
 $themes: (
   light: (
@@ -18,16 +18,24 @@ $themes: (
 
 :root {
   @each $theme, $themeVal in $themes {
-    &[data-theme="#{$theme}"] {
-
+    &[data-theme='#{$theme}'] {
       @each $color, $colorVal in $themeVal {
         --theme-#{$color}: #{$colorVal};
       }
 
-      --theme-primary-hover: #{color.adjust(map.get($themeVal, 'primary'), $lightness: 10%)};
-      --theme-primary-active: #{color.adjust(map.get($themeVal, 'primary'), $lightness: 20%)};
+      --theme-primary-hover: #{color.adjust(
+          map.get($themeVal, 'primary'),
+          $lightness: 10%
+        )};
+      --theme-primary-active: #{color.adjust(
+          map.get($themeVal, 'primary'),
+          $lightness: 20%
+        )};
       --transparent: rgb(255 255 255 / 0%);
-      --theme-background-box-shadow: #{color.adjust(map.get($themeVal, 'background'), $lightness: -10%)};
+      --theme-background-box-shadow: #{color.adjust(
+          map.get($themeVal, 'background'),
+          $lightness: -10%
+        )};
       --theme-background-gradient: linear-gradient(
         -200deg,
         #{color.adjust(map.get($themeVal, 'background'), $lightness: 0%)} 50%,
@@ -43,8 +51,15 @@ html {
   background: var(--theme-background-gradient);
 }
 
-h1, h2, h3, h4, h5, h6,
-ol, ul, dl,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+dl,
 p {
   color: var(--theme-primary);
 }

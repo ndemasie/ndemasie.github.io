@@ -1,14 +1,13 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-const regionNamesEnglish = new Intl.DisplayNames(['en'], {
-  type: 'region',
-})
-
-export const Essentials: React.FC = () => {
+export default function Essentials() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'defaultNS', {
+  const regionNamesEnglish = new Intl.DisplayNames(['en'], {
+    type: 'region',
+  })
+
+  i18n.addResourceBundle('en', 'translation', {
     root: `Root string`,
     nested: {
       foo: 'Nested foo',
@@ -19,7 +18,7 @@ export const Essentials: React.FC = () => {
   })
 
   return (
-    <dl>
+    <dl id="essentials">
       <dt>Accessing keys</dt>
       <dd>{t('root')}</dd>
       <dd>{t('nested.foo')}</dd>
@@ -33,5 +32,3 @@ export const Essentials: React.FC = () => {
     </dl>
   )
 }
-
-export default Essentials

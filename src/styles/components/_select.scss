@@ -1,5 +1,5 @@
-@use "sass:color";
-@use "sass:map";
+@use 'sass:color';
+@use 'sass:map';
 
 @use '../abstracts/mixins.scss' as mixin;
 @use '../base/theme.scss' as theme;
@@ -70,7 +70,7 @@ label.select {
 
     background: currentColor;
     mask: var(--icon-url);
-    
+
     margin-inline-start: 0.3em;
     height: 1em;
     width: 1em;
@@ -80,7 +80,7 @@ label.select {
   > .prepend-icon ~ select {
     color: var(--theme-background);
     width: 2.4em;
-    
+
     @include sm {
       color: inherit;
       padding-inline-start: calc(1em + 0.3em);
@@ -105,7 +105,7 @@ label.select {
 label.select {
   > .dropdown-arrow {
     --size: 6px;
-  
+
     position: absolute;
     top: calc(50% - (var(--size) / 2));
     right: 0;
@@ -120,7 +120,7 @@ label.select {
   }
 
   > .dropdown-arrow ~ select,
-  > .dropdown-arrow ~ .select-options > .select-option  {
+  > .dropdown-arrow ~ .select-options > .select-option {
     padding-inline-end: 1em;
   }
 

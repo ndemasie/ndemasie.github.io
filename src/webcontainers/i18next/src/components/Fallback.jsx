@@ -1,18 +1,17 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-export const Fallback: React.FC = () => {
+export default function Fallback() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'defaultNS', {
+  i18n.addResourceBundle('en', 'translation', {
     error: {
-      '418': "I'm a teapot",
+      418: "I'm a teapot",
       undefined: 'Unknown HTTP error',
     },
   })
 
   return (
-    <dl>
+    <dl id="fallback">
       <dt>Fallback key</dt>
       <dd>{t(`error.${418}`)}</dd>
       <dd>{t([`error.${428}`, 'error.undefined'])}</dd>
@@ -34,5 +33,3 @@ export const Fallback: React.FC = () => {
     </dl>
   )
 }
-
-export default Fallback

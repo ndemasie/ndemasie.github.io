@@ -1,10 +1,9 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-export const Context: React.FC = () => {
+export default function Context() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'defaultNS', {
+  i18n.addResourceBundle('en', 'translation', {
     friend: 'A friend',
     friend_male: 'A boyfriend',
     friend_female: 'A girlfriend',
@@ -15,7 +14,7 @@ export const Context: React.FC = () => {
   })
 
   return (
-    <dl>
+    <dl id="context">
       <dt>Context</dt>
       <dd>{t('friend')}</dd>
       <dd>{t('friend', { context: 'male' })}</dd>
@@ -28,5 +27,3 @@ export const Context: React.FC = () => {
     </dl>
   )
 }
-
-export default Context

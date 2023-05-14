@@ -27,6 +27,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.formatOnSave": true,
+  "prettier.stylelintIntegration": true,
   "prettier.documentSelectors": [
     "src/**/*.{astro,js,jsx,ts,tsx,css,scss,sass,md}"
   ],
@@ -52,6 +53,7 @@
   },
   "cSpell.words": [
     "apidevtools",
-    "hljs"
+    "hljs",
+    "webcontainer"
   ]
 }

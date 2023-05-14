@@ -8,7 +8,7 @@ module.exports = {
   astroAllowShorthand: false,
   overrides: [
     {
-      files: ['**/apps/**/public/**/*.tsx'],
+      files: ['src/webcontainers/**/*.*'],
       options: {
         printWidth: 60,
       },

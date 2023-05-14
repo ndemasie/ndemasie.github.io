@@ -1,8 +1,7 @@
 ---
-import PageLayout from 'src/layouts/PageLayout.astro'
 import { Language } from 'src/types/Language'
 import { Page } from 'src/types/Page'
-import { t } from 'src/locales'
+import RedirectHomeLayout from 'src/layouts/RedirectHomeLayout.astro'
 
 export async function getStaticPaths() {
   return Object.values(Language).map((lang) => ({ params: { lang } }))
@@ -15,6 +14,4 @@ const { lang } = Astro.params as unknown as Params
 const page = Page.Tutorial
 ---
 
-<PageLayout page={page} lang={lang}>
-  <h1>{t('page.tutorial.title', lang)}</h1>
-</PageLayout>
+<RedirectHomeLayout lang={lang} />

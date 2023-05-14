@@ -18,7 +18,10 @@ export default function App() {
       // if (event.origin !== 'http://localhost:3000') return
 
       if (event.data?.type === 'webpackOk') {
-        const message = { source: packageJson.name, payload: structuredClone(event.data ?? {}) }
+        const message = {
+          source: packageJson.name,
+          payload: structuredClone(event.data ?? {}),
+        }
         window.top.postMessage(message, '*')
       }
 
@@ -27,8 +30,17 @@ export default function App() {
       }
     }
 
-    window.addEventListener('message', onMessageEvent, false)
-    return () => window.removeEventListener('message', onMessageEvent, false)
+    window.addEventListener(
+      'message',
+      onMessageEvent,
+      false,
+    )
+    return () =>
+      window.removeEventListener(
+        'message',
+        onMessageEvent,
+        false,
+      )
   })
 
   return (

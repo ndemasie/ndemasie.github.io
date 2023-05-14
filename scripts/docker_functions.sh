@@ -20,6 +20,6 @@ if declare -f "$1" > /dev/null
 then
   "$@"
 else
-  echo "'$1' is not a known function name" >&2
+  echo "'$1' is not a known function name"
   exit 1
 fi

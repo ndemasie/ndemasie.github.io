@@ -17,11 +17,19 @@ export default function Fallback() {
       <dd>{t([`error.${428}`, 'error.undefined'])}</dd>
 
       <dt>CAREFUL! Never typeof 'undefined'</dt>
-      <dd>{((opt) => t([`error.${428}`, String(opt)]))()}</dd>
-      <dd>{((opt) => t([`error.${428}`, `error.${opt}`]))()}</dd>
+      <dd>
+        {((opt) => t([`error.${428}`, String(opt)]))()}
+      </dd>
+      <dd>
+        {((opt) => t([`error.${428}`, `error.${opt}`]))()}
+      </dd>
 
       <dt>Avoid exists checks</dt>
-      <dd>{i18n.exists(`error.${428}`) ? t(`error.${428}`) : t(`error.undefined`)}</dd>
+      <dd>
+        {i18n.exists(`error.${428}`)
+          ? t(`error.${428}`)
+          : t(`error.undefined`)}
+      </dd>
     </dl>
   )
 }

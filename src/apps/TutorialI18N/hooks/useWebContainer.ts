@@ -7,25 +7,27 @@ import { Terminal } from 'xterm'
 export const useWebContainer = (files: FileSystemTree, terminal: Terminal) => {
   const [containerUrl, setContainerUrl] = useState<string>()
 
-  const { value: container } = useAsyncRetry<WebContainer | undefined>(async () => {
-    try {
-      const container = await WebContainer.boot()
-      await container.mount(files)
+  const { value: container } = useAsyncRetry<WebContainer | undefined>(
+    async () => {
+      try {
+        const container = await WebContainer.boot()
+        await container.mount(files)
 
-      const installProcess = await spawn('npm install', container)
-      await installProcess?.exit
+        const installProcess = await spawn('npm install', container)
+        await installProcess?.exit
 
-      await spawn('npm run start', container)
+        await spawn('npm run start', container)
 
-      container.on('server-ready', (port, url) => {
-        setContainerUrl(url)
-      })
+        container.on('server-ready', (port, url) => {
+          setContainerUrl(url)
+        })
 
-      return container
-    } catch (e) {
-      console.log(e)
-    }
-  })
+        return container
+      } catch (e) {
+        console.log(e)
+      }
+    },
+  )
 
   const spawn = useCallback(
     async (commandString: string, containerInstance?: WebContainer) => {
@@ -35,7 +37,9 @@ export const useWebContainer = (files: FileSystemTree, terminal: Terminal) => {
 
       const [cmd, ...args] = commandString.split(' ')
       const process = await instance.spawn(cmd, args, { output: true })
-      const writeStream = new WritableStream({ write: (data) => terminal.write(data) })
+      const writeStream = new WritableStream({
+        write: (data) => terminal.write(data),
+      })
 
       process.output.pipeTo(writeStream)
       return process

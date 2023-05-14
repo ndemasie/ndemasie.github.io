@@ -24,7 +24,9 @@ const App: React.FC = () => {
   const [, setHash] = useHash()
 
   const files = useAsync(async () => {
-    const response = await fetch('/src/webcontainers/i18next/fileSystemTree.json')
+    const response = await fetch(
+      '/src/webcontainers/i18next/fileSystemTree.json',
+    )
     if (!response.ok) {
       throw new Error('not loaded')
     }
@@ -39,7 +41,9 @@ const App: React.FC = () => {
 
   return (
     <Suspense fallback={<Loading />}>
-      {!files.loading && !files.error && !!files.value && <Repl fileSystemTree={files.value} />}
+      {!files.loading && !files.error && !!files.value && (
+        <Repl fileSystemTree={files.value} />
+      )}
 
       <div css={styles.footer}>
         {!!count && (

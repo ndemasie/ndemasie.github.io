@@ -11,7 +11,10 @@ interface Props {
 const { page, lang } = Astro.props as Props
 
 const title = t([`page.${page}._title`, 'page._title_undefined'], lang)
-const description = t([`page.${page}._description`, 'page._description_undefined'], lang)
+const description = t(
+  [`page.${page}._description`, 'page._description_undefined'],
+  lang,
+)
 const permalink = 'https://www.nathandemasie.com'
 ---
 

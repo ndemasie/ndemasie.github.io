@@ -17,7 +17,9 @@ export default function ObjectsAndArrays() {
       <dt>Arrays</dt>
       <dd>{t('animals')}</dd>
       <dd>{t('animals.2')}</dd>
-      <dd>{t('animals', { pet: '🐶', joinArrays: ', ' })}</dd>
+      <dd>
+        {t('animals', { pet: '🐶', joinArrays: ', ' })}
+      </dd>
       <dd>{-t('animals', { returnObjects: true })}</dd>
 
       <dt>Objects</dt>

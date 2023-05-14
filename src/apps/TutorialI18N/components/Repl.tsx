@@ -1,18 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import type { FileSystemTree } from '@webcontainer/api'
-import { javascript } from '@codemirror/lang-javascript'
-import CodeMirror from '@uiw/react-codemirror'
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+} from 'react'
 import { useHash } from 'react-use'
 
-// import 'animate.css'
+import Editor from './Editor'
 
 import packageJson from '../../../../package.json'
 import { lessons } from '../data'
 import { useTerminal } from '../hooks/useTerminal'
 import { useWebContainer } from '../hooks/useWebContainer'
 import { styles } from '../styles'
-// import CodeEditor from './CodeEditor'
 
 type Props = {
   fileSystemTree: FileSystemTree
@@ -20,17 +23,25 @@ type Props = {
 
 const Repl: React.FC<Props> = ({ fileSystemTree }) => {
   const { ref: refTerminal, terminal } = useTerminal()
-  const { containerUrl } = useWebContainer(fileSystemTree, terminal)
+  const { containerUrl, container } = useWebContainer(fileSystemTree, terminal)
   const [hash] = useHash()
 
   const refIframe = useRef<HTMLIFrameElement>()
 
-  const code = useMemo(() => {
+  const [editorKey, resetEditor] = useReducer(() => Math.random(), 0)
+
+  const curLesson = useMemo(() => {
     const hashKey = hash.substring(1) // drop leading '#'
     const curLesson = lessons.find((lesson) => lesson.key === hashKey)
+    resetEditor()
+    return curLesson
+  }, [hash])
 
-    return fileSystemTree?.src?.directory?.components?.directory?.[curLesson?.filename]?.file?.contents
-  }, [hash, fileSystemTree?.src?.directory?.components?.directory])
+  const code = useMemo(() => {
+    return fileSystemTree?.src?.directory?.components?.directory?.[
+      curLesson?.filename
+    ]?.file?.contents
+  }, [fileSystemTree?.src?.directory?.components?.directory, curLesson])
 
   const postHash = useCallback(() => {
     if (refIframe.current && containerUrl) {
@@ -39,9 +50,14 @@ const Repl: React.FC<Props> = ({ fileSystemTree }) => {
     }
   }, [containerUrl, hash])
 
-  const onCodeChange = useCallback((value, viewUpdate) => {
-    console.log('value:', value)
-  }, [])
+  const onSave = useCallback(
+    async (data: string) => {
+      const path = `/src/components/${curLesson?.filename}`
+      await container?.fs.writeFile(path, data)
+      postHash()
+    },
+    [container?.fs, curLesson?.filename, postHash],
+  )
 
   // Message listener
   useEffect(() => {
@@ -57,9 +73,12 @@ const Repl: React.FC<Props> = ({ fileSystemTree }) => {
 
   return (
     <div css={styles.app.container}>
-      <div css={styles.app.editor}>
-        <CodeMirror value={code} extensions={[javascript({ jsx: true })]} onChange={onCodeChange} theme="dark" />
-      </div>
+      <Editor
+        key={editorKey}
+        css={styles.app.editor}
+        code={code}
+        onSave={onSave}
+      />
 
       <iframe
         id="webcontainer-iframe"
@@ -69,6 +88,7 @@ const Repl: React.FC<Props> = ({ fileSystemTree }) => {
         allow="cross-origin-isolated"
         src={containerUrl ?? ''}
       />
+
       <div css={styles.app.terminal} ref={refTerminal}></div>
     </div>
   )

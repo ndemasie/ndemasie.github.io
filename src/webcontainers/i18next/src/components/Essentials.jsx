@@ -26,7 +26,9 @@ export default function Essentials() {
       <dd>{t('nested.undefined')}</dd>
 
       <dt>Passing a default value</dt>
-      <dd>{t('nested.undefined', regionNamesEnglish.of('DE'))}</dd>
+      <dd>
+        {t('nested.undefined', regionNamesEnglish.of('DE'))}
+      </dd>
     </dl>
   )
 }

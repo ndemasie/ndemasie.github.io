@@ -11,7 +11,9 @@ const lang = undefined;
             .map((lang) => lang?.slice(0, 2).toLowerCase())
             .find((lang) => Object.values(Language).includes(lang))
 
-        window.location.replace(new URL(`${clientLanguage}/tutorial`, window.origin))
+        window.location.replace(
+          new URL(`${clientLanguage}/tutorial/i18next`, window.origin),
+        )
       })
     })();</script>
   </body>

@@ -16,18 +16,13 @@ const { page, lang } = Astro.props as Props
 
 <!DOCTYPE html>
 <html lang={'en'} dir="ltr" data-theme="light">
-  <HtmlHead page={page} lang={lang} />
+  <HtmlHead page={page} lang={lang}>
+    <script is:inline src="/js/enable-threads.js"></script>
+  </HtmlHead>
 
   <body>
     <main>
       <slot />
     </main>
-
-    <script>
-      // import { initPage } from '../helpers'
-      // initPage()
-    </script>
-
-    <style></style>
   </body>
 </html>

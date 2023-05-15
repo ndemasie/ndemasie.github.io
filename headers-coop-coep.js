@@ -10,7 +10,7 @@ if (typeof window === 'undefined') {
   self.addEventListener('install', () => self.skipWaiting())
   self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()))
 
-  async function handleFetch(request) {
+  const handleFetch = async (request) => {
     if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') {
       return
     }
@@ -33,35 +33,39 @@ if (typeof window === 'undefined') {
       })
     }
 
-    let r = await fetch(request).catch((e) => console.error(e))
+    let response = await fetch(request).catch((e) => console.error(e))
 
-    if (r.status === 0) {
-      return r
+    if (response.status === 0) {
+      return response
     }
 
     const headers = new Headers(r.headers)
-    headers.set('Cross-Origin-Embedder-Policy', 'credentialless') // or: require-corp
+    headers.set('Cross-Origin-Embedder-Policy', 'require-corp') // or: credentialless
     headers.set('Cross-Origin-Opener-Policy', 'same-origin')
+    headers.set('Cross-Origin-Resource-Policy', 'cross-origin')
 
-    return new Response(r.body, {
-      status: r.status,
-      statusText: r.statusText,
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
       headers,
     })
   }
 
-  self.addEventListener('fetch', function (e) {
-    e.respondWith(handleFetch(e.request)) // respondWith must be executed synchonously (but can be passed a Promise)
+  self.addEventListener('fetch', function (event) {
+    event.respondWith(handleFetch(event.request)) // respondWith must be executed synchronously (but can be passed a Promise)
   })
 } else {
   ;(async function () {
-    if (window.crossOriginIsolated !== false) return
+    if (window.crossOriginIsolated !== false) {
+      return
+    }
 
-    let registration = await navigator.serviceWorker
+    const registration = await navigator.serviceWorker
       .register(window.document.currentScript.src)
       .catch((e) =>
         console.error('COOP/COEP Service Worker failed to register:', e),
       )
+
     if (registration) {
       console.log('COOP/COEP Service Worker registered', registration.scope)
 

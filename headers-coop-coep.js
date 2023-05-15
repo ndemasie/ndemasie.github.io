@@ -39,7 +39,7 @@ if (typeof window === 'undefined') {
       return response
     }
 
-    const headers = new Headers(r.headers)
+    const headers = new Headers(response.headers)
     headers.set('Cross-Origin-Embedder-Policy', 'require-corp') // or: credentialless
     headers.set('Cross-Origin-Opener-Policy', 'same-origin')
     headers.set('Cross-Origin-Resource-Policy', 'cross-origin')

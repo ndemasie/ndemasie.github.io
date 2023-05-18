@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import type { FileSystemTree } from '@webcontainer/api'
+import _ from 'lodash'
 import React, {
   useCallback,
   useEffect,
@@ -17,31 +17,43 @@ import { useTerminal } from '../hooks/useTerminal'
 import { useWebContainer } from '../hooks/useWebContainer'
 import { styles } from '../styles'
 
-type Props = {
-  fileSystemTree: FileSystemTree
+const getterPath = (path: string) => {
+  const dirs = path.split('/').slice(0, -1)
+  const file = path.split('/').at(-1)
+  return [dirs?.flatMap((d) => [d, 'directory']), file, 'file', 'contents']
+    .flat(1)
+    .filter(Boolean)
 }
 
-const Repl: React.FC<Props> = ({ fileSystemTree }) => {
+type Props = {
+  app: string
+}
+
+const Repl: React.FC<Props> = ({ app }) => {
   const { ref: refTerminal, terminal } = useTerminal()
-  const { containerUrl, container } = useWebContainer(fileSystemTree, terminal)
+  const { fileSystemTree, containerUrl, container } = useWebContainer(
+    app,
+    terminal,
+  )
   const [hash] = useHash()
 
   const refIframe = useRef<HTMLIFrameElement>()
-
   const [editorKey, resetEditor] = useReducer(() => Math.random(), 0)
 
   const curLesson = useMemo(() => {
     const hashKey = hash.substring(1) // drop leading '#'
     const curLesson = lessons.find((lesson) => lesson.key === hashKey)
-    resetEditor()
     return curLesson
   }, [hash])
 
   const code = useMemo(() => {
-    return fileSystemTree?.src?.directory?.components?.directory?.[
-      curLesson?.filename
-    ]?.file?.contents
-  }, [fileSystemTree?.src?.directory?.components?.directory, curLesson])
+    resetEditor()
+    const file = _.get(
+      fileSystemTree,
+      getterPath(`src/components/${curLesson?.filename}`),
+    )
+    return file
+  }, [fileSystemTree, curLesson?.filename])
 
   const postHash = useCallback(() => {
     if (refIframe.current && containerUrl) {
@@ -69,7 +81,9 @@ const Repl: React.FC<Props> = ({ fileSystemTree }) => {
   })
 
   // Post hash change to iframe
-  useEffect(() => postHash(), [hash, postHash])
+  useEffect(() => {
+    postHash()
+  }, [hash, postHash])
 
   return (
     <div css={styles.app.container}>

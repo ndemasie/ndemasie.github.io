@@ -33,7 +33,7 @@ if (typeof window === 'undefined') {
       })
     }
 
-    let response = await fetch(request).catch((e) => console.error(e))
+    const response = await fetch(request).catch((e) => console.error(e))
 
     if (response.status === 0) {
       return response
@@ -51,11 +51,12 @@ if (typeof window === 'undefined') {
     })
   }
 
-  self.addEventListener('fetch', function (event) {
-    event.respondWith(handleFetch(event.request)) // respondWith must be executed synchronously (but can be passed a Promise)
-  })
+  self.addEventListener(
+    'fetch',
+    (event) => event.respondWith(handleFetch(event.request)), // respondWith must be executed synchronously (but can be passed a Promise)
+  )
 } else {
-  ;(async function () {
+  ;(async () => {
     if (window.crossOriginIsolated !== false) {
       return
     }

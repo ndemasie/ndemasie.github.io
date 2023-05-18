@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import type { FileSystemTree } from '@webcontainer/api'
 import React, { Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useAsync, useCounter, useHash } from 'react-use'
+import { useCounter, useHash } from 'react-use'
 
 // import 'animate.css'
 
@@ -20,18 +19,8 @@ const Loading: React.FC = () => {
 
 const App: React.FC = () => {
   const { t } = useTranslation()
-  const [count, countActions] = useCounter(0)
+  const [count, countActions] = useCounter(0, lessons.length, 0)
   const [, setHash] = useHash()
-
-  const files = useAsync(async () => {
-    const response = await fetch(
-      '/src/webcontainers/i18next/fileSystemTree.json',
-    )
-    if (!response.ok) {
-      throw new Error('not loaded')
-    }
-    return response.json() as Promise<FileSystemTree>
-  })
 
   // Sync count of lesson to URL hash
   useEffect(() => {
@@ -41,9 +30,7 @@ const App: React.FC = () => {
 
   return (
     <Suspense fallback={<Loading />}>
-      {!files.loading && !files.error && !!files.value && (
-        <Repl fileSystemTree={files.value} />
-      )}
+      <Repl app="/src/webcontainers/i18next/fileSystemTree.json" />
 
       <div css={styles.footer}>
         {!!count && (

@@ -1,17 +1,31 @@
 import type { FileSystemTree } from '@webcontainer/api'
 import { WebContainer } from '@webcontainer/api'
-import { useCallback, useState } from 'react'
-import { useAsyncRetry } from 'react-use'
+import { useCallback, useEffect, useState } from 'react'
+import { useAsync, useAsyncFn } from 'react-use'
 import { Terminal } from 'xterm'
 
-export const useWebContainer = (files: FileSystemTree, terminal: Terminal) => {
+export const useWebContainer = (path: string, terminal: Terminal) => {
   const [containerUrl, setContainerUrl] = useState<string>()
 
-  const { value: container } = useAsyncRetry<WebContainer | undefined>(
+  const { value: fileSystemTree, ...fileSystemTreeAsync } = useAsync(
     async () => {
+      const response = await fetch(path)
+      if (!response.ok) {
+        throw new Error('not loaded')
+      }
+      return response.json() as Promise<FileSystemTree>
+    },
+  )
+
+  const [{ value: container, ...containerAsync }, loadContainer] =
+    useAsyncFn(async () => {
       try {
+        if (!fileSystemTree) {
+          return
+        }
+
         const container = await WebContainer.boot()
-        await container.mount(files)
+        await container.mount(fileSystemTree)
 
         const installProcess = await spawn('npm install', container)
         await installProcess?.exit
@@ -26,8 +40,7 @@ export const useWebContainer = (files: FileSystemTree, terminal: Terminal) => {
       } catch (e) {
         console.log(e)
       }
-    },
-  )
+    }, [fileSystemTree])
 
   const spawn = useCallback(
     async (commandString: string, containerInstance?: WebContainer) => {
@@ -47,10 +60,23 @@ export const useWebContainer = (files: FileSystemTree, terminal: Terminal) => {
     [container, terminal],
   )
 
+  // Load
+  useEffect(() => {
+    if (
+      !fileSystemTreeAsync.loading &&
+      !fileSystemTreeAsync.error &&
+      !containerAsync.loading &&
+      !containerAsync.error &&
+      !container
+    ) {
+      loadContainer()
+    }
+  }, [container, containerAsync, fileSystemTreeAsync, loadContainer])
+
   return {
     containerUrl,
     container,
     spawn,
-    fileSystemTree: files,
+    fileSystemTree,
   }
 }

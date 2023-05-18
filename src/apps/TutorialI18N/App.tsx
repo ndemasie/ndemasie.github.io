@@ -19,7 +19,7 @@ const Loading: React.FC = () => {
 
 const App: React.FC = () => {
   const { t } = useTranslation()
-  const [count, countActions] = useCounter(0, lessons.length, 0)
+  const [count, countActions] = useCounter(0, lessons.length - 1, 0)
   const [, setHash] = useHash()
 
   // Sync count of lesson to URL hash

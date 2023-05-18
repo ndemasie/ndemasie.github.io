@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 export default function Interpolation() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'translation', {
+  i18n.addResourceBundle(i18n.language, 'translation', {
     key: 'Look! {{model}} go vroom!',
     key_fancy: 'Look! {{car.model}} go vroom!',
   })

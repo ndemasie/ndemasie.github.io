@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 export default function Namespaces() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'translation', {
+  i18n.addResourceBundle(i18n.language, 'translation', {
     root: 'Example string in default namespace',
   })
 
-  i18n.addResourceBundle('en', 'newNamespace', {
+  i18n.addResourceBundle(i18n.language, 'newNamespace', {
     root: 'I am in the "newNamespace"',
   })
 

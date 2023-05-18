@@ -1,7 +1,5 @@
 import { useEffect } from 'react'
 
-import packageJson from '../package.json'
-
 import Context from './components/Context'
 import Essentials from './components/Essentials'
 import Fallback from './components/Fallback'
@@ -11,12 +9,12 @@ import Nesting from './components/Nesting'
 import ObjectsAndArrays from './components/ObjectsAndArrays'
 import Plurals from './components/Plurals'
 
+import packageJson from '../package.json'
+
 export default function App() {
   // Message listener
   useEffect(() => {
     const onMessageEvent = (event) => {
-      // if (event.origin !== 'http://localhost:3000') return
-
       if (event.data?.type === 'webpackOk') {
         const message = {
           source: packageJson.name,

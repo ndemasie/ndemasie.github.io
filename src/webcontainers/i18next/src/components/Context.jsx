@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 export default function Context() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'translation', {
+  i18n.addResourceBundle(i18n.language, 'translation', {
     friend: 'A friend',
     friend_male: 'A boyfriend',
     friend_female: 'A girlfriend',

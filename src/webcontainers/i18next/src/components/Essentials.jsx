@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next'
 export default function Essentials() {
   const { t, i18n } = useTranslation()
 
-  const regionNamesEnglish = new Intl.DisplayNames(['en'], {
-    type: 'region',
-  })
+  const regionNamesEnglish = new Intl.DisplayNames(
+    [i18n.language],
+    { type: 'region' },
+  )
 
-  i18n.addResourceBundle('en', 'translation', {
+  i18n.addResourceBundle(i18n.language, 'translation', {
     root: `Root string`,
     nested: {
       foo: 'Nested foo',

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 export default function Fallback() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'translation', {
+  i18n.addResourceBundle(i18n.language, 'translation', {
     error: {
       418: "I'm a teapot",
       undefined: 'Unknown HTTP error',

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 export default function Plurals() {
   const { t, i18n } = useTranslation()
 
-  i18n.addResourceBundle('en', 'translation', {
+  i18n.addResourceBundle(i18n.language, 'translation', {
     plural: 'Plural demonstration',
     plural_zero: 'No Example',
     plural_one: 'Example',

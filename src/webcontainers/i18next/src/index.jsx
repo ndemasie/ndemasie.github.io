@@ -6,15 +6,15 @@ import { initReactI18next } from 'react-i18next'
 
 import App from './App'
 
+const LANG = {
+  EN: 'en', // English
+}
+
 i18n.use(initReactI18next).init({
-  resources: {
-    en: {},
-  },
-  lng: 'en',
-  fallbackLng: 'en',
-  interpolation: {
-    escapeValue: false,
-  },
+  resources: { [LANG.EN]: {} },
+  lng: LANG.EN,
+  fallbackLng: LANG.EN,
+  interpolation: { escapeValue: false },
 })
 
 const root = createRoot(document.getElementById('root'))

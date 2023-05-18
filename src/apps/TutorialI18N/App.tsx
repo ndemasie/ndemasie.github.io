@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import React, { Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCounter, useHash } from 'react-use'
-
-// import 'animate.css'
 
 import '../../components/BaseButton'
 import '../../types/global'
@@ -12,14 +11,22 @@ import { lessons } from './data'
 import './i18n'
 import { styles } from './styles'
 
+const WEBCONTAINER_APP_I18N = '/src/webcontainers/i18next/fileSystemTree.json'
+
 const Loading: React.FC = () => {
   const { t } = useTranslation()
   return <div>{t('common:loading')}</div>
 }
 
+const StyledButton = ({ className, ...props }) => (
+  <my-button {...props} class={className} />
+)
+
 const App: React.FC = () => {
+  const MAX_LESSON = lessons.length - 1
+
   const { t } = useTranslation()
-  const [count, countActions] = useCounter(0, lessons.length - 1, 0)
+  const [count, countActions] = useCounter(0, MAX_LESSON, 0)
   const [, setHash] = useHash()
 
   // Sync count of lesson to URL hash
@@ -30,17 +37,26 @@ const App: React.FC = () => {
 
   return (
     <Suspense fallback={<Loading />}>
-      <Repl app="/src/webcontainers/i18next/fileSystemTree.json" />
+      <Repl app={WEBCONTAINER_APP_I18N} />
 
       <div css={styles.footer}>
-        {!!count && (
-          <my-button class="fill" onClick={() => countActions.dec()}>
-            {t('common:back')}
-          </my-button>
-        )}
-        <my-button class="fill" onClick={() => countActions.inc()}>
+        <StyledButton
+          className="fill"
+          onClick={() => countActions.dec()}
+          css={css({ visibility: count ? 'visible' : 'hidden' })}
+        >
+          {t('common:back')}
+        </StyledButton>
+
+        <StyledButton
+          className="fill"
+          onClick={() => countActions.inc()}
+          css={css({
+            visibility: count < MAX_LESSON ? 'visible' : 'hidden',
+          })}
+        >
           {t('common:next')}
-        </my-button>
+        </StyledButton>
       </div>
     </Suspense>
   )

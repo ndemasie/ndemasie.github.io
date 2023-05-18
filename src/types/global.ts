@@ -1,4 +1,4 @@
-// Import in a single file, then across your whole project...
+// Affects whole project
 import '@total-typescript/ts-reset'
 
 /* eslint-disable @typescript-eslint/no-namespace */

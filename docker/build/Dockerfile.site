@@ -19,7 +19,7 @@ COPY ./site/astro.config.mjs ./
 COPY ./site/tsconfig.json ./
 COPY ./site/postcss.config.js ./
 
-COPY ./site/src ./src
-COPY ./site/public ./public
+COPY ./site/src ./src/
+COPY ./site/public ./public/
 
 RUN npm run astro:build

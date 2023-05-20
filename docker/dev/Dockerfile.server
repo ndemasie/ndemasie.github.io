@@ -1,0 +1,19 @@
+# Linux with node install after for a lighter container
+FROM alpine
+RUN apk add --update nodejs npm
+
+ENV ENVIRONMENT_MODE development
+
+WORKDIR /root
+
+# NPM install
+COPY ./server/package.json ./
+COPY ./server/package-lock.json ./
+RUN npm ci
+
+# Copy configs
+COPY ./server/tsconfig.json ./
+
+EXPOSE 3001
+
+CMD npm run start

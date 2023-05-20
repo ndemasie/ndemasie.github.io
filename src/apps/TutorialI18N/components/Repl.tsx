@@ -86,24 +86,19 @@ const Repl: React.FC<Props> = ({ app }) => {
   }, [hash, postHash])
 
   return (
-    <div css={styles.app.container}>
-      <Editor
-        key={editorKey}
-        css={styles.app.editor}
-        code={code}
-        onSave={onSave}
-      />
+    <div css={styles.container}>
+      <Editor key={editorKey} css={styles.editor} code={code} onSave={onSave} />
 
       <iframe
         id="webcontainer-iframe"
         ref={refIframe}
-        css={styles.app.webContainer}
+        css={styles.webContainer}
         title="Repl"
         allow="cross-origin-isolated"
         src={containerUrl ?? ''}
       />
 
-      <div css={styles.app.terminal} ref={refTerminal}></div>
+      <div css={styles.terminal} ref={refTerminal}></div>
     </div>
   )
 }

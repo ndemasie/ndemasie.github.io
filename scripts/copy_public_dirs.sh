@@ -7,7 +7,7 @@ dirs=$(find ./src -type d -path "*/public");
 
 for dir in "${dirs[@]}"; do
   target="${dir#./src/}"
-  target="./public/${target%/public}"
+  target="./site/public/${target%/public}"
 
   mkdir -p "$target"
   cp -r "$dir" "$target"

@@ -1,11 +1,11 @@
 version: "3.9"
 services:
-  blog:
+  site:
     ports:
       - "3000:3000"
     build:
       context: ../../
       dockerfile: ./docker/dev/Dockerfile
     volumes:
-      - ../../src:/root/src:ro
-      - ../../public:/root/public:ro
+      - ../../site/src:/root/src:ro
+      - ../../site/public:/root/public:ro

@@ -41,5 +41,5 @@ function readDirectory(dirname: string): FileSystemTree {
 const tree = readDirectory(DIRECTORY_PATH)
 const content = JSON.stringify(tree)
 
-fs.mkdirSync(`./public/${DIRECTORY_PATH}`, { recursive: true })
-fs.writeFileSync(`./public/${DIRECTORY_PATH}/fileSystemTree.json`, content)
+fs.mkdirSync(`./site/public/${DIRECTORY_PATH}`, { recursive: true })
+fs.writeFileSync(`./site/public/${DIRECTORY_PATH}/fileSystemTree.json`, content)

@@ -1,11 +1,14 @@
 #!/usr/bin/env ts-node
 
+// Script generates the necessary webcontainer FileSystemTree for webcontainers
+// Read more here: https://webcontainers.io/guides/working-with-the-file-system
+
 import type { FileSystemTree } from '@webcontainer/api'
 
 import * as fs from 'fs'
 import * as path from 'path'
 
-const DIRECTORY_PATH = 'src/webcontainers/i18next'
+const DIRECTORY_PATH = 'src/webcontainers/i18next' // FIXME: Make generic
 const SKIP_FILES = ['.DS_Store']
 const SKIP_DIRS = ['node_modules']
 

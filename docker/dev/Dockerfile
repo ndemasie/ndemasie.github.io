@@ -18,9 +18,6 @@ RUN sed -i 's/importSource: ReactVersion.startsWith("18.") ? "react" : "@astrojs
 COPY ./astro.config.mjs ./
 COPY ./tsconfig.json ./
 COPY ./postcss.config.js ./
-# COPY ./.prettierrc.json ./
-# COPY ./.eslintrc.json ./
-# COPY ./.stylelintrc.json ./
 
 # Copy config dependency
 COPY ./src/types ./src/types

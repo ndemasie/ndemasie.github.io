@@ -9,7 +9,7 @@ COPY ./package.json ./
 COPY ./package-lock.json ./
 RUN npm ci
 
-# Fix Astro Vite issue compiling JSX
+# Fix Astro Vite issue compiling JSX with @emotion/react
 # https://github.com/withastro/astro/issues/4432#issuecomment-1309770060
 RUN sed -i 's/jsxImportSource: "react"/jsxImportSource: "@emotion\/react"/' ./node_modules/@astrojs/react/dist/index.js
 RUN sed -i 's/importSource: ReactVersion.startsWith("18.") ? "react" : "@astrojs\/react"/importSource: ReactVersion.startsWith("18.") ? "@emotion\/react" : "@astrojs\/react"/' node_modules/@astrojs/react/dist/index.js

@@ -5,7 +5,7 @@ services:
       - "3000:3000"
     build:
       context: ../../
-      dockerfile: ./docker/dev/Dockerfile
+      dockerfile: ./docker/dev/Dockerfile.site
     volumes:
       - ../../site/src:/root/src:ro
       - ../../site/public:/root/public:ro

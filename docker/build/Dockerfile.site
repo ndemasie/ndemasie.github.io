@@ -22,7 +22,4 @@ COPY ./site/postcss.config.js ./
 COPY ./site/src ./src
 COPY ./site/public ./public
 
-EXPOSE 3000
-
 RUN npm run astro:build
-

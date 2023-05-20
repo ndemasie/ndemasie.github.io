@@ -6,7 +6,7 @@
 get_last_image() { docker images --format "{{.ID}} {{.CreatedAt}}" | sort -rk 2 | awk 'NR==1{print $1}'; }
 
 # Build
-docker image build --file "./docker/build/Dockerfile" --force-rm .
+docker image build --file "./docker/build/Dockerfile.site" --force-rm .
 
 image_id=$(get_last_image)
 container_id=$(docker container create $image_id)

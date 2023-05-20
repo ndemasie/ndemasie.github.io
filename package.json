@@ -22,7 +22,7 @@
     "script:buildWebContainerFileSystemTree": "npm run run:ts-script -- ./scripts/buildWebContainerFileSystemTree.ts",
     "update": "npx npm-check --update",
     "watch:public": "npx nodemon --ext 'tsx' --watch './src/**/public/**/*.tsx' --exec 'bash ./scripts/copy_public_dirs.sh'",
-    "watch:webcontainer": "npx nodemon --watch './src/webcontainers/**/*.*' --exec 'npm run script:buildWebContainerFileSystemTree'"
+    "watch:webcontainer": "npx nodemon --watch './webcontainers/**/*.*' --exec 'npm run script:buildWebContainerFileSystemTree'"
   },
   "devDependencies": {
     "@astrojs/react": "^2.1.0",

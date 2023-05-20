@@ -9,7 +9,7 @@ import type { FileSystemTree } from '@webcontainer/api'
 import * as fs from 'fs'
 import * as path from 'path'
 
-const DIRECTORY_PATH = 'src/webcontainers/i18next' // FIXME: Make generic
+const DIRECTORY_PATH = 'webcontainers/i18next' // FIXME: Make generic
 const SKIP_FILES = ['.DS_Store']
 const SKIP_DIRS = ['node_modules']
 

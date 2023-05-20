@@ -11,7 +11,7 @@ import { lessons } from './data'
 import './i18n'
 import { styles } from './styles'
 
-const WEBCONTAINER_APP_I18N = '/src/webcontainers/i18next/fileSystemTree.json'
+const WEBCONTAINER_APP_I18N = '/webcontainers/i18next/fileSystemTree.json'
 
 const Loading: React.FC = () => {
   const { t } = useTranslation()

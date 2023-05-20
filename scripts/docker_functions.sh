@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# DESCRIPTION:
+# Adds convenient functions for managing docker.
+
+# Can be called like ./docker_functions clean without need for sourcing file.
+
 function clean() {
   docker ps --all --quiet \
   | xargs docker rm && docker image ls --quiet --filter 'dangling=true' \

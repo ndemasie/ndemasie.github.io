@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# DESCRIPTION
+# Bash script which builds the app in a docker container and copies output to ./dist
+
 get_last_image() { docker images --format "{{.ID}} {{.CreatedAt}}" | sort -rk 2 | awk 'NR==1{print $1}'; }
 
 # Build

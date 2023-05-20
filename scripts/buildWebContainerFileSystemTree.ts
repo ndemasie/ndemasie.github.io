@@ -1,5 +1,6 @@
 #!/usr/bin/env ts-node
 
+// DESCRIPTION
 // Script generates the necessary webcontainer FileSystemTree for webcontainers
 // Read more here: https://webcontainers.io/guides/working-with-the-file-system
 

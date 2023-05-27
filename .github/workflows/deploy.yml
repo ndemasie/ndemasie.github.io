@@ -1,4 +1,4 @@
-name: Github Pages Astro CI
+name: Build and Deploy CI/CD
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy_site:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,14 +16,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build
-        run: bash ./scripts/build.sh
-        env:
-          ENVIRONMENT_MODE: production
+      - name: Build site
+        run: bash ./scripts/build.sh "./docker/build/Dockerfile.site"
 
-      - name: Deploy
+      - name: Deploy site
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
+  deploy_server:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      name: github-pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build websocket server
+        run: bash ./scripts/build.sh "./docker/build/Dockerfile.server"
+
+      - name: Deploy websocket server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: "./dist"

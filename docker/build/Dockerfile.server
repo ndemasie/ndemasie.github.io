@@ -2,7 +2,7 @@
 FROM alpine
 RUN apk add --update nodejs npm
 
-ENV ENVIRONMENT_MODE development
+ENV ENVIRONMENT_MODE production
 
 WORKDIR /root
 
@@ -13,7 +13,6 @@ RUN npm ci
 
 # Copy files
 COPY ./server/tsconfig.json ./
+COPY ./server/src ./src/
 
-EXPOSE 3001
-
-CMD npm run start
+RUN npm run build

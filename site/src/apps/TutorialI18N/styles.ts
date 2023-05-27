@@ -5,8 +5,8 @@ export const styles = {
     position: 'relative',
     display: 'grid',
     grid: `
-      "editor web-container" 70%
-      "editor terminal" 30%
+      "editor web-container" 1fr
+      "editor terminal" 280px
       / 55% 45%
     `,
     top: '0',
@@ -30,7 +30,7 @@ export const styles = {
     background: 'white',
   }),
   terminal: css({
-    // maxHeight: '240px',
+    height: '280px',
     gridArea: 'terminal',
     alignSelf: 'end',
   }),

@@ -12,10 +12,10 @@ import { useHash } from 'react-use'
 import Editor from './Editor'
 
 import packageJson from '../../../../package.json'
-import { lessons } from '../data'
 import { useTerminal } from '../hooks/useTerminal'
 import { useWebContainer } from '../hooks/useWebContainer'
 import { styles } from '../styles'
+import { useLessonContext } from '../context/lesson'
 
 const getterPath = (path: string) => {
   const dirs = path.split('/').slice(0, -1)
@@ -36,15 +36,9 @@ const Repl: React.FC<Props> = ({ app }) => {
     terminal,
   )
   const [hash] = useHash()
-
   const refIframe = useRef<HTMLIFrameElement>()
   const [editorKey, resetEditor] = useReducer(() => Math.random(), 0)
-
-  const curLesson = useMemo(() => {
-    const hashKey = hash.substring(1) // drop leading '#'
-    const curLesson = lessons.find((lesson) => lesson.key === hashKey)
-    return curLesson
-  }, [hash])
+  const { curLesson } = useLessonContext()
 
   const code = useMemo(() => {
     resetEditor()

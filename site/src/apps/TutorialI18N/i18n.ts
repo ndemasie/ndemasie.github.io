@@ -1,7 +1,10 @@
-import { default as i18n } from 'i18next'
+import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
-i18n.use(initReactI18next).init({
+import { Role } from './context/user'
+
+i18n.use(initReactI18next)
+i18n.init({
   resources: {
     en: {
       common: {
@@ -9,56 +12,34 @@ i18n.use(initReactI18next).init({
         next: 'Next',
         loading: 'Loading',
       },
-      defaultNS: {
-        action: {
-          show_answer: 'Show Answer',
-          answer_link: 'Read more',
+      translation: {
+        role: {
+          [Role.Leader]: {
+            label: 'Leader',
+            activeParticiple: 'Leading',
+          },
+          [Role.Participant]: {
+            label: 'Participant',
+            activeParticiple: 'Participating',
+          },
         },
-        question_title: 'Question',
-        answer_title: 'Answer',
-      },
-      lesson: {
-        ArraysObjects: {
-          title: 'Arrays and Objects',
-          content: '',
-        },
-        Interpolation: {
-          title: 'Interpolation',
-          content: '',
-        },
-        Namespaces: {
-          title: 'Namespaces',
-          content: '',
-        },
-        Nesting: {
-          title: 'Nesting',
-          content: '',
-        },
-        Context: {
-          title: 'Context',
-          content: '',
-        },
-        Essentials: {
-          title: 'Essentials',
-          content: '',
-        },
-        Plurals: {
-          title: 'Plurals',
-          content: '',
-        },
-        Fallback: {
-          title: 'Fallback',
-          content: '',
-        },
-        Intro: {
-          title: 'Intro',
-          content: "Let's begin",
-        },
+        role_lead_request: 'Become leader',
+        role_lead_cease: 'Stop leading',
+        infoStatus: '{{name}}, you are {{action, lowercase}} ',
+        infoStatus_leader_zero: '$t(infoStatus)',
+        infoStatus_leader_one: '$t(infoStatus) {{count}} other',
+        infoStatus_leader_other: '$t(infoStatus) {{count}} others',
+        infoStatus_participant_zero:
+          '$t(infoStatus, {"action": "following"}) {{leaderName}}',
+        infoStatus_participant_one:
+          '$t(infoStatus, {"action": "following"}) {{leaderName}} with {{count}} other',
+        infoStatus_participant_other:
+          '$t(infoStatus, {"action": "following"}) {{leaderName}} with {{count}} others',
       },
     },
   },
-  ns: ['defaultNS', 'common'],
-  defaultNS: ['defaultNS'],
+  ns: ['translation', 'common'],
+  defaultNS: ['translation'],
   fallbackNS: ['common'],
   fallbackLng: 'en',
   debug: false,
@@ -66,5 +47,7 @@ i18n.use(initReactI18next).init({
     escapeValue: false, // not needed for react as it escapes by default
   },
 })
+
+i18n.services?.formatter?.add('lowercase', (value) => value.toLocaleLowerCase())
 
 export default i18n

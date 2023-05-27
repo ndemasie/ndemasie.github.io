@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "start": "npx nodemon --watch './**/*.*' --exec 'npx ts-node src/index.ts'"
   },
   "author": "",

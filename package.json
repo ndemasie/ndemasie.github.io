@@ -15,6 +15,7 @@
     "run:ts-script": "npx ts-node --transpile-only --project ./scripts/tsconfig.json",
     "script:buildWebContainerFileSystemTree": "npm run run:ts-script -- ./scripts/buildWebContainerFileSystemTree.ts",
     "update": "npx npm-check --update",
+    "terraform": "terraform -chdir='./terraform'",
     "watch:site:public": "npx nodemon --ext 'tsx' --watch './site/src/**/public/**/*.tsx' --exec 'bash ./scripts/copy_public_dirs.sh'",
     "watch:webcontainer": "npx nodemon --watch './webcontainers/**/*.*' --exec 'npm run script:buildWebContainerFileSystemTree'"
   },

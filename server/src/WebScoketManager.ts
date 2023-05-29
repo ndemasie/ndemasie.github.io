@@ -153,13 +153,15 @@ export class WebSocketManager {
   }
 
   private _log(message: string, payload?: any) {
-    console.log(message, {
-      internal: {
-        _client_leader: this._client_leader,
-        clients: this._wss.clients.size,
-      },
-      lessonState: this.lessonState,
-      ...(payload && { payload }),
-    })
+    if (process.env.NODE_ENV === 'development') {
+      console.log(message, {
+        internal: {
+          _client_leader: this._client_leader,
+          clients: this._wss.clients.size,
+        },
+        lessonState: this.lessonState,
+        ...(payload && { payload }),
+      })
+    }
   }
 }

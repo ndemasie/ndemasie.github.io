@@ -16,3 +16,8 @@ COPY ./server/tsconfig.json ./
 COPY ./server/src ./src/
 
 RUN npm run build
+
+EXPOSE 80:80
+EXPOSE 443:443
+
+ENTRYPOINT [ "node", "./dist/index.js" ]

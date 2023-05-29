@@ -84,6 +84,16 @@ resource "aws_instance" "demasie_ec2_server" {
     aws_security_group.demaise_security_group.id
   ]
 
+  user_data = <<EOF
+    #! /bin/sh
+    # Setup docker on server
+    yum update -y
+    yum install docker -y
+    service docker start
+    usermod -a -G docker ec2-user
+    chkconfig docker on
+  EOF
+
   root_block_device {
     delete_on_termination = true
     iops                  = 3000

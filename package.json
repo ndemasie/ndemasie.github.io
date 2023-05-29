@@ -6,7 +6,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "bash ./scripts/build.sh",
     "start": "npm run docker:dev & npm run watch:webcontainer",
     "docker:clean": "bash ./scripts/docker_functions.sh stop && bash ./scripts/docker_functions.sh clean",
     "docker:dev": "docker-compose -f ./docker/dev/docker-compose.yaml up --build --abort-on-container-exit",

@@ -4,7 +4,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - PORT=3001
+      - WEBSOCKET_PORT=3001
     build:
       context: ../../
       dockerfile: ./docker/dev/Dockerfile.server

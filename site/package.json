@@ -1,12 +1,12 @@
 {
   "name": "@ndemasie/site",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": {
     "name": "Nathan DeMasie"
   },
   "license": "MIT",
   "bugs": "https://github.com/ndemasie/ndemasie.github.io/issues",
-  "homepage": "https://ndemasie.github.io",
+  "homepage": "nathan.demasie.com",
   "scripts": {
     "astro:build": "npx astro build",
     "astro:dev": "npx astro dev",
@@ -69,6 +69,7 @@
     "react-i18next": "^12.2.0",
     "react-router-dom": "^6.11.1",
     "react-use": "^17.4.0",
+    "react-use-websocket": "^4.3.1",
     "xterm": "^5.1.0",
     "xterm-addon-fit": "^0.7.0"
   }

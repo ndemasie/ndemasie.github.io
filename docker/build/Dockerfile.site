@@ -1,6 +1,9 @@
+ARG SECRET_AWS_EC2_PUBLIC_DNS
+
 FROM node:16-alpine
 
 ENV ENVIRONMENT_MODE production
+ENV AWS_EC2_PUBLIC_DNS=$SECRET_AWS_EC2_PUBLIC_DNS
 
 WORKDIR /root
 
@@ -14,7 +17,7 @@ RUN npm ci
 RUN sed -i 's/jsxImportSource: "react"/jsxImportSource: "@emotion\/react"/' ./node_modules/@astrojs/react/dist/index.js
 RUN sed -i 's/importSource: ReactVersion.startsWith("18.") ? "react" : "@astrojs\/react"/importSource: ReactVersion.startsWith("18.") ? "@emotion\/react" : "@astrojs\/react"/' node_modules/@astrojs/react/dist/index.js
 
-# Copy configs
+# Copy files
 COPY ./site/astro.config.mjs ./
 COPY ./site/tsconfig.json ./
 COPY ./site/postcss.config.js ./

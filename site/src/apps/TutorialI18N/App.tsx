@@ -1,14 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import React, { Suspense, useEffect } from 'react'
+import React, { Suspense, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useCounter, useHash } from 'react-use'
+import { ReadyState } from 'react-use-websocket'
 
 import '../../components/BaseButton'
 import '../../types/global'
 import Repl from './components/Repl'
-import { lessons } from './data'
 import './i18n'
+import { LessonProvider, useLessonContext } from './context/lesson'
+import { Role, UserContextProvider, useUserContext } from './context/user'
+import { WebSocketProvider, useWebSocketContext } from './context/webSocket'
 import { styles } from './styles'
 
 const WEBCONTAINER_APP_I18N = '/webcontainers/i18next/fileSystemTree.json'
@@ -22,43 +24,94 @@ const StyledButton = ({ className, ...props }) => (
   <my-button {...props} class={className} />
 )
 
-const App: React.FC = () => {
-  const MAX_LESSON = lessons.length - 1
-
+const Footer: React.FC = () => {
   const { t } = useTranslation()
-  const [count, countActions] = useCounter(0, MAX_LESSON, 0)
-  const [, setHash] = useHash()
+  const [user] = useUserContext()
+  const webSocket = useWebSocketContext()
+  const { lessonState, goBack, goForward, curLessonIndex, LESSON_COUNT } =
+    useLessonContext()
 
-  // Sync count of lesson to URL hash
-  useEffect(() => {
-    const hash = lessons.at(count)?.key
-    setHash(`#${hash}`)
-  }, [count, setHash])
+  const canUserLead = useMemo(() => {
+    return (
+      lessonState?.leaderId === null &&
+      webSocket.readyState === ReadyState.OPEN &&
+      user.role === Role.Participant
+    )
+  }, [lessonState?.leaderId, user.role, webSocket.readyState])
+
+  const isUserLeader = useMemo(() => {
+    return lessonState?.leaderId === user?.id
+  }, [lessonState?.leaderId, user?.id])
+
+  const otherParticipantsCount = useMemo(() => {
+    let n = lessonState.participantCount
+    --n // Skip self
+    if (user.role === Role.Participant) --n // Skip leader
+    return Math.max(n, 0)
+  }, [lessonState.participantCount, user.role])
 
   return (
-    <Suspense fallback={<Loading />}>
-      <Repl app={WEBCONTAINER_APP_I18N} />
-
-      <div css={styles.footer}>
-        <StyledButton
-          className="fill"
-          onClick={() => countActions.dec()}
-          css={css({ visibility: count ? 'visible' : 'hidden' })}
-        >
-          {t('common:back')}
-        </StyledButton>
-
-        <StyledButton
-          className="fill"
-          onClick={() => countActions.inc()}
-          css={css({
-            visibility: count < MAX_LESSON ? 'visible' : 'hidden',
-          })}
-        >
-          {t('common:next')}
-        </StyledButton>
+    <div css={styles.footer}>
+      <div css={css({ flex: 1 })}>
+        {t('infoStatus', {
+          context: user.role,
+          count: otherParticipantsCount,
+          replace: {
+            name: user.name,
+            action: t([
+              `role.${user.role}.activeParticiple`,
+              `role.${user.role}.label`,
+              String(user?.role),
+            ]),
+            leaderName: lessonState.leaderName,
+            count: otherParticipantsCount,
+          },
+        })}
+        {canUserLead && (
+          <StyledButton
+            className="fill"
+            onClick={
+              isUserLeader ? webSocket.removeLead : webSocket.requestLead
+            }
+          >
+            {isUserLeader ? t('role_lead_cease') : t('role_lead_request')}
+          </StyledButton>
+        )}
       </div>
-    </Suspense>
+
+      <StyledButton
+        className="fill"
+        onClick={goBack}
+        css={css({ visibility: curLessonIndex ? 'visible' : 'hidden' })}
+      >
+        {t('common:back')}
+      </StyledButton>
+
+      <StyledButton
+        className="fill"
+        onClick={goForward}
+        css={css({
+          visibility: curLessonIndex + 1 < LESSON_COUNT ? 'visible' : 'hidden',
+        })}
+      >
+        {t('common:next')}
+      </StyledButton>
+    </div>
+  )
+}
+
+const App: React.FC = () => {
+  return (
+    <UserContextProvider>
+      <LessonProvider>
+        <WebSocketProvider>
+          <Suspense fallback={<Loading />}>
+            <Repl app={WEBCONTAINER_APP_I18N} />
+            <Footer />
+          </Suspense>
+        </WebSocketProvider>
+      </LessonProvider>
+    </UserContextProvider>
   )
 }
 

@@ -2,7 +2,7 @@
 FROM alpine
 RUN apk add --update nodejs npm
 
-ENV ENVIRONMENT_MODE development
+ENV ENVIRONMENT_MODE production
 
 WORKDIR /root
 
@@ -13,7 +13,11 @@ RUN npm ci
 
 # Copy files
 COPY ./server/tsconfig.json ./
+COPY ./server/src ./src/
 
-EXPOSE 3001
+RUN npm run build
 
-CMD npm run start
+EXPOSE 80:80
+EXPOSE 443:443
+
+ENTRYPOINT [ "node", "./dist/index.js" ]

@@ -38,7 +38,7 @@ export const useWebContainer = (path: string, terminal: Terminal) => {
 
         return container
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     }, [fileSystemTree])
 

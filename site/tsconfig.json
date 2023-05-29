@@ -11,7 +11,7 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     // "verbatimModuleSyntax": true,
-    // "jsx": "preserve", // failed to resolve jsx
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "plugins": [
       {
@@ -27,6 +27,9 @@
     // Add type definitions for our Vite runtime.
     "types": [
       "vite/client"
+    ],
+    "rootDirs": [
+      "./src",
     ]
   }
 }

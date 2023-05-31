@@ -40,7 +40,7 @@ const Context = () => {
 
   const { sendMessage, lastMessage, readyState } = useLibWebSocket(
     import.meta.env?.PROD
-      ? 'ws://ec2-3-75-85-223.eu-central-1.compute.amazonaws.com/'
+      ? 'wss://ec2-3-75-85-223.eu-central-1.compute.amazonaws.com/'
       : 'ws://localhost:3001/',
     {
       onOpen: () => console.log('opened'),

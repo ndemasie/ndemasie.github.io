@@ -54,7 +54,10 @@ const Footer: React.FC = () => {
     <div css={styles.footer}>
       <div css={css({ flex: 1 })}>
         {t('infoStatus', {
-          context: user.role,
+          context:
+            !!lessonState.leaderId && user.role === Role.Participant
+              ? 'follow'
+              : user.role,
           count: otherParticipantsCount,
           replace: {
             name: user.name,

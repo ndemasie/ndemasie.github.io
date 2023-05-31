@@ -1,3 +1,3 @@
 import { WebSocketManager } from './WebScoketManager'
 
-WebSocketManager.get()
+WebSocketManager.getInstance()

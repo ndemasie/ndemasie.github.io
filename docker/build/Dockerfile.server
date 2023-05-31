@@ -1,23 +1,35 @@
-# Linux with node install after for a lighter container
-FROM alpine
+# Linux with node install for a light container
+FROM alpine as base
 RUN apk add --update nodejs npm
 
-ENV ENVIRONMENT_MODE production
+# BUILDER
+FROM base as builder
+ENV ENVIRONMENT_MODE development
+ENV NODE_ENV development
 
 WORKDIR /root
 
-# NPM install
 COPY ./server/package.json ./
 COPY ./server/package-lock.json ./
 RUN npm ci
 
-# Copy files
 COPY ./server/tsconfig.json ./
 COPY ./server/src ./src/
-
 RUN npm run build
 
-EXPOSE 80:80
-EXPOSE 443:443
+# RUNNER
+FROM base
+ENV ENVIRONMENT_MODE production
+ENV NODE_ENV production
 
-ENTRYPOINT [ "node", "./dist/index.js" ]
+WORKDIR /root
+
+COPY  --from=builder /root/package.json ./
+COPY  --from=builder /root/package-lock.json ./
+RUN npm ci
+
+COPY --from=builder /root/dist ./dist/
+
+EXPOSE 3001
+
+ENTRYPOINT ["node", "/root/dist/index.js"]

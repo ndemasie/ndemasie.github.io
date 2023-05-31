@@ -1,12 +1,10 @@
 import { RawData, WebSocketServer, WebSocket, ServerOptions } from 'ws'
 
-import crypto from 'crypto'
-
 import { LessonState, MessagePayload } from './types'
 
 export class WebSocketManager {
   private static _INSTANCE: WebSocketManager
-  static get(serverOptions?: ServerOptions) {
+  static getInstance(serverOptions?: ServerOptions) {
     return WebSocketManager._INSTANCE ?? new WebSocketManager(serverOptions)
   }
 
@@ -24,10 +22,9 @@ export class WebSocketManager {
   private constructor(serverOptions?: ServerOptions) {
     WebSocketManager._INSTANCE = this
 
-    const wss = new WebSocketServer({
-      ...(serverOptions || {}),
-      port: parseInt(process.env?.WEBSOCKET_PORT ?? '3001', 10),
-    })
+    const port = 3001
+
+    const wss = new WebSocketServer({ port, ...(serverOptions || {}) })
 
     this._POLL_TIMER = setInterval(() => {
       this._log('Polling clients')
@@ -45,6 +42,11 @@ export class WebSocketManager {
     wss.on('close', this._onClose)
 
     this._wss = wss
+
+    console.log(
+      `WebSocketManager instantiated and server opened on port ${port}`,
+    )
+
     return this
   }
 
@@ -121,13 +123,22 @@ export class WebSocketManager {
     this.broadcast(this.lessonState)
   }
 
+  private _genRandomId() {
+    return [...Array(16)]
+      .map(() => Math.floor(Math.random() * 16).toString(16))
+      .join('')
+  }
+
   private _onConnection = (ws: WebSocket) => {
-    ws.id = crypto.randomUUID()
+    ws.id = this._genRandomId()
     ws.isAlive = true
 
     this.lessonState.participantCount = this._wss.clients.size
 
-    ws.on('open', () => this.send(ws, this.lessonState))
+    ws.on('open', () => {
+      console.log(`Client ${ws.id} connected`)
+      this.send(ws, this.lessonState)
+    })
     ws.on('error', this._onClientError)
     ws.on('pong', () => (ws.isAlive = true))
     ws.on('message', (data) => this._onClientMessage(data, ws))

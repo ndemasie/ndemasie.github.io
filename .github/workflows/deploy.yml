@@ -8,16 +8,19 @@ on:
 jobs:
   deploy_site:
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
-    env:
+
+    environment:
       name: github-pages
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Build site
-        run: bash ./scripts/build.sh --file ./docker/build/Dockerfile.site --build-arg SECRET_AWS_EC2_PUBLIC_DNS=${{ secrets.AWS_EC2_PUBLIC_DNS }}
+        run: bash ./scripts/build.sh --file ./docker/build/Dockerfile.site
 
       - name: Deploy site
         uses: peaceiris/actions-gh-pages@v3
@@ -28,30 +31,37 @@ jobs:
 
   deploy_server:
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
-    env:
-      name: prod
+
+    environment:
+      name: github-pages
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Create SSH key
+      - name: Load SSH key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+            ssh-private-key: "${{ secrets.SSH_PRIVATE_KEY }}"
+
+      - name: Update known_hosts key
         run: |
-          install -m 600 -D /dev/null ~/.ssh/id_rsa
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.AWS_EC2_PUBLIC_DNS }} >> ~/.ssh/known_hosts
+
+      - name: Clean instance
+        run: |
+          # EC2 Docker maintenance
+          ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker ps --all --quiet | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} xargs -r docker stop
+          ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker system prune --force
 
       - name: Load docker image and run
         run: |
           # Prep
-          docker image build --file "./docker/build/Dockerfile.server" --tag "websocket-server" --force-rm .
+          docker image build --file "./docker/build/Dockerfile.server" --tag websocket-server --force-rm .
           image_id=$(docker images --format "{{.ID}} {{.CreatedAt}}" | sort --reverse --key 2 | awk 'NR==1{print $1}')
-
-          # EC2 Docker maintenance
-          ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker container prune
-          ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker image prune
-          ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker stop $(docker ps -all --quiet)
 
           # Copy image to EC2
           docker save $image_id \
@@ -59,4 +69,4 @@ jobs:
           | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load
 
           # Run Image
-          ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker run $image_id
+          ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker run --detach --publish 80:3001 $image_id

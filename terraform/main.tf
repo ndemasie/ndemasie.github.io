@@ -105,7 +105,10 @@ resource "aws_instance" "demasie_ec2_server" {
 }
 
 output "ec2_instance" {
-  value = aws_instance.demasie_ec2_server.public_ip
+  value = {
+    public_dns = aws_instance.demasie_ec2_server.public_dns,
+    public_ip  = aws_instance.demasie_ec2_server.public_ip
+  }
 }
 
 # Budget

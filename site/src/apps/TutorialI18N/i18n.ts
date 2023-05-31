@@ -25,15 +25,18 @@ i18n.init({
         },
         role_lead_request: 'Become leader',
         role_lead_cease: 'Stop leading',
-        infoStatus: '{{name}}, you are {{action, lowercase}} ',
+        infoStatus: '{{name}}, you are {{action, lowercase}}',
         infoStatus_leader_zero: '$t(infoStatus)',
         infoStatus_leader_one: '$t(infoStatus) {{count}} other',
         infoStatus_leader_other: '$t(infoStatus) {{count}} others',
-        infoStatus_participant_zero:
+        infoStatus_participant_zero: '$t(infoStatus)',
+        infoStatus_participant_one: '$t(infoStatus) with {{count}} other',
+        infoStatus_participant_other: '$t(infoStatus) with {{count}} others',
+        infoStatus_follow_zero:
           '$t(infoStatus, {"action": "following"}) {{leaderName}}',
-        infoStatus_participant_one:
+        infoStatus_follow_one:
           '$t(infoStatus, {"action": "following"}) {{leaderName}} with {{count}} other',
-        infoStatus_participant_other:
+        infoStatus_follow_other:
           '$t(infoStatus, {"action": "following"}) {{leaderName}} with {{count}} others',
       },
     },

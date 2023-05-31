@@ -6,7 +6,7 @@
   },
   "license": "MIT",
   "bugs": "https://github.com/ndemasie/ndemasie.github.io/issues",
-  "homepage": "nathan.demasie.com",
+  "homepage": "https://nathan.demasie.com",
   "scripts": {
     "astro:build": "npx astro build",
     "astro:dev": "npx astro dev",

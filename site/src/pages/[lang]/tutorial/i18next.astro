@@ -19,5 +19,5 @@ const page = Page.Tutorial
 <PageLayout page={page} lang={lang}>
   <h1>{t('tutorial.i18next.title', lang)}</h1>
 
-  <App client:only />
+  <App client:only="react" />
 </PageLayout>

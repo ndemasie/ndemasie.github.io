@@ -75,10 +75,9 @@ const Context = () => {
         if (!acc.hasOwnProperty(key)) return acc
         if (acc[key] === value) return acc
 
-        if (key === 'hash' && value && typeof value === 'string') {
-          acc[key] = value.startsWith('#') ? value : `#${value}`
-          setHash(acc[key]) // Side-effect
-          return acc
+        if (key === 'hash' && typeof value === 'string') {
+          value = value.startsWith('#') ? value : `#${value}`
+          setHash(value) // Side-effect
         }
 
         acc[key] = value

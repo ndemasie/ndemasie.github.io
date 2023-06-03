@@ -12,17 +12,17 @@ import { useHash } from 'react-use'
 import Editor from './Editor'
 
 import packageJson from '../../../../package.json'
+import { useLessonContext } from '../context/lesson'
 import { useTerminal } from '../hooks/useTerminal'
 import { useWebContainer } from '../hooks/useWebContainer'
 import { styles } from '../styles'
-import { useLessonContext } from '../context/lesson'
 
 const getterPath = (path: string) => {
   const dirs = path.split('/').slice(0, -1)
   const file = path.split('/').at(-1)
-  return [dirs?.flatMap((d) => [d, 'directory']), file, 'file', 'contents']
-    .flat(1)
-    .filter(Boolean)
+  return dirs
+    ?.flatMap((dir) => [dir, 'directory'])
+    .concat(`${file}`, 'file', 'contents')
 }
 
 type Props = {
@@ -59,8 +59,8 @@ const Repl: React.FC<Props> = ({ app }) => {
   // #endregion
 
   // #region Editor
-  const [editorKey, resetEditor] = useReducer(() => Math.random(), 0)
   const { curLesson } = useLessonContext()
+  const [editorKey, resetEditor] = useReducer(() => Math.random(), 0)
 
   const code = useMemo(() => {
     resetEditor()

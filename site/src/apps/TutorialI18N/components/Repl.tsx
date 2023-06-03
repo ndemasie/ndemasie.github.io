@@ -35,8 +35,30 @@ const Repl: React.FC<Props> = ({ app }) => {
     app,
     terminal,
   )
+  const refIframe = useRef<HTMLIFrameElement>(null)
+
+  // #region Sync hash
   const [hash] = useHash()
-  const refIframe = useRef<HTMLIFrameElement>()
+
+  const postHash = useCallback(() => {
+    if (refIframe.current && containerUrl) {
+      const message = { source: packageJson.name, payload: { hash } }
+      refIframe.current?.contentWindow?.postMessage(message, '*')
+    }
+  }, [containerUrl, hash])
+
+  useEffect(() => postHash(), [hash, postHash])
+
+  useEffect(() => {
+    const onMessageEvent = (event: MessageEvent) => {
+      if (event.data?.payload?.type === 'webpackOk') postHash()
+    }
+    window.addEventListener('message', onMessageEvent, false)
+    return () => window.removeEventListener('message', onMessageEvent, false)
+  })
+  // #endregion
+
+  // #region Editor
   const [editorKey, resetEditor] = useReducer(() => Math.random(), 0)
   const { curLesson } = useLessonContext()
 
@@ -49,13 +71,6 @@ const Repl: React.FC<Props> = ({ app }) => {
     return file
   }, [fileSystemTree, curLesson?.filename])
 
-  const postHash = useCallback(() => {
-    if (refIframe.current && containerUrl) {
-      const message = { source: packageJson.name, payload: { hash } }
-      refIframe.current?.contentWindow?.postMessage(message, '*')
-    }
-  }, [containerUrl, hash])
-
   const onSave = useCallback(
     async (data: string) => {
       const path = `/src/components/${curLesson?.filename}`
@@ -64,20 +79,7 @@ const Repl: React.FC<Props> = ({ app }) => {
     },
     [container?.fs, curLesson?.filename, postHash],
   )
-
-  // Message listener
-  useEffect(() => {
-    const onMessageEvent = (event: MessageEvent) => {
-      if (event.data?.payload?.type === 'webpackOk') postHash()
-    }
-    window.addEventListener('message', onMessageEvent, false)
-    return () => window.removeEventListener('message', onMessageEvent, false)
-  })
-
-  // Post hash change to iframe
-  useEffect(() => {
-    postHash()
-  }, [hash, postHash])
+  // #endregion
 
   return (
     <div css={styles.container}>

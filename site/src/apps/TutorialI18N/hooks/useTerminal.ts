@@ -5,7 +5,7 @@ import { FitAddon } from 'xterm-addon-fit'
 import 'xterm/css/xterm.css'
 
 export const useTerminal = () => {
-  const xtermRef = useRef<HTMLElement>()
+  const xtermRef = useRef<HTMLElement>(null)
 
   const { terminal, fitAddon, debouncedFit, resizeObserver } = useMemo(() => {
     const fitAddon = new FitAddon()

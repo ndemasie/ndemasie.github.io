@@ -43,33 +43,46 @@ const Footer: React.FC = () => {
     return lessonState?.leaderId === user?.id
   }, [lessonState?.leaderId, user?.id])
 
-  const otherParticipantsCount = useMemo(() => {
-    let n = lessonState.participantCount
-    --n // Skip self
-    if (user.role === Role.Participant) --n // Skip leader
-    return Math.max(n, 0)
-  }, [lessonState.participantCount, user.role])
+  const getInfoText = useMemo(() => {
+    const count = (() => {
+      let n = lessonState.participantCount
+      --n // Skip self
+      if (user.role === Role.Participant) --n // Skip leader
+      return Math.max(n, 0)
+    })()
+
+    const text = t('infoStatus', {
+      context:
+        !!lessonState.leaderId && user.role === Role.Participant
+          ? 'follow'
+          : user.role,
+      count,
+      replace: {
+        name: user.name,
+        action: t([
+          `role.${user.role}.activeParticiple`,
+          `role.${user.role}.label`,
+          String(user?.role),
+        ]),
+        leaderName: lessonState.leaderName,
+        count,
+      },
+    })
+
+    return text
+  }, [
+    lessonState.leaderId,
+    lessonState.leaderName,
+    lessonState.participantCount,
+    t,
+    user.name,
+    user.role,
+  ])
 
   return (
     <div css={styles.footer}>
       <div css={css({ flex: 1 })}>
-        {t('infoStatus', {
-          context:
-            !!lessonState.leaderId && user.role === Role.Participant
-              ? 'follow'
-              : user.role,
-          count: otherParticipantsCount,
-          replace: {
-            name: user.name,
-            action: t([
-              `role.${user.role}.activeParticiple`,
-              `role.${user.role}.label`,
-              String(user?.role),
-            ]),
-            leaderName: lessonState.leaderName,
-            count: otherParticipantsCount,
-          },
-        })}
+        {getInfoText}
         {canUserLead && (
           <StyledButton
             className="fill"

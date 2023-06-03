@@ -1,5 +1,8 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { createReducerContext } from 'react-use'
+
+import { styles } from '../styles'
 
 export enum Role {
   Leader = 'leader',
@@ -8,7 +11,7 @@ export enum Role {
 
 export type UserState = {
   id: string
-  name: string | null
+  name: string
   role: Role
 }
 
@@ -31,24 +34,57 @@ const [useUserContext, UserProvider] = createReducerContext(
   {
     id: Date.now().toString(),
     role: Role.Participant,
-    name: null,
+    name: '',
   },
 )
 
 const UserProviderSetup: React.FC<any> = ({ children }) => {
+  const { t } = useTranslation()
   const [, setUser] = useUserContext()
 
-  useEffect(() => {
-    const prompt = window.prompt('Please enter your name')
+  // Dialog
+  const dialogRef = useRef<HTMLDialogElement>(null)
 
-    // If punctuation symbol, then skip
-    if (!prompt) return
-    if (/[\p{P}]/.test(prompt)) return
+  const handleClick = useCallback((event) => {
+    const rect = dialogRef.current!.getBoundingClientRect()
+    if (
+      event.clientX < rect.left ||
+      event.clientX > rect.right ||
+      event.clientY < rect.top ||
+      event.clientY > rect.bottom
+    ) {
+      dialogRef.current!.close()
+    }
+  }, [])
 
-    setUser({ name: prompt })
-  })
+  const handleClose = useCallback(() => {
+    const form = dialogRef.current!.querySelector('form')!
+    const formData = Object.fromEntries(new FormData(form).entries())
 
-  return children
+    if (!formData?.name) return
+    setUser({ name: formData?.name ?? '' })
+  }, [setUser])
+
+  useEffect(() => dialogRef?.current?.showModal())
+
+  return (
+    <>
+      {children}
+
+      <dialog
+        css={styles.dialog}
+        ref={dialogRef}
+        onClose={handleClose}
+        onClick={handleClick}
+      >
+        <form method="dialog">
+          <label htmlFor="input-name">{t('field_name_instructions')}</label>
+          <input id="input-name" name="name" type="text" />
+          <button type="submit">{t('common:accept')}</button>
+        </form>
+      </dialog>
+    </>
+  )
 }
 
 const UserContextProvider: typeof UserProvider = ({ children }) => {

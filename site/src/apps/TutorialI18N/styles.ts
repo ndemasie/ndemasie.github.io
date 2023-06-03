@@ -15,6 +15,18 @@ export const styles = {
     width: '90vw',
     transform: 'translate(-50%, 0)',
   }),
+  dialog: css({
+    '::backdrop': {
+      backgroundColor: 'hsl(250, 100%, 50%, 0.25)',
+    },
+    '> form': {
+      display: 'flex',
+      flexDirection: 'column',
+      '> *': {
+        marginBottom: '0.5em',
+      },
+    },
+  }),
   editor: css({
     gridArea: 'editor',
     // minHeight: '640px',

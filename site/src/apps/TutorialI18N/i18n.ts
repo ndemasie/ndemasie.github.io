@@ -8,6 +8,7 @@ i18n.init({
   resources: {
     en: {
       common: {
+        accept: 'Accept',
         back: 'Back',
         next: 'Next',
         loading: 'Loading',
@@ -23,6 +24,7 @@ i18n.init({
             activeParticiple: 'Participating',
           },
         },
+        field_name_instructions: 'Enter your name',
         role_lead_request: 'Become leader',
         role_lead_cease: 'Stop leading',
         infoStatus: '{{name}}, you are {{action, lowercase}}',

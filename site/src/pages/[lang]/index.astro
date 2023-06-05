@@ -2,7 +2,7 @@
 import RedirectHomeLayout from 'src/layouts/RedirectHomeLayout.astro'
 import { Language } from 'src/types/Language'
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return Object.values(Language).map((lang) => ({ params: { lang } }))
 }
 

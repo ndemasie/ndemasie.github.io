@@ -5,7 +5,7 @@ import { Language } from 'src/types/Language'
 import { Page } from 'src/types/Page'
 import { t } from 'src/locales'
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return Object.values(Language).map((lang) => ({ params: { lang } }))
 }
 

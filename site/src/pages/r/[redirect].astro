@@ -1,0 +1,21 @@
+---
+const redirects = {
+  github: 'https://github.com/ndemasie',
+  linkedin: 'https://www.linkedin.com/in/nathandemasie/',
+}
+
+type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
+export function getStaticPaths() {
+  return [
+    { params: { redirect: 'github' } },
+    { params: { redirect: 'linkedin' } },
+  ]
+}
+
+const { redirect } = Astro.params as unknown as Params
+---
+
+<head>
+  <meta http-equiv="refresh" content={`0; url=${redirects[redirect]}`} />
+</head>
+<body>Redirecting...</body>

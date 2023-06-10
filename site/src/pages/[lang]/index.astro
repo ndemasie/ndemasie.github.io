@@ -1,6 +1,7 @@
 ---
-import RedirectHomeLayout from 'src/layouts/RedirectHomeLayout.astro'
+import PageLayout from 'src/layouts/PageLayout.astro'
 import { Language } from 'src/types/Language'
+import { Page } from 'src/types/Page'
 
 export function getStaticPaths() {
   return Object.values(Language).map((lang) => ({ params: { lang } }))
@@ -9,6 +10,142 @@ export function getStaticPaths() {
 type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 
 const { lang } = Astro.params as unknown as Params
+
+const page = Page.Tutorial
 ---
 
-<RedirectHomeLayout lang={lang} />
+<PageLayout page={page} lang={lang}>
+  <nav id="container">
+    <ul>
+      <li class="nav-item">
+        <div>Blog</div>
+
+        <a href={`/${lang}/blog`}>
+          <video autoplay loop playsinline width="360" height="200">
+            <source src="/video/cycling.mp4" type="video/mp4" />
+          </video>
+        </a>
+
+        <ul class="options">
+          <li><a href={`/${lang}/blog/latest`}>Latest</a></li>
+          <li><a href={`/${lang}/blog`}>More</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <div>Tutorials</div>
+
+        <a href={`/${lang}/tutorial`}>
+          <video autoplay loop playsinline width="360" height="200">
+            <source src="/video/scuba.mp4" type="video/mp4" />
+          </video>
+        </a>
+
+        <ul class="options">
+          <li><a href={`/${lang}/tutorial/i18next`}>i18Next</a></li>
+          <li><a href={`/${lang}/tutorial`}>More</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</PageLayout>
+
+<style>
+  main {
+    position: relative;
+  }
+
+  a {
+    position: relative;
+    display: block;
+  }
+
+  a > .options {
+    display: inline-block;
+    list-style: none;
+  }
+
+  video {
+    position: absolute;
+    clip-path: circle();
+  }
+</style>
+
+<script>
+  import * as d3 from 'd3'
+  const main = document.querySelector('main')
+  const centerX = (main!.clientWidth - 300) / 2
+  const centerY = (window.innerHeight - 300) / 2
+
+  console.log('stat', {
+    centerX,
+    centerY,
+  })
+
+  const nodes = [
+    { id: 'blog', link: '/blog' },
+    { id: 'tutorial', link: '/tutorial' },
+  ]
+
+  const links = d3.selectAll('.nav-item').data(nodes)
+
+  const rotate = () => {
+    nodes.forEach((d) => {
+      const angle = Math.atan2(d.y - centerY, d.x - centerX)
+      const targetX = centerX + Math.cos(angle + 0.1) * 300
+      const targetY = centerY + Math.sin(angle + 0.1) * 300
+
+      d.vx = (targetX - d.x) * 0.02
+      d.vy = (targetY - d.y) * 0.02
+    })
+  }
+
+  const tick = () => {
+    links.style('transform', (d) => `translate(${d.x}px, ${d.y}px)`)
+  }
+
+  const restart = () => {
+    simulation.alpha(1).restart()
+  }
+
+  const simulation = d3
+    .forceSimulation(nodes)
+    .force('collide', d3.forceCollide().radius(300))
+    .force('charge', d3.forceManyBody().strength(1))
+    .force('center', d3.forceCenter(centerX, centerY))
+    .force('nodes', d3.forceManyBody())
+    .force('rotate', rotate)
+    .alphaDecay(0.05)
+    .on('tick', tick)
+
+  let interval = d3.interval(restart, 980)
+
+  const dragStart = (event, d) => {
+    simulation.alphaTarget(0.5).restart()
+    d.fx = event.x
+    d.fy = event.y
+  }
+
+  const drag = (event, d) => {
+    d.fx += event.dx
+    d.fy += event.dy
+  }
+
+  const dragEnd = (event, d) => {
+    simulation.alphaTarget(0).restart()
+    d.fx = null
+    d.fy = null
+  }
+
+  links
+    .data(nodes)
+    .call(d3.drag().on('start', dragStart).on('drag', drag).on('end', dragEnd))
+    .on('mouseover', () => {
+      simulation.stop()
+      interval.stop()
+    })
+    .on('mouseout', () => {
+      simulation.alpha(1).restart()
+      interval = d3.interval(restart, 980)
+    })
+</script>

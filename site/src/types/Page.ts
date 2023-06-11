@@ -1,5 +1,6 @@
 export enum Page {
-  Tutorial = 'tutorial',
+  Blog = 'blog',
   CV = 'cv',
+  Tutorial = 'tutorial',
   Home = 'home',
 }

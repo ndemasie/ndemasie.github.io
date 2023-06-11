@@ -15,9 +15,9 @@ const { page, lang } = Astro.props as Props
 ---
 
 <!DOCTYPE html>
-<html lang={'en'} dir="ltr" data-theme="light">
+<html lang={lang} dir="ltr" data-theme="light">
   <HtmlHead page={page} lang={lang}>
-    <script is:inline src="/headers-coop-coep.js"></script>
+    <slot name="head" />
   </HtmlHead>
 
   <body>

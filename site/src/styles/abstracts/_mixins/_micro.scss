@@ -1,0 +1,77 @@
+@mixin ripple {
+  &.ripple {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: var(--ripple-y);
+      left: var(--ripple-x);
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 750ms;
+
+      border-radius: 50%;
+      background: #fff;
+      width: 150%;
+      aspect-ratio: 1 / 1;
+      opacity: 0.5;
+    }
+  }
+
+  &.pulse::before {
+    animation: pulse 500ms;
+  }
+  @keyframes pulse {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0.5;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+    }
+  }
+}
+
+@mixin border-circle {
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+
+    // border-radius: 50%;
+    box-shadow: inset 0 0 0 1.2px;
+
+    height: calc(100% + 4px);
+    width: calc(100% + 4px);
+
+    z-index: -10;
+
+    clip-path: ellipse(46% 55% at 50% 50%);
+    animation: fadein 400ms forwards, rotate 2000ms infinite;
+  }
+
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes rotate {
+    0% {
+      rotate: 0deg;
+    }
+    100% {
+      rotate: 360deg;
+    }
+  }
+}

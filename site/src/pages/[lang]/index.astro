@@ -1,6 +1,7 @@
 ---
-import RedirectHomeLayout from 'src/layouts/RedirectHomeLayout.astro'
+import PageLayout from 'src/layouts/PageLayout.astro'
 import { Language } from 'src/types/Language'
+import { Page } from 'src/types/Page'
 
 export function getStaticPaths() {
   return Object.values(Language).map((lang) => ({ params: { lang } }))
@@ -9,6 +10,261 @@ export function getStaticPaths() {
 type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 
 const { lang } = Astro.params as unknown as Params
+
+const page = Page.Tutorial
 ---
 
-<RedirectHomeLayout lang={lang} />
+<PageLayout page={page} lang={lang}>
+  <nav id="container">
+    <ul>
+      <li class="nav-item">
+        <h1>Blog</h1>
+
+        <a class="node-link" href={`/${lang}/blog`}></a>
+
+        <div class="node-media">
+          <video autoplay loop playsinline>
+            <source src="/video/cycling.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <ul class="node-sub-menu">
+          <li class="node-sub-item">
+            <div class="node-sub-item-container">
+              <a href={`/${lang}/blog/latest`}>Latest</a>
+            </div>
+          </li>
+          <li class="node-sub-item">
+            <div class="node-sub-item-container">
+              <a href={`/${lang}/blog`}>...See all</a>
+            </div>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <h1>Tutorials</h1>
+
+        <a class="node-link" href={`/${lang}/tutorial`}></a>
+
+        <div class="node-media">
+          <video autoplay loop playsinline>
+            <source src="/video/scuba.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <ul class="node-sub-menu">
+          <li class="node-sub-item">
+            <div class="node-sub-item-container">
+              <a href={`/${lang}/tutorial/i18next`}>i18Next</a>
+            </div>
+          </li>
+          <li class="node-sub-item">
+            <div class="node-sub-item-container">
+              <a href={`/${lang}/tutorial`}>More</a>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</PageLayout>
+
+<style lang="scss">
+  @import 'src/styles/abstracts/_mixins/_index.scss';
+
+  @mixin flex-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @mixin full() {
+    width: 100%;
+    height: 100%;
+  }
+
+  @mixin center-absolute() {
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+  }
+
+  main {
+    position: relative;
+  }
+
+  .nav-item {
+    @include flex-center();
+    list-style: none;
+    position: relative;
+    height: 200px;
+    width: 200px;
+
+    border-radius: 50%;
+    box-shadow: 4px 4px 10px 4px rgba(0, 0, 0, 0.4);
+
+    &:after {
+      @include full();
+      content: '';
+      border-radius: 50%;
+
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.4),
+        rgba(0, 0, 0, 0) 60%,
+        rgba(0, 0, 0, 0) 40%,
+        rgba(0, 0, 0, 0.4) 100%
+      );
+    }
+    &:hover::after {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .node-sub-menu {
+    counter-reset: item;
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    z-index: -10;
+  }
+
+  .node-sub-item {
+    @include nth-child-var-index(6);
+    @include center-absolute();
+
+    --angle: calc(var(--nth-child, 1) * -40deg + 130deg);
+    --radius: 40px;
+    --duration: 250ms;
+
+    position: absolute;
+    list-style: none;
+    height: 120px;
+    width: 120px;
+    padding: 20px;
+
+    transition-property: translate;
+    transition-duration: var(--duration);
+    transition-timing-function: cubic-bezier(0.28, 1.1, 0.54, 1.05);
+    transition-delay: var(--delay, 0);
+    translate: calc(cos(var(--angle, 0)) * var(--radius) - 50%)
+      calc(sin(calc(var(--angle, 0) * -1)) * var(--radius) - 50%);
+  }
+
+  .nav-item:hover .node-sub-item {
+    --duration: 500ms;
+    --delay: calc((var(--nth-child, 1) - 1) * 100ms);
+    --radius: 150px;
+  }
+
+  .node-sub-item-container {
+    @include flex-center();
+    position: relative;
+    height: 100%;
+    border-radius: 50%;
+
+    &:hover {
+      @include border-circle();
+      border-radius: 50%;
+      &::before {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .node-link {
+    @include full();
+    position: absolute;
+    z-index: 50;
+  }
+
+  .node-media {
+    @include full();
+    position: absolute;
+    z-index: -1;
+
+    video {
+      @include full();
+      clip-path: circle();
+      object-fit: cover;
+    }
+  }
+</style>
+
+<script>
+  import * as d3 from 'd3'
+  const main = document.querySelector('main')
+  const centerX = (main!.clientWidth - 360) / 2
+  const centerY = (window.innerHeight - 400) / 2
+
+  const nodes = [
+    { id: 'blog', link: '/blog' },
+    { id: 'tutorial', link: '/tutorial' },
+  ]
+
+  const links = d3.selectAll('.nav-item').data(nodes)
+
+  const rotate = () => {
+    nodes.forEach((d) => {
+      const angle = Math.atan2(d.y - centerY, d.x - centerX)
+      const targetX = centerX + Math.cos(angle + 0.1) * 300
+      const targetY = centerY + Math.sin(angle + 0.1) * 300
+
+      d.vx = (targetX - d.x) * 0.02
+      d.vy = (targetY - d.y) * 0.02
+    })
+  }
+
+  const tick = () => {
+    links.style('translate', (d) => `${d.x}px ${d.y}px`)
+  }
+
+  const restart = () => {
+    simulation.alpha(1).restart()
+  }
+
+  const simulation = d3
+    .forceSimulation(nodes)
+    .force('collide', d3.forceCollide().radius(300))
+    .force('charge', d3.forceManyBody().strength(1))
+    .force('center', d3.forceCenter(centerX, centerY))
+    .force('nodes', d3.forceManyBody())
+    .force('rotate', rotate)
+    .alphaDecay(0.05)
+    .on('tick', tick)
+
+  let interval = d3.interval(restart, 980)
+
+  const dragStart = (event, d) => {
+    simulation.alphaTarget(0.5).restart()
+    d.fx = event.x
+    d.fy = event.y
+  }
+
+  const drag = (event, d) => {
+    d.fx += event.dx
+    d.fy += event.dy
+  }
+
+  const dragEnd = (event, d) => {
+    simulation.alphaTarget(0).restart()
+    d.fx = null
+    d.fy = null
+  }
+
+  links
+    .data(nodes)
+    .call(d3.drag().on('start', dragStart).on('drag', drag).on('end', dragEnd))
+    .on('mouseover', () => {
+      simulation.stop()
+      interval.stop()
+    })
+    .on('mouseout', () => {
+      simulation.alpha(1).restart()
+      interval = d3.interval(restart, 980)
+    })
+</script>

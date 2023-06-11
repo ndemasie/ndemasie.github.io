@@ -20,11 +20,13 @@ const page = Page.Tutorial
       <li class="nav-item">
         <h1>Blog</h1>
 
-        <a class="node-media" href={`/${lang}/blog`}>
+        <a class="node-link" href={`/${lang}/blog`}></a>
+
+        <div class="node-media">
           <video autoplay loop playsinline>
             <source src="/video/cycling.mp4" type="video/mp4" />
           </video>
-        </a>
+        </div>
 
         <ul class="node-sub-menu">
           <li class="node-sub-item">
@@ -43,11 +45,13 @@ const page = Page.Tutorial
       <li class="nav-item">
         <h1>Tutorials</h1>
 
-        <a class="node-media" href={`/${lang}/tutorial`}>
+        <a class="node-link" href={`/${lang}/tutorial`}></a>
+
+        <div class="node-media">
           <video autoplay loop playsinline>
             <source src="/video/scuba.mp4" type="video/mp4" />
           </video>
-        </a>
+        </div>
 
         <ul class="node-sub-menu">
           <li class="node-sub-item">
@@ -170,6 +174,12 @@ const page = Page.Tutorial
         border-radius: 50%;
       }
     }
+  }
+
+  .node-link {
+    @include full();
+    position: absolute;
+    z-index: 50;
   }
 
   .node-media {

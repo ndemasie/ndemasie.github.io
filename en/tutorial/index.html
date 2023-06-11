@@ -3,6 +3,7 @@
   <body>
     <script client:only>(function(){const Language = {"EN":"en","DE":"de"};
 const lang = "en";
+const path = "tutorial/i18next";
 
       window.addEventListener('DOMContentLoaded', () => {
         const clientLanguage =
@@ -12,7 +13,7 @@ const lang = "en";
             .find((lang) => Object.values(Language).includes(lang))
 
         window.location.replace(
-          new URL(`${clientLanguage}/tutorial/i18next`, window.origin),
+          new URL(`${clientLanguage}/${path}`, window.origin),
         )
       })
     })();</script>

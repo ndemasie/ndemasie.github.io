@@ -18,69 +18,209 @@ const page = Page.Tutorial
   <nav id="container">
     <ul>
       <li class="nav-item">
-        <div>Blog</div>
+        <h1>Blog</h1>
 
-        <a href={`/${lang}/blog`}>
-          <video autoplay loop playsinline width="360" height="200">
+        <a class="node-media" href={`/${lang}/blog`}>
+          <video autoplay loop playsinline>
             <source src="/video/cycling.mp4" type="video/mp4" />
           </video>
         </a>
 
-        <ul class="options">
-          <li><a href={`/${lang}/blog/latest`}>Latest</a></li>
-          <li><a href={`/${lang}/blog`}>More</a></li>
+        <ul class="node-sub-menu">
+          <li class="node-sub-item">
+            <div class="node-sub-item-container">
+              <a href={`/${lang}/blog/latest`}>Latest</a>
+            </div>
+          </li>
+          <li class="node-sub-item">
+            <div class="node-sub-item-container">
+              <a href={`/${lang}/blog`}>...See all</a>
+            </div>
+          </li>
         </ul>
       </li>
 
       <li class="nav-item">
-        <div>Tutorials</div>
+        <h1>Tutorials</h1>
 
-        <a href={`/${lang}/tutorial`}>
-          <video autoplay loop playsinline width="360" height="200">
+        <a class="node-media" href={`/${lang}/tutorial`}>
+          <video autoplay loop playsinline>
             <source src="/video/scuba.mp4" type="video/mp4" />
           </video>
         </a>
 
-        <ul class="options">
-          <li><a href={`/${lang}/tutorial/i18next`}>i18Next</a></li>
-          <li><a href={`/${lang}/tutorial`}>More</a></li>
+        <ul class="node-sub-menu">
+          <li class="node-sub-item">
+            <div class="node-sub-item-container">
+              <a href={`/${lang}/tutorial/i18next`}>i18Next</a>
+            </div>
+          </li>
+          <li class="node-sub-item">
+            <div class="node-sub-item-container">
+              <a href={`/${lang}/tutorial`}>More</a>
+            </div>
+          </li>
         </ul>
       </li>
     </ul>
   </nav>
 </PageLayout>
 
-<style>
+<style lang="scss">
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes rotate {
+    0% {
+      rotate: 0deg;
+    }
+    100% {
+      rotate: 360deg;
+    }
+  }
+
+  @mixin flex-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @mixin full() {
+    width: 100%;
+    height: 100%;
+  }
+
+  @mixin center-absolute() {
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+  }
+
+  @mixin nth-child-var-index($count) {
+    @for $i from 1 through $count {
+      &:nth-child(#{$i}) {
+        --nth-child: #{$i};
+      }
+    }
+  }
+
   main {
     position: relative;
   }
 
-  a {
+  .nav-item {
+    @include flex-center();
+    list-style: none;
     position: relative;
-    display: block;
+    height: 200px;
+    width: 200px;
+
+    border-radius: 50%;
+    box-shadow: 4px 4px 10px 4px rgba(0, 0, 0, 0.4);
+
+    &:after {
+      @include full();
+      content: '';
+      border-radius: 50%;
+
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.4),
+        rgba(0, 0, 0, 0) 60%,
+        rgba(0, 0, 0, 0) 40%,
+        rgba(0, 0, 0, 0.4) 100%
+      );
+    }
+    &:hover::after {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
   }
 
-  a > .options {
+  .node-sub-menu {
+    counter-reset: item;
     display: inline-block;
     list-style: none;
+    padding: 0;
+    z-index: -10;
   }
 
-  video {
+  .node-sub-item {
+    @include nth-child-var-index(6);
+    @include center-absolute();
+
+    --angle: calc(var(--nth-child, 1) * -40deg + 130deg);
+    --radius: 40px;
+    --duration: 250ms;
+
     position: absolute;
-    clip-path: circle();
+    list-style: none;
+    height: 120px;
+    width: 120px;
+    padding: 20px;
+
+    transition-property: translate;
+    transition-duration: var(--duration);
+    transition-timing-function: cubic-bezier(0.28, 1.1, 0.54, 1.05);
+    transition-delay: var(--delay, 0);
+    translate: calc(cos(var(--angle, 0)) * var(--radius) - 50%)
+      calc(sin(calc(var(--angle, 0) * -1)) * var(--radius) - 50%);
+  }
+
+  .nav-item:hover .node-sub-item {
+    --duration: 500ms;
+    --delay: calc((var(--nth-child, 1) - 1) * 100ms);
+    --radius: 150px;
+  }
+
+  .node-sub-item-container {
+    @include flex-center();
+    position: relative;
+    height: 100%;
+    border-radius: 50%;
+
+    &:hover::before {
+      @include center-absolute();
+      content: '';
+
+      position: absolute;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1.2px;
+      height: calc(100% + 4px);
+      width: calc(100% + 4px);
+      z-index: -10;
+
+      clip-path: ellipse(46% 55% at 50% 50%);
+      animation: rotate 2000ms infinite, fadein 400ms forwards;
+    }
+  }
+
+  .node-media {
+    @include full();
+    position: absolute;
+    z-index: -1;
+
+    video {
+      @include full();
+      clip-path: circle();
+      object-fit: cover;
+    }
   }
 </style>
 
 <script>
   import * as d3 from 'd3'
   const main = document.querySelector('main')
-  const centerX = (main!.clientWidth - 300) / 2
-  const centerY = (window.innerHeight - 300) / 2
-
-  console.log('stat', {
-    centerX,
-    centerY,
-  })
+  const centerX = (main!.clientWidth - 360) / 2
+  const centerY = (window.innerHeight - 400) / 2
 
   const nodes = [
     { id: 'blog', link: '/blog' },
@@ -101,7 +241,7 @@ const page = Page.Tutorial
   }
 
   const tick = () => {
-    links.style('transform', (d) => `translate(${d.x}px, ${d.y}px)`)
+    links.style('translate', (d) => `${d.x}px ${d.y}px`)
   }
 
   const restart = () => {

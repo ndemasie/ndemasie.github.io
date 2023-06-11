@@ -3,15 +3,16 @@ import { Language } from 'src/types/Language'
 
 export interface Props {
   lang?: Language
+  path?: string
 }
 
-const { lang } = Astro.props as Props
+const { lang, path = '' } = Astro.props as Props
 ---
 
 <!DOCTYPE html>
 <html>
   <body>
-    <script is:inline client:only define:vars={{ Language, lang }}>
+    <script is:inline client:only define:vars={{ Language, lang, path }}>
       window.addEventListener('DOMContentLoaded', () => {
         const clientLanguage =
           lang ??
@@ -20,7 +21,7 @@ const { lang } = Astro.props as Props
             .find((lang) => Object.values(Language).includes(lang))
 
         window.location.replace(
-          new URL(`${clientLanguage}/tutorial/i18next`, window.origin),
+          new URL(`${clientLanguage}/${path}`, window.origin),
         )
       })
     </script>

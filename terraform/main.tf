@@ -14,8 +14,8 @@ locals {
 variable "aws_variables" {
   type = map(string)
   default = {
-    ami           = "ami-07151644aeb34558a" # Amazon Linux 20231 AMI 64-bit x86
-    instance_type = "t2.nano"
+    ami           = "ami-04e601abe3e1a910f" # Ubuntu 22.04 LTS
+    instance_type = "t2.micro"              # Free tier
     subnet        = "subnet-0428cd590bc209832"
     vpc_id        = "vpc-0fbe0c741b97a6e17" # AWS Virtual Private Cloud
     sec_group_id  = "sg-08361cdbc600b7f85"  # Security Group Id`
@@ -87,11 +87,8 @@ resource "aws_instance" "demasie_ec2_server" {
   user_data = <<EOF
     #! /bin/sh
     # Setup docker on server
-    yum update -y
-    yum install docker -y
-    service docker start
-    usermod -a -G docker ec2-user
-    chkconfig docker on
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo sh ./get-docker.sh --dry-run
   EOF
 
   root_block_device {

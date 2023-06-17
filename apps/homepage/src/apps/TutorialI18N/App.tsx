@@ -13,7 +13,7 @@ import { Role, UserContextProvider, useUserContext } from './context/user'
 import { WebSocketProvider, useWebSocketContext } from './context/webSocket'
 import { styles } from './styles'
 
-const WEBCONTAINER_APP_I18N = '/webcontainers/i18next/fileSystemTree.json'
+const WEBCONTAINER_APP_I18N = '/webcontainer-i18next/fileSystemTree.json'
 
 const Loading: React.FC = () => {
   const { t } = useTranslation()

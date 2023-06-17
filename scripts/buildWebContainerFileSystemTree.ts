@@ -9,7 +9,6 @@ import type { FileSystemTree } from '@webcontainer/api'
 import * as fs from 'fs'
 import * as path from 'path'
 
-const DIRECTORY_PATH = 'webcontainers/i18next' // FIXME: Make generic
 const SKIP_FILES = ['.DS_Store']
 const SKIP_DIRS = ['node_modules']
 
@@ -38,8 +37,11 @@ function readDirectory(dirname: string): FileSystemTree {
 }
 
 // SCRIPT
-const tree = readDirectory(DIRECTORY_PATH)
+const tree = readDirectory(`./apps/webcontainer-i18next`)
 const content = JSON.stringify(tree)
 
-fs.mkdirSync(`./site/public/${DIRECTORY_PATH}`, { recursive: true })
-fs.writeFileSync(`./site/public/${DIRECTORY_PATH}/fileSystemTree.json`, content)
+fs.mkdirSync(`./apps/homepage/public/webcontainer-i18next`, { recursive: true })
+fs.writeFileSync(
+  `./apps/homepage/public/webcontainer-i18next/fileSystemTree.json`,
+  content,
+)

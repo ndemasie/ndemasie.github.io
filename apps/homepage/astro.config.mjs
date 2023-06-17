@@ -12,9 +12,13 @@ export default defineConfig({
   outDir: './dist',
   integrations: [react(), sitemap()],
   trailingSlash: 'ignore',
-  site: process.env.ENVIRONMENT_MODE === 'production' ? packageJson.homepage : 'http://localhost:3000',
+  site:
+    process.env.ENVIRONMENT_MODE === 'production'
+      ? packageJson.homepage
+      : 'http://localhost:10400',
 
   server: {
+    port: 10400,
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',

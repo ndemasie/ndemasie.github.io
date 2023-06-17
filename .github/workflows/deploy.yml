@@ -19,8 +19,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build site
-        run: bash ./scripts/build.sh --file ./docker/build/Dockerfile.site
+      - name: Build homepage
+        run: bash ./scripts/build.sh --file ./apps/homepage/Dockerfile.prod
 
       - name: Deploy site
         uses: peaceiris/actions-gh-pages@v3
@@ -60,7 +60,7 @@ jobs:
       - name: Load docker image and run
         run: |
           # Prep
-          docker image build --file "./docker/build/Dockerfile.server" --tag websocket-server --force-rm .
+          docker image build --file "./apps/server-websocket-i18next/Dockerfile.prod" --tag server-websocket-i18next --force-rm .
           image_id=$(docker images --format "{{.ID}} {{.CreatedAt}}" | sort --reverse --key 2 | awk 'NR==1{print $1}')
 
           # Copy image to EC2
@@ -69,4 +69,4 @@ jobs:
           | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load
 
           # Run Image
-          ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker run --detach --publish 80:3001 --publish 443:3001 $image_id
+          ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker run --detach --publish 80:10500 --publish 443:10500 $image_id

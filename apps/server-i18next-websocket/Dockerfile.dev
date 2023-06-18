@@ -7,13 +7,13 @@ ENV ENVIRONMENT_MODE development
 WORKDIR /root
 
 # NPM install
-COPY ./server/package.json ./
-COPY ./server/package-lock.json ./
+COPY ./package.json ./
+COPY ./package-lock.json ./
 RUN npm ci
 
 # Copy files
-COPY ./server/tsconfig.json ./
+COPY ./tsconfig.json ./
 
-EXPOSE 3001
+EXPOSE 10500
 
 CMD npm run start

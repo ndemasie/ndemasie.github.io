@@ -1,12 +1,12 @@
-FROM node:18-alpine
+FROM node:18-alpine as builder
 
 ENV ENVIRONMENT_MODE production
 
 WORKDIR /root
 
 # NPM install
-COPY ./site/package.json ./
-COPY ./site/package-lock.json ./
+COPY ./package.json ./
+COPY ./package-lock.json ./
 RUN npm ci
 
 # Fix Astro Vite issue compiling JSX with @emotion/react
@@ -15,11 +15,15 @@ RUN sed -i 's/jsxImportSource: "react"/jsxImportSource: "@emotion\/react"/' ./no
 RUN sed -i 's/importSource: ReactVersion.startsWith("18.") ? "react" : "@astrojs\/react"/importSource: ReactVersion.startsWith("18.") ? "@emotion\/react" : "@astrojs\/react"/' node_modules/@astrojs/react/dist/index.js
 
 # Copy files
-COPY ./site/astro.config.mjs ./
-COPY ./site/tsconfig.json ./
-COPY ./site/postcss.config.js ./
-
-COPY ./site/src ./src/
-COPY ./site/public ./public/
+COPY ./astro.config.mjs ./
+COPY ./tsconfig.json ./
+COPY ./postcss.config.js ./
+COPY ./src ./src/
+COPY ./public ./public/
 
 RUN npm run astro:build
+
+# Static server
+FROM nginx:alpine as static_server
+COPY --from=builder /root/dist /var/www/dist/
+COPY ./nginx.conf /etc/nginx/nginx.conf

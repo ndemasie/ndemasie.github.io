@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  nginx:
+    build:
+      context: ./apps/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    restart: always
+
+  homepage:
+    build:
+      context: ./apps/homepage
+      dockerfile: Dockerfile.dev
+    # ports:
+    #   - "10400:10400"
+    restart: always
+    volumes:
+      - ./apps/homepage/src:/root/src:ro
+      - ./apps/homepage/public:/root/public:ro
+
+  server-i18next-websocket:
+    build:
+      context: ./apps/server-i18next-websocket
+      dockerfile: Dockerfile.dev
+    # ports:
+    #   - "10500:10500"
+    restart: always
+    volumes:
+      - ./apps/server-i18next-websocket/src:/root/src:ro

@@ -12,8 +12,8 @@ services:
     build:
       context: ./apps/homepage
       dockerfile: Dockerfile.dev
-    ports:
-      - "10400:10400"
+    # ports:
+    #   - "10400:10400"
     volumes:
       - ./apps/homepage/src:/root/src:ro
       - ./apps/homepage/public:/root/public:ro
@@ -22,7 +22,7 @@ services:
     build:
       context: ./apps/server-i18next-websocket
       dockerfile: Dockerfile.dev
-    ports:
-      - "10500:10500"
+    # ports:
+    #   - "10500:10500"
     volumes:
       - ./apps/server-i18next-websocket/src:/root/src:ro

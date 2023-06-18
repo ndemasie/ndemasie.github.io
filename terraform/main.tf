@@ -132,6 +132,7 @@ resource "aws_budgets_budget" "demasie_month_budget" {
 # # Setup docker
 # curl -fsSL https://get.docker.com -o get-docker.sh
 # sudo sh ./get-docker.sh
+# rm ./get-docker.sh
 
 # # Add user to docker group
 # sudo usermod --append --groups docker $USER

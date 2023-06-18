@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:18-alpine as builder
 
 ENV ENVIRONMENT_MODE production
 
@@ -18,8 +18,12 @@ RUN sed -i 's/importSource: ReactVersion.startsWith("18.") ? "react" : "@astrojs
 COPY ./astro.config.mjs ./
 COPY ./tsconfig.json ./
 COPY ./postcss.config.js ./
-
 COPY ./src ./src/
 COPY ./public ./public/
 
 RUN npm run astro:build
+
+# Static server
+FROM nginx:alpine as static_server
+COPY --from=builder /root/dist /var/www/dist/
+COPY ./nginx.conf /etc/nginx/nginx.conf

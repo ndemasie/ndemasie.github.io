@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  nginx:
+    build:
+      context: ./apps/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    restart: always
+
+  homepage:
+    build:
+      context: ./apps/homepage
+      dockerfile: Dockerfile.prod
+    restart: always
+
+  server-i18next-websocket:
+    build:
+      context: ./apps/server-i18next-websocket
+      dockerfile: Dockerfile.prod
+    restart: always

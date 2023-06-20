@@ -8,14 +8,14 @@
   "scripts": {
     "start": "npm run docker:dev & npm run watch:webcontainer",
     "docker:clean": "bash ./scripts/docker_functions.sh stop && bash ./scripts/docker_functions.sh clean",
-    "docker:dev": "docker compose -f ./docker-compose.dev.yaml up --build --abort-on-container-exit",
-    "docker:deploy": "docker compose -f ./docker-compose.prod.yaml up --build --abort-on-container-exit",
+    "docker:dev": "docker compose --file ./docker-compose.dev.yaml up --build --abort-on-container-exit",
+    "docker:deploy": "docker compose --file ./docker-compose.prod.yaml up --build --abort-on-container-exit",
     "lint:check": "npx eslint src",
     "lint:fix": "npx eslint src --fix",
     "run:ts-script": "npx ts-node --transpile-only --project ./scripts/tsconfig.json",
     "script:buildWebContainerFileSystemTree": "npm run run:ts-script -- ./scripts/buildWebContainerFileSystemTree.ts",
     "update": "npx npm-check --update",
-    "terraform": "terraform -chdir='./terraform'",
+    "terraform": "terraform -chdir='./infra'",
     "watch:site:public": "echo \"Deprecated: $ npx nodemon --ext 'tsx' --watch './site/src/**/public/**/*.tsx' --exec 'bash ./scripts/copy_public_dirs.sh'\"",
     "watch:webcontainer": "npx nodemon --watch './apps/webcontainer-*/**/*.*' --exec 'npm run script:buildWebContainerFileSystemTree'"
   },

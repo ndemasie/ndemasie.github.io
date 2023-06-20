@@ -40,10 +40,10 @@ const Context = () => {
 
   const { sendMessage, lastMessage, readyState } = useLibWebSocket(
     import.meta.env?.PROD
-      ? 'wss://ec2-3-78-190-49.eu-central-1.compute.amazonaws.com'
-      : 'ws://localhost:3000/server-i18next-websocket/',
+      ? 'wss://nathan.demasie.com/server-i18next-websocket/'
+      : 'ws://localhost:10000/server-i18next-websocket/',
     {
-      onOpen: () => console.log('opened'),
+      onOpen: () => console.log('opened websocket'),
       onMessage,
       onError: console.error,
       onClose: console.warn,

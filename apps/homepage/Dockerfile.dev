@@ -20,6 +20,6 @@ COPY ./tsconfig.json ./
 COPY ./postcss.config.js ./
 COPY ./src/types ./src/types
 
-EXPOSE 10400
+EXPOSE 10100
 
 CMD npm run astro:dev -- --host

@@ -15,10 +15,10 @@ export default defineConfig({
   site:
     process.env.ENVIRONMENT_MODE === 'production'
       ? packageJson.homepage
-      : 'http://localhost:10400',
+      : 'http://localhost:10000',
 
   server: {
-    port: 10400,
+    port: 10100,
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',

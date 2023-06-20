@@ -22,7 +22,7 @@ export class WebSocketManager {
   private constructor(serverOptions?: ServerOptions) {
     WebSocketManager._INSTANCE = this
 
-    const port = 10500
+    const port = 10200
 
     const wss = new WebSocketServer({ port, ...(serverOptions || {}) })
 

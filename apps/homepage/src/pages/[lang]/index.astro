@@ -151,8 +151,8 @@ const page = Page.Tutorial
     transition-duration: var(--duration);
     transition-timing-function: cubic-bezier(0.28, 1.1, 0.54, 1.05);
     transition-delay: var(--delay, 0);
-    translate: calc(cos(var(--angle, 0)) * var(--radius) - 50%)
-      calc(sin(calc(var(--angle, 0) * -1)) * var(--radius) - 50%);
+    translate: calc(cos(var(--angle, 0deg)) * var(--radius) - 50%)
+      calc(sin(var(--angle, 0deg)) * -1 * var(--radius) - 50%);
   }
 
   .nav-item:hover .node-sub-item {

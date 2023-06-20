@@ -30,6 +30,6 @@ RUN npm ci
 
 COPY --from=builder /root/dist ./dist/
 
-EXPOSE 10500
+EXPOSE 10200
 
 ENTRYPOINT ["node", "/root/dist/index.js"]

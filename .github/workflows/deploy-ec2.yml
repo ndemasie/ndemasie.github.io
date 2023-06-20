@@ -38,13 +38,19 @@ jobs:
 
       - name: Load docker image and run
         run: |
+          get_images() {
+            docker images --format "{{.ID}} {{.Repository}} {{.CreatedAt}}" \
+              | sort --reverse --key 3 \
+              | head -n 3
+          }
+
           # Prep
           docker compose --file ./docker-compose.prod.yaml build
-          docker images --format "{{.ID}} {{.Repository}}"
+          get_images
 
           # Load each image to EC2
-          docker images --format "{{.ID}} {{.Repository}}" |
-          while read -r image_id image_repo; do
+          get_images |
+          while read -r image_id image_repo image_create_at; do
             docker save ${image_id} \
               | bzip2 \
               | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load \

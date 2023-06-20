@@ -38,7 +38,7 @@ jobs:
       - name: Load and tag docker images
         run: |
           get_images() {
-            docker images --format "{{.Repository}} {{.ID}}" | grep '^my-'
+            docker images --format "{{.Repository}} {{.ID}} {{.Tag}}" | grep '^my-'
           }
 
           # Prep
@@ -47,11 +47,12 @@ jobs:
 
           # Load each image to EC2
           get_images |
-          while read -r image_repo image_id; do
+          while read -r image_repo image_id image_tag; do
             docker save ${image_id} \
               | bzip2 \
-              | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load \
-              | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} "docker tag ${image_id} ${image_repo}"
+              | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load
+
+            ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} "docker tag ${image_id} ${image_repo}:${image_tag}"  < /dev/null
           done
 
       - name: Copy build files

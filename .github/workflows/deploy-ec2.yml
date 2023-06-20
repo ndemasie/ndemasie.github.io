@@ -31,7 +31,7 @@ jobs:
       - name: Clean up
         run: |
           ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} '
-            docker ps --all --quiet | xargs -r docker stop &&
+            docker compose --file ./docker-compose.prod.yaml stop &&
             docker system prune --force &&
             docker images --quiet | xargs -r docker rmi
             '
@@ -39,15 +39,17 @@ jobs:
       - name: Load docker image and run
         run: |
           # Prep
-          docker compose -f ./docker-compose.prod.yaml build
+          docker compose --file ./docker-compose.prod.yaml build
+          docker images --format "{{.ID}} {{.Repository}}"
 
           # Load each image to EC2
-          while IFS=' ' read -r image_id image_repo; do
+          docker images --format "{{.ID}} {{.Repository}}" |
+          while read -r image_id image_repo; do
             docker save ${image_id} \
               | bzip2 \
-              | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load
-            ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} "docker tag ${image_id} ${image_repo}:latest"
-          done < <(docker images --format "{{.ID}} {{.Repository}}")
+              | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load \
+              | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} "docker tag ${image_id} ${image_repo}:latest"
+          done
 
       - name: Copy build files
         run: |

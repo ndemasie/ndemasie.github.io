@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   nginx:
-    image: my-nginx:latest
+    image: my-nginx
     build:
       context: ./apps/nginx
       dockerfile: Dockerfile.prod
@@ -14,14 +14,14 @@ services:
     restart: always
 
   homepage:
-    image: my-homepage:latest
+    image: my-homepage
     build:
       context: ./apps/homepage
       dockerfile: Dockerfile.prod
     restart: always
 
   server-i18next-websocket:
-    image: my-server-i18next-websocket:latest
+    image: my-server-i18next-websocket
     build:
       context: ./apps/server-i18next-websocket
       dockerfile: Dockerfile.prod

@@ -31,7 +31,8 @@ jobs:
       - name: Teardown
         run: |
           ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} '
-            docker compose --file ./docker-compose.prod.yaml down --rmi all
+            docker compose --file ./docker-compose.prod.yaml down --rmi all &&
+            docker system prune --force
             '
 
       - name: Load and tag docker images
@@ -50,7 +51,7 @@ jobs:
             docker save ${image_id} \
               | bzip2 \
               | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load \
-              | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} "docker tag ${image_id} ${image_repo}:latest"
+              | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} "docker tag ${image_id} ${image_repo}"
           done
 
       - name: Copy build files

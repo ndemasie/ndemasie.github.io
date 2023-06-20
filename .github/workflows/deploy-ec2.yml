@@ -28,20 +28,16 @@ jobs:
         run: |
           ssh-keyscan -H ${{ secrets.AWS_EC2_PUBLIC_DNS }} >> ~/.ssh/known_hosts
 
-      - name: Clean up
+      - name: Teardown
         run: |
           ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} '
-            docker compose --file ./docker-compose.prod.yaml stop &&
-            docker system prune --force &&
-            docker images --quiet | xargs -r docker rmi
+            docker compose --file ./docker-compose.prod.yaml down --rmi all
             '
 
-      - name: Load docker image and run
+      - name: Load and tag docker images
         run: |
           get_images() {
-            docker images --format "{{.ID}} {{.Repository}} {{.CreatedAt}}" \
-              | sort --reverse --key 3 \
-              | head -n 3
+            docker images --format "{{.Repository}} {{.ID}}" | grep '^my-'
           }
 
           # Prep
@@ -50,7 +46,7 @@ jobs:
 
           # Load each image to EC2
           get_images |
-          while read -r image_id image_repo image_create_at; do
+          while read -r image_repo image_id; do
             docker save ${image_id} \
               | bzip2 \
               | ssh ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load \

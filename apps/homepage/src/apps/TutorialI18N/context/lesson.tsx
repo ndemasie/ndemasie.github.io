@@ -52,6 +52,11 @@ export const lessons: Lesson[] = [
     externalRef: 'https://www.i18next.com/translation-function/plurals',
   },
   {
+    key: 'formatting',
+    filename: 'Formatting.jsx',
+    externalRef: 'https://www.i18next.com/translation-function/formatting',
+  },
+  {
     key: 'nesting',
     filename: 'Nesting.jsx',
     externalRef: 'https://www.i18next.com/translation-function/nesting',

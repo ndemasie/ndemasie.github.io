@@ -8,6 +8,7 @@ import Namespaces from './components/Namespaces'
 import Nesting from './components/Nesting'
 import ObjectsAndArrays from './components/ObjectsAndArrays'
 import Plurals from './components/Plurals'
+import Formatting from './components/Formatting'
 
 import packageJson from '../package.json'
 
@@ -28,17 +29,8 @@ export default function App() {
       }
     }
 
-    window.addEventListener(
-      'message',
-      onMessageEvent,
-      false,
-    )
-    return () =>
-      window.removeEventListener(
-        'message',
-        onMessageEvent,
-        false,
-      )
+    window.addEventListener('message', onMessageEvent, false)
+    return () => window.removeEventListener('message', onMessageEvent, false)
   })
 
   return (
@@ -51,6 +43,7 @@ export default function App() {
       <Nesting />
       <ObjectsAndArrays />
       <Plurals />
+      <Formatting />
     </>
   )
 }

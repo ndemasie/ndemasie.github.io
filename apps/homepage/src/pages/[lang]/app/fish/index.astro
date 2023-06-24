@@ -1,0 +1,190 @@
+---
+import PageLayout from 'src/layouts/PageLayout.astro'
+import { Language } from 'src/types/Language'
+import { Page } from 'src/types/Page'
+
+export function getStaticPaths() {
+  return Object.values(Language).map((lang) => ({ params: { lang } }))
+}
+
+type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
+
+const { lang } = Astro.params as unknown as Params
+
+const page = Page.Tutorial
+
+const options = {
+  count: 100,
+  width: 1040,
+  height: 720,
+  id: 'app',
+}
+---
+
+<PageLayout page={page} lang={lang}>
+  <canvas id="app" height={options.height} width={options.width}></canvas>
+  <div class="shark"></div>
+</PageLayout>
+
+<style lang="scss" is:global define:vars={options}>
+  @mixin bg-sprit() {
+    background-position: calc(var(--frame) * var(--inc) - var(--x))
+      calc(var(--y) * -1);
+  }
+
+  @mixin sprite-animation($name, $count) {
+    $percentage: 1 / $count;
+
+    @keyframes #{$name} {
+      @for $i from 0 to $count {
+        #{$i * 100 * $percentage}%,
+        #{(($i + 1) * 100 - 1) * $percentage}% {
+          --frame: #{$i + 1};
+          @include bg-sprit();
+        }
+      }
+
+      100% {
+        --frame: 1;
+        @include bg-sprit();
+      }
+    }
+  }
+
+  // @include sprite-animation('sprite-fish', 4);
+  // @include sprite-animation('sprite-shark', 8);
+
+  main {
+    cursor: none;
+  }
+
+  .shark {
+    --inc: 32px;
+    --x: 1px;
+    --y: 1px;
+
+    background-image: url('/apps/fish/shark-sprite.png');
+    @include bg-sprit();
+
+    animation: sprite-shark 2s infinite;
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    height: 30px;
+    width: 30px;
+    scale: 2.8;
+  }
+
+  .fish {
+    --height: 50;
+    --width: 50;
+    --frame: 1;
+
+    background-image: url('/apps/fish/fish-sprite.png');
+    @include bg-sprit();
+
+    animation: sprite-fish 3s infinite;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 50px;
+    width: 50px;
+
+    &:nth-of-type(3n) {
+      --inc: 45px;
+      --x: -19px;
+      --y: 25px;
+    }
+    &:nth-of-type(3n + 1) {
+      --inc: 50px;
+      --x: -2px;
+      --y: 125px;
+    }
+    &:nth-of-type(3n + 2) {
+      --inc: 44px;
+      --x: -18px;
+      --y: 222px;
+    }
+  }
+</style>
+
+<!-- Make fish -->
+<script is:inline define:vars={options}>
+const main = document.querySelector('main')
+Array.from({ length: count }, () => {
+  const el = document.createElement('div')
+  el.className = 'fish'
+  main.appendChild(el)
+})
+</script>
+
+<!-- Import D3 -->
+<script>
+  import * as d3 from 'd3'
+  window.d3 ||= d3
+</script>
+
+<!-- D3 -->
+<script is:inline define:vars={options}>
+document.addEventListener('DOMContentLoaded', () => {
+  const d3 = window.d3
+  const K = 3
+
+  const context = document.getElementById(id).getContext('2d')
+  const fish = d3.selectAll('.shark, .fish')
+
+  const randomUniform = d3.randomUniform(width / 180, (width / 180) * K)
+
+  const nodes = [].concat(
+    {
+      r: randomUniform(),
+    },
+    Array.from(Array(count), (_, i) => {
+      return {
+        r: randomUniform(),
+        group: i % K,
+      }
+    }),
+  )
+
+  const pointermove = (event) => {
+    const [x, y] = d3.pointer(event)
+    nodes[0].fx = x - width / 2
+    nodes[0].fy = y - height / 2
+  }
+
+  const tick = () => {
+    fish.data(nodes).each((d, i, nodes) => {
+      d3.select(nodes[i]).style('translate', `${d.x - d.r}px ${d.y - d.r}px`)
+    })
+  }
+
+  const simulation = d3
+    .forceSimulation(nodes)
+    .alphaTarget(0.3)
+    .velocityDecay(0.1)
+    .force('x', d3.forceX().strength(0.01))
+    .force('y', d3.forceY().strength(0.01))
+    .force(
+      'collide',
+      d3
+        .forceCollide()
+        .radius((d) => d.r + 1)
+        .iterations(3),
+    )
+    .force(
+      'charge',
+      d3.forceManyBody().strength((_, i) => (i ? 0 : (-width * 2) / 3)),
+    )
+    .on('tick', tick)
+
+  d3.select(context.canvas)
+    .on('touchmove', (event) => event.preventDefault())
+    .on('pointermove', pointermove)
+
+  simulation.nodes(nodes)
+})
+</script>

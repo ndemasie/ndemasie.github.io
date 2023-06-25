@@ -11,63 +11,38 @@ type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 
 const { lang } = Astro.params as unknown as Params
 
-const page = Page.Tutorial
+const page = Page.App
 
-const options = {
+const VARS = {
   id: 'app',
   count: 100,
 }
 ---
 
 <PageLayout page={page} lang={lang}>
-  <canvas id={options.id}></canvas>
+  <canvas id={VARS.id}></canvas>
   <div class="shark"></div>
   <!-- Make fish -->
-  <script is:inline define:vars={options}>
+  <script define:vars={VARS}>
     const main = document.querySelector('main')
     Array.from({ length: count }, () => {
       const el = document.createElement('div')
-      el.className = 'fish'
+      el.classList.add('fish')
       main.appendChild(el)
     })
   </script>
 </PageLayout>
 
-<style lang="scss" is:global define:vars={options}>
-  @mixin bg-sprit() {
-    background-position: calc(var(--frame) * var(--inc) - var(--x))
-      calc(var(--y) * -1);
-  }
+<style lang="scss" is:global>
+  @import 'src/styles/abstracts/_mixins/_animations.scss';
 
-  @mixin sprite-animation($name, $count) {
-    $percentage: 1 / $count;
+  @include animate-sprite('sprite-fish', 4);
+  @include animate-sprite('sprite-shark', 8);
 
-    @keyframes #{$name} {
-      @for $i from 0 to $count {
-        #{$i * 100 * $percentage}%,
-        #{(($i + 1) * 100 - 0.01) * $percentage}% {
-          --frame: #{$i + 1};
-          @include bg-sprit();
-        }
-      }
-
-      100% {
-        --frame: 1;
-        @include bg-sprit();
-      }
-    }
-  }
-
-  @include sprite-animation('sprite-fish', 4);
-  @include sprite-animation('sprite-shark', 8);
-
-  html,
-  body,
   main {
     height: 100%;
     width: 100%;
-    padding: 0 !important;
-    margin: 0;
+    max-width: 100%;
   }
 
   .shark {
@@ -75,10 +50,9 @@ const options = {
     --x: 1px;
     --y: 1px;
 
-    background-image: url('/apps/fish/shark-sprite.png');
-    @include bg-sprit();
-
     animation: sprite-shark 2s infinite;
+    background-image: url('/apps/fish-chase/shark-sprite.png');
+    @include bg-sprit();
 
     position: absolute;
     pointer-events: none;
@@ -91,21 +65,21 @@ const options = {
   }
 
   .fish {
-    --height: 50;
-    --width: 50;
-    --frame: 1;
-
-    background-image: url('/apps/fish/fish-sprite.png');
+    animation: sprite-fish 1s infinite;
+    background-image: url('/apps/fish-chase/fish-sprite.png');
     @include bg-sprit();
 
-    animation: sprite-fish 1s infinite;
     pointer-events: none;
     position: absolute;
+
     top: 50%;
     left: 50%;
     height: 50px;
     width: 50px;
 
+    &:nth-of-type(odd) {
+      animation-delay: -0.5s;
+    }
     &:nth-of-type(3n) {
       --inc: 45px;
       --x: -19px;
@@ -131,7 +105,7 @@ const options = {
 </script>
 
 <!-- D3 -->
-<script is:inline define:vars={options}>
+<script define:vars={VARS}>
 document.addEventListener('DOMContentLoaded', () => {
   const d3 = window.d3
   const K = 3 // Clusters
@@ -145,8 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const height = main.clientHeight
   canvas.width = width
   canvas.height = height
-  context.width = width
-  context.height = height
 
   const fish = d3.selectAll('.shark, .fish')
 

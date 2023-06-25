@@ -1,9 +1,8 @@
 ---
-import { schema } from 'src/locales'
 import { Language } from 'src/types/Language'
+import { schema } from 'src/locales'
 
-const socials = schema[Language.EN]?.social
-
+export const socials = schema[Language.EN]?.social
 export const redirects = {
   github: socials.github.url,
   Github: socials.github.url,

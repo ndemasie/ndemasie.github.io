@@ -4,11 +4,21 @@
     "undefined": "Undefined"
   },
   "page": {
-    "_title_undefined": "$t('common.undefined')",
-    "_description_undefined": "$t('common.undefined')",
+    "_title_undefined": "Undefined",
+    "_description_undefined": "Undefined",
+    "app": {
+      "_title": "App",
+      "_description": "A demo app",
+      "title": "Welcome to the apps pages"
+    },
+    "blog": {
+      "_title": "Blog",
+      "_description": "A blog",
+      "title": "Welcome to the blog pages"
+    },
     "tutorial": {
       "_title": "Tutorials",
-      "_description": "",
+      "_description": "Some learnings",
       "title": "Welcome to the tutorials pages"
     }
   },

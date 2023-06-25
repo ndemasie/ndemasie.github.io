@@ -1,11 +1,16 @@
 ---
+import { schema } from 'src/locales'
+import { Language } from 'src/types/Language'
+
+const socials = schema[Language.EN]?.social
+
 export const redirects = {
-  github: 'https://github.com/ndemasie',
-  Github: 'https://github.com/ndemasie',
-  GitHub: 'https://github.com/ndemasie',
-  linkedin: 'https://www.linkedin.com/in/nathandemasie/',
-  Linkedin: 'https://www.linkedin.com/in/nathandemasie/',
-  LinkedIn: 'https://www.linkedin.com/in/nathandemasie/',
+  github: socials.github.url,
+  Github: socials.github.url,
+  GitHub: socials.github.url,
+  linkedin: socials.linkedin.url,
+  Linkedin: socials.linkedin.url,
+  LinkedIn: socials.linkedin.url,
 }
 
 type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']

@@ -1,7 +1,7 @@
 ---
 import { Language } from 'src/types/Language'
 import { Page } from 'src/types/Page'
-import { t } from 'src/locales'
+import { t, schema } from 'src/locales'
 
 interface Props {
   page: Page
@@ -15,7 +15,8 @@ const description = t(
   [`page.${page}._description`, 'page._description_undefined'],
   lang,
 )
-const permalink = 'https://nathan.demasie.com'
+
+const permalink = schema[lang].author.url.url
 ---
 
 <head>

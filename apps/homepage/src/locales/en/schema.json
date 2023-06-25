@@ -7,7 +7,9 @@
         "givenName": "Nathan",
         "familyName": "DeMasie",
         "jobTitle": "Software Developer",
-        "url": "https://www.nathandemasie.com",
+        "url": {
+          "$ref": "#/definitions/URL/homepage"
+        },
         "sameAs": [
           {
             "$ref": "#/definitions/URL/github"
@@ -16,8 +18,14 @@
       }
     },
     "URL": {
+      "homepage": {
+        "url": "https://nathan.demasie.com"
+      },
       "github": {
         "url": "https://github.com/ndemasie"
+      },
+      "linkedin": {
+        "url": "https://www.linkedin.com/in/nathandemasie/"
       }
     }
   },
@@ -27,6 +35,9 @@
   "social": {
     "github": {
       "$ref": "#/definitions/URL/github"
+    },
+    "linkedin": {
+      "$ref": "#/definitions/URL/linkedin"
     }
   }
 }

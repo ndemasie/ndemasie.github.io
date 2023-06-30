@@ -2,6 +2,7 @@
 import PageLayout from 'src/layouts/PageLayout.astro'
 import { Language } from 'src/types/Language'
 import { Page } from 'src/types/Page'
+import { t } from 'src/locales'
 
 export function getStaticPaths() {
   return Object.values(Language).map((lang) => ({ params: { lang } }))
@@ -18,52 +19,55 @@ const page = Page.Tutorial
   <nav id="container">
     <ul>
       <li class="nav-item">
-        <h1>Blog</h1>
+        <h1 class="nav-title">{t('page.app._title', lang)}</h1>
 
-        <a class="node-link" href={`/${lang}/blog`}></a>
+        <a class="node-link" href={`/${lang}/app`}></a>
 
         <div class="node-media">
-          <video autoplay loop playsinline>
-            <source src="/video/cycling.mp4" type="video/mp4" />
-          </video>
+          <picture>
+            <source
+              srcset="/img/aitor-fernandez-red-planatir.png"
+              type="img/png"
+            />
+            <img src="/img/aitor-fernandez-red-planatir.png" />
+          </picture>
         </div>
 
         <ul class="node-sub-menu">
           <li class="node-sub-item">
             <div class="node-sub-item-container">
-              <a href={`/${lang}/blog/latest`}>Latest</a>
-            </div>
-          </li>
-          <li class="node-sub-item">
-            <div class="node-sub-item-container">
-              <a href={`/${lang}/blog`}>...See all</a>
+              <a href={`/${lang}/app/fish-chase`}>{t('app.fishChase.name', lang)}</a>
             </div>
           </li>
         </ul>
       </li>
 
       <li class="nav-item">
-        <h1>Tutorials</h1>
+        <h1 class="nav-title">{t('page.tutorial._title', lang)}</h1>
 
         <a class="node-link" href={`/${lang}/tutorial`}></a>
 
         <div class="node-media">
-          <video autoplay loop playsinline>
-            <source src="/video/scuba.mp4" type="video/mp4" />
-          </video>
+          <picture>
+            <source
+              srcset="/img/aitor-fernandez-green-planatir.png"
+              type="img/png"
+            />
+            <img src="/img/aitor-fernandez-green-planatir.png" />
+          </picture>
         </div>
 
         <ul class="node-sub-menu">
           <li class="node-sub-item">
             <div class="node-sub-item-container">
-              <a href={`/${lang}/tutorial/i18next`}>i18Next</a>
+              <a href={`/${lang}/tutorial/i18next`}>{t('tutorial.i18next.name', lang)}</a>
             </div>
           </li>
-          <li class="node-sub-item">
+          <!-- <li class="node-sub-item">
             <div class="node-sub-item-container">
               <a href={`/${lang}/tutorial`}>More</a>
             </div>
-          </li>
+          </li> -->
         </ul>
       </li>
     </ul>
@@ -123,6 +127,12 @@ const page = Page.Tutorial
     &:hover::after {
       background-color: rgba(0, 0, 0, 0.4);
     }
+  }
+
+  .nav-title {
+    color: white;
+    margin: 1em;
+    text-shadow: 0 0 10px black;
   }
 
   .node-sub-menu {
@@ -187,11 +197,24 @@ const page = Page.Tutorial
     position: absolute;
     z-index: -1;
 
+    img,
     video {
       @include full();
       clip-path: circle();
       object-fit: cover;
     }
+
+    img {
+      @include animate-rotate();
+      animation: rotation 12s cubic-bezier(0.12, 0.46, 0.48, 0.65) infinite;
+    }
+  }
+
+  .nav-item:nth-of-type(1) .node-media picture > img {
+    animation-delay: -3.75s;
+  }
+  .nav-item:nth-of-type(1) .node-media picture > img {
+    animation-delay: -5.73s;
   }
 </style>
 
@@ -202,7 +225,8 @@ const page = Page.Tutorial
   const centerY = (window.innerHeight - 400) / 2
 
   const nodes = [
-    { id: 'blog', link: '/blog' },
+    { id: 'app', link: '/app' },
+    // { id: 'blog', link: '/blog' },
     { id: 'tutorial', link: '/tutorial' },
   ]
 

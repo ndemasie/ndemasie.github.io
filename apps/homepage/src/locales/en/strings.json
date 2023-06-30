@@ -22,9 +22,15 @@
       "title": "Welcome to the tutorials pages"
     }
   },
+  "app": {
+    "fishChase": {
+      "name": "Fish Chase"
+    }
+  },
   "tutorial": {
     "i18next": {
-      "title": "Learning i18n-next"
+      "name": "i18next",
+      "title": "Learning i18next"
     }
   }
 }

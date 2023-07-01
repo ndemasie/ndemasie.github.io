@@ -12,7 +12,7 @@ type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 
 const { lang } = Astro.params as unknown as Params
 
-const page = Page.Tutorial
+const page = Page.Home
 ---
 
 <PageLayout page={page} lang={lang}>
@@ -21,7 +21,7 @@ const page = Page.Tutorial
       <li class="nav-item">
         <h1 class="nav-title">{t('page.app._title', lang)}</h1>
 
-        <a class="node-link" href={`/${lang}/app`}></a>
+        <!-- <a class="node-link" href={`/${lang}/app`}></a> -->
 
         <div class="node-media">
           <picture>
@@ -36,7 +36,14 @@ const page = Page.Tutorial
         <ul class="node-sub-menu">
           <li class="node-sub-item">
             <div class="node-sub-item-container">
-              <a href={`/${lang}/app/fish-chase`}>{t('app.fishChase.name', lang)}</a>
+              <a href={`/${lang}/app/fish-chase`}
+                >{t('app.fishChase.name', lang)}</a
+              >
+            </div>
+          </li>
+          <li class="node-sub-item">
+            <div class="node-sub-item-container">
+              <a href={`/${lang}/app`}>{t('common.more', lang)}</a>
             </div>
           </li>
         </ul>
@@ -45,7 +52,7 @@ const page = Page.Tutorial
       <li class="nav-item">
         <h1 class="nav-title">{t('page.tutorial._title', lang)}</h1>
 
-        <a class="node-link" href={`/${lang}/tutorial`}></a>
+        <!-- <a class="node-link" href={`/${lang}/tutorial`}></a> -->
 
         <div class="node-media">
           <picture>
@@ -60,21 +67,23 @@ const page = Page.Tutorial
         <ul class="node-sub-menu">
           <li class="node-sub-item">
             <div class="node-sub-item-container">
-              <a href={`/${lang}/tutorial/i18next`}>{t('tutorial.i18next.name', lang)}</a>
+              <a href={`/${lang}/tutorial/i18next`}
+                >{t('tutorial.i18next.name', lang)}</a
+              >
             </div>
           </li>
-          <!-- <li class="node-sub-item">
+          <li class="node-sub-item">
             <div class="node-sub-item-container">
-              <a href={`/${lang}/tutorial`}>More</a>
+              <a href={`/${lang}/tutorial`}>{t('common.more', lang)}</a>
             </div>
-          </li> -->
+          </li>
         </ul>
       </li>
     </ul>
   </nav>
 </PageLayout>
 
-<style lang="scss">
+<style lang="scss" is:global>
   @import 'src/styles/abstracts/_mixins/_index.scss';
 
   @mixin flex-center() {
@@ -94,19 +103,46 @@ const page = Page.Tutorial
     translate: -50% -50%;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   main {
     position: relative;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
   }
 
   .nav-item {
     @include flex-center();
     list-style: none;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 200px;
     width: 200px;
 
     border-radius: 50%;
     box-shadow: 4px 4px 10px 4px rgba(0, 0, 0, 0.4);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: -16px;
+      width: 90%;
+      height: 90%;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle at 58% 20px,
+        #d7dde7,
+        rgba(68, 17, 17, 0) 34%
+      );
+      filter: blur(12px);
+      transform: skewX(-25deg);
+      z-index: 2;
+    }
 
     &:after {
       @include full();
@@ -123,6 +159,9 @@ const page = Page.Tutorial
         rgba(0, 0, 0, 0) 40%,
         rgba(0, 0, 0, 0.4) 100%
       );
+    }
+    &:hover::before {
+      background: none;
     }
     &:hover::after {
       background-color: rgba(0, 0, 0, 0.4);
@@ -175,12 +214,11 @@ const page = Page.Tutorial
     @include flex-center();
     position: relative;
     height: 100%;
-    border-radius: 50%;
 
     &:hover {
       @include border-circle();
-      border-radius: 50%;
       &::before {
+        transform: rotate(48deg);
         border-radius: 50%;
       }
     }
@@ -206,7 +244,7 @@ const page = Page.Tutorial
 
     img {
       @include animate-rotate();
-      animation: rotation 12s cubic-bezier(0.12, 0.46, 0.48, 0.65) infinite;
+      animation: rotation 22s cubic-bezier(0.8, 0.54, 0.61, 0.84) infinite;
     }
   }
 
@@ -218,77 +256,86 @@ const page = Page.Tutorial
   }
 </style>
 
+<!-- Import D3 -->
 <script>
   import * as d3 from 'd3'
-  const main = document.querySelector('main')
-  const centerX = (main!.clientWidth - 360) / 2
-  const centerY = (window.innerHeight - 400) / 2
 
-  const nodes = [
-    { id: 'app', link: '/app' },
-    // { id: 'blog', link: '/blog' },
-    { id: 'tutorial', link: '/tutorial' },
-  ]
+  document.addEventListener('DOMContentLoaded', () => {
+    const main = document.querySelector('main')!
+    const itemWidth = 200
+    const width = (main.clientWidth - itemWidth) / 2
+    const height = (main.clientHeight - itemWidth) / 2
+    const isNarrow = main.clientWidth < 400
 
-  const links = d3.selectAll('.nav-item').data(nodes)
+    const nodes = [
+      { id: 'app', link: '/app' },
+      { id: 'tutorial', link: '/tutorial' },
+    ]
 
-  const rotate = () => {
-    nodes.forEach((d) => {
-      const angle = Math.atan2(d.y - centerY, d.x - centerX)
-      const targetX = centerX + Math.cos(angle + 0.1) * 300
-      const targetY = centerY + Math.sin(angle + 0.1) * 300
+    const links = d3.selectAll('.nav-item')
 
-      d.vx = (targetX - d.x) * 0.02
-      d.vy = (targetY - d.y) * 0.02
-    })
-  }
+    const rotate = () => {
+      nodes.forEach((d) => {
+        const angle = Math.atan2(d.y - height, d.x - width)
+        const targetX =
+          width + (Math.cos(angle + 0.1) * itemWidth) / (isNarrow ? 1.6 : 1)
+        const targetY =
+          height + (Math.sin(angle + 0.1) * itemWidth) / (isNarrow ? 1.6 : 1)
 
-  const tick = () => {
-    links.style('translate', (d) => `${d.x}px ${d.y}px`)
-  }
+        d.vx = (targetX - d.x) * 0.02
+        d.vy = (targetY - d.y) * 0.02
+      })
+    }
 
-  const restart = () => {
-    simulation.alpha(1).restart()
-  }
+    const tick = () => {
+      links.data(nodes).style('translate', (d) => `${d.x}px ${d.y}px`)
+    }
 
-  const simulation = d3
-    .forceSimulation(nodes)
-    .force('collide', d3.forceCollide().radius(300))
-    .force('charge', d3.forceManyBody().strength(1))
-    .force('center', d3.forceCenter(centerX, centerY))
-    .force('nodes', d3.forceManyBody())
-    .force('rotate', rotate)
-    .alphaDecay(0.05)
-    .on('tick', tick)
-
-  let interval = d3.interval(restart, 980)
-
-  const dragStart = (event, d) => {
-    simulation.alphaTarget(0.5).restart()
-    d.fx = event.x
-    d.fy = event.y
-  }
-
-  const drag = (event, d) => {
-    d.fx += event.dx
-    d.fy += event.dy
-  }
-
-  const dragEnd = (event, d) => {
-    simulation.alphaTarget(0).restart()
-    d.fx = null
-    d.fy = null
-  }
-
-  links
-    .data(nodes)
-    .call(d3.drag().on('start', dragStart).on('drag', drag).on('end', dragEnd))
-    .on('mouseover', () => {
-      simulation.stop()
-      interval.stop()
-    })
-    .on('mouseout', () => {
+    const restart = () => {
       simulation.alpha(1).restart()
-      interval = d3.interval(restart, 980)
-    })
+    }
+
+    const simulation = d3
+      .forceSimulation(nodes)
+      .force('collide', d3.forceCollide().radius(itemWidth))
+      .force('charge', d3.forceManyBody().strength(1))
+      .force('center', d3.forceCenter(width, height))
+      .force('nodes', d3.forceManyBody())
+      .force('rotate', rotate)
+      .alphaDecay(0.05)
+      .on('tick', tick)
+
+    let interval = d3.interval(restart, 980)
+
+    const dragStart = (event, d) => {
+      simulation.alphaTarget(0.5).restart()
+      d.fx = event.x
+      d.fy = event.y
+    }
+
+    const drag = (event, d) => {
+      d.fx += event.dx
+      d.fy += event.dy
+    }
+
+    const dragEnd = (event, d) => {
+      simulation.alphaTarget(0).restart()
+      d.fx = null
+      d.fy = null
+    }
+
+    links
+      .data(nodes)
+      .call(
+        d3.drag().on('start', dragStart).on('drag', drag).on('end', dragEnd),
+      )
+      .on('mouseover', () => {
+        simulation.stop()
+        interval.stop()
+      })
+      .on('mouseout', () => {
+        simulation.alpha(1).restart()
+        interval = d3.interval(restart, 980)
+      })
+  })
 </script>

@@ -103,6 +103,12 @@ const page = Page.Home
     translate: -50% -50%;
   }
 
+  body {
+    height: 100%;
+    max-height: 100%;
+    padding: 0;
+  }
+
   a {
     text-decoration: none;
   }
@@ -264,7 +270,7 @@ const page = Page.Home
     const main = document.querySelector('main')!
     const itemWidth = 200
     const width = (main.clientWidth - itemWidth) / 2
-    const height = (main.clientHeight - itemWidth) / 2
+    const height = (main.clientHeight - 80 - itemWidth) / 2
     const isNarrow = main.clientWidth < 400
 
     const nodes = [

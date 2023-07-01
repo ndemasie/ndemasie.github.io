@@ -7,6 +7,10 @@
   "page": {
     "_title_undefined": "Undefined",
     "_description_undefined": "Undefined",
+    "home": {
+      "_title": "Nathan DeMasie",
+      "_description": "Playground for experiments"
+    },
     "app": {
       "_title": "App",
       "_description": "A demo app",

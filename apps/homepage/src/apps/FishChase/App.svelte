@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import * as d3 from 'd3'
+  import Shark from './components/Shark.svelte'
+  import Fish from './components/Fish.svelte'
 
   export let count: number = 100
   const id: string = 'app'
@@ -69,65 +71,7 @@
 </script>
 
 <canvas {id} />
-<div class="shark" />
+<Shark />
 {#each { length: count } as _, i}
-  <div class="fish" />
+  <Fish />
 {/each}
-
-<style lang="scss">
-  @import 'src/styles/abstracts/_mixins/_animations.scss';
-
-  .shark {
-    --inc: 32px;
-    --x: 1px;
-    --y: 1px;
-
-    @include animate-sprite('shark-sprite', 8);
-    animation: shark-sprite 2s infinite;
-    background-image: url('/apps/fish-chase/shark-sprite.png');
-    @include bg-sprit();
-
-    position: absolute;
-    pointer-events: none;
-
-    top: 50%;
-    left: 50%;
-    height: 30px;
-    width: 30px;
-    scale: 2.8;
-  }
-
-  .fish {
-    @include animate-sprite('fish-sprite', 4);
-    animation: fish-sprite 1s infinite;
-    background-image: url('/apps/fish-chase/fish-sprite.png');
-    @include bg-sprit();
-
-    pointer-events: none;
-    position: absolute;
-
-    top: 50%;
-    left: 50%;
-    height: 50px;
-    width: 50px;
-
-    &:nth-of-type(odd) {
-      animation-delay: -0.5s;
-    }
-    &:nth-of-type(3n) {
-      --inc: 45px;
-      --x: -19px;
-      --y: 25px;
-    }
-    &:nth-of-type(3n + 1) {
-      --inc: 50px;
-      --x: -2px;
-      --y: 125px;
-    }
-    &:nth-of-type(3n + 2) {
-      --inc: 44px;
-      --x: -18px;
-      --y: 222px;
-    }
-  }
-</style>

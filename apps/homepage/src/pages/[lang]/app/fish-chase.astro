@@ -1,5 +1,6 @@
 ---
 import PageLayout from 'src/layouts/PageLayout.astro'
+import FishChase from 'src/apps/FishChase/App.svelte'
 import { Language } from 'src/types/Language'
 import { Page } from 'src/types/Page'
 
@@ -12,161 +13,17 @@ type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 const { lang } = Astro.params as unknown as Params
 
 const page = Page.App
-
-const VARS = {
-  id: 'app',
-  count: 100,
-}
 ---
 
 <PageLayout page={page} lang={lang}>
-  <canvas id={VARS.id}></canvas>
-  <div class="shark"></div>
-  <!-- Make fish -->
-  <script define:vars={VARS}>
-    const main = document.querySelector('main')
-    Array.from({ length: count }, () => {
-      const el = document.createElement('div')
-      el.classList.add('fish')
-      main.appendChild(el)
-    })
-  </script>
+  <FishChase client:only count={100} />
 </PageLayout>
 
 <style lang="scss" is:global>
-  @import 'src/styles/abstracts/_mixins/_animations.scss';
-
-  @include animate-sprite('sprite-fish', 4);
-  @include animate-sprite('sprite-shark', 8);
-
   main {
     position: relative;
     height: 100%;
     width: 100%;
     max-width: 100%;
   }
-
-  .shark {
-    --inc: 32px;
-    --x: 1px;
-    --y: 1px;
-
-    animation: sprite-shark 2s infinite;
-    background-image: url('/apps/fish-chase/shark-sprite.png');
-    @include bg-sprit();
-
-    position: absolute;
-    pointer-events: none;
-
-    top: 50%;
-    left: 50%;
-    height: 30px;
-    width: 30px;
-    scale: 2.8;
-  }
-
-  .fish {
-    animation: sprite-fish 1s infinite;
-    background-image: url('/apps/fish-chase/fish-sprite.png');
-    @include bg-sprit();
-
-    pointer-events: none;
-    position: absolute;
-
-    top: 50%;
-    left: 50%;
-    height: 50px;
-    width: 50px;
-
-    &:nth-of-type(odd) {
-      animation-delay: -0.5s;
-    }
-    &:nth-of-type(3n) {
-      --inc: 45px;
-      --x: -19px;
-      --y: 25px;
-    }
-    &:nth-of-type(3n + 1) {
-      --inc: 50px;
-      --x: -2px;
-      --y: 125px;
-    }
-    &:nth-of-type(3n + 2) {
-      --inc: 44px;
-      --x: -18px;
-      --y: 222px;
-    }
-  }
 </style>
-
-<!-- Import D3 -->
-<script>
-  import * as d3 from 'd3'
-  window.d3 ||= d3
-</script>
-
-<!-- D3 -->
-<script define:vars={VARS}>
-document.addEventListener('DOMContentLoaded', () => {
-  const d3 = window.d3
-  const K = 3 // Clusters
-
-  const main = document.querySelector('main')
-  const canvas = document.getElementById(id)
-  const context = canvas.getContext('2d')
-
-  // Set size
-  const width = main.clientWidth
-  const height = main.clientHeight
-  canvas.width = width
-  canvas.height = height
-
-  const fish = d3.selectAll('.shark, .fish')
-
-  const randomUniform = d3.randomUniform(6, 6 * K)
-
-  const nodes = [].concat(
-    { r: randomUniform() },
-    Array.from(Array(count), (_, i) => {
-      return { r: randomUniform(), group: i % K }
-    }),
-  )
-
-  const move = (event) => {
-    const [x, y] = d3.pointer(event)
-    nodes[0].fx = x - width / 2
-    nodes[0].fy = y - height / 2
-  }
-
-  const tick = () => {
-    fish.data(nodes).each((d, i, nodes) => {
-      d3.select(nodes[i]).style('translate', `${d.x - d.r}px ${d.y - d.r}px`)
-    })
-  }
-
-  const simulation = d3
-    .forceSimulation(nodes)
-    .alphaTarget(0.3)
-    .velocityDecay(0.1)
-    .force('x', d3.forceX().strength(0.012))
-    .force('y', d3.forceY().strength(0.01))
-    .force(
-      'collide',
-      d3
-        .forceCollide()
-        .radius((d) => d.r + 2)
-        .iterations(3),
-    )
-    .force(
-      'charge',
-      d3.forceManyBody().strength((_, i) => (i ? 0 : (2 / 2) * -width)),
-    )
-    .on('tick', tick)
-
-  d3.select(context.canvas)
-    .on('touchstart', (event) => event.preventDefault())
-    .on('pointermove', move)
-
-  simulation.nodes(nodes)
-})
-</script>

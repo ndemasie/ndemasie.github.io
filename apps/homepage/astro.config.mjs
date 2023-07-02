@@ -1,5 +1,6 @@
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
+import svelte from '@astrojs/svelte'
 import { defineConfig } from 'astro/config'
 
 import packageJson from './package.json' assert { type: 'json' }
@@ -10,7 +11,7 @@ export default defineConfig({
   srcDir: './src',
   publicDir: './public',
   outDir: './dist',
-  integrations: [react(), sitemap()],
+  integrations: [react(), svelte(), sitemap()],
   trailingSlash: 'ignore',
   site:
     process.env.ENVIRONMENT_MODE === 'production'

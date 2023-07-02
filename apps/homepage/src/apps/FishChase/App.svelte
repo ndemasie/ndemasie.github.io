@@ -8,16 +8,15 @@
 
   onMount(() => {
     const main = document.querySelector('main')!
-    const canvas: HTMLCanvasElement = document.getElementById(id)!
+    const canvas = document.getElementById(id)! as HTMLCanvasElement
     const context = canvas.getContext('2d')
+    const fish = d3.selectAll('.shark, .fish')
 
-    // Set size
     const width = main.clientWidth
     const height = main.clientHeight
     canvas.width = width
     canvas.height = height
-
-    const fish = d3.selectAll('.shark, .fish')
+    const isNarrow = width < 500
 
     const randomUniform = d3.randomUniform(6, 6 * K)
 
@@ -55,7 +54,9 @@
       )
       .force(
         'charge',
-        d3.forceManyBody().strength((_, i) => (i ? 0 : width * -1.3)),
+        d3
+          .forceManyBody()
+          .strength((_, i) => (i ? 0 : width * (isNarrow ? 1.3 : 1) * -1)),
       )
       .on('tick', tick)
 

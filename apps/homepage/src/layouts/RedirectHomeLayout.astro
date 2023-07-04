@@ -6,13 +6,13 @@ export interface Props {
   path?: string
 }
 
-const { lang, path = '' } = Astro.props as Props
+const { lang, path = '' } = Astro.props
 ---
 
 <!DOCTYPE html>
 <html>
   <body>
-    <script is:inline client:only define:vars={{ Language, lang, path }}>
+    <script is:inline define:vars={{ Language, lang, path }}>
       window.addEventListener('DOMContentLoaded', () => {
         const clientLanguage =
           lang ??

@@ -7,7 +7,13 @@ import deStrings from './de/strings.json'
 import enSchema from './en/schema.json'
 import enStrings from './en/strings.json'
 
+const language = Object.values(Language ?? {}).reduce((acc, lang) => {
+  acc[lang] = new Intl.DisplayNames([lang], { type: 'language' }).of(lang)
+  return acc
+}, {})
+
 const strings = {
+  intl: { language, langCode: Language },
   en: _.merge({}, enStrings),
   de: _.merge({}, enStrings, deStrings),
 }
@@ -19,12 +25,12 @@ const schema = {
   de: _.merge({}, parsedENSchema, parsedDESchema),
 }
 
-function t(key: string | string[], lng: Language) {
+function t(key: string | string[], lang: Language) {
   return (
     [key]
       .flat(Infinity)
       .map((key) => {
-        return _.get(strings?.[lng], key) || _.get(strings?.[Language.EN], key)
+        return _.get(strings?.[lang], key) || _.get(strings?.[Language.EN], key)
       })
       .filter(Boolean)
       .at(0) || key

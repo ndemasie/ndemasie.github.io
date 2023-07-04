@@ -51,25 +51,23 @@ const template = `
     transform: translateY(-0.25em);
   }
 
-  // Animating from the bottom
   .up:hover,
   .up:focus {
     box-shadow: inset 0 -3.25em 0 0 var(--hover);
   }
 
-  // And from the left
   .slide:hover,
   .slide:focus {
     box-shadow: inset 6.5em 0 0 0 var(--hover);
   }
 </style>
 
-<button>
+<button class="BaseButton">
   <slot></slot>
 </button>
 `
 
-class MyButton extends HTMLElement {
+class BaseButton extends HTMLElement {
   constructor() {
     super()
 
@@ -87,4 +85,4 @@ class MyButton extends HTMLElement {
   }
 }
 
-customElements.define('my-button', MyButton)
+customElements.define('base-button', BaseButton)

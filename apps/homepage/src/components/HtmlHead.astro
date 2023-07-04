@@ -8,7 +8,7 @@ interface Props {
   lang: Language
 }
 
-const { page, lang } = Astro.props as Props
+const { page, lang } = Astro.props
 
 const title = t([`page.${page}._title`, 'page._title_undefined'], lang)
 const description = t(

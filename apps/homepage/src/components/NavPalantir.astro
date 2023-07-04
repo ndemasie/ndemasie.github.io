@@ -166,9 +166,11 @@ const page = Page.Home
         rgba(0, 0, 0, 0.4) 100%
       );
     }
+    &:focus-within::after,
     &:hover::before {
       background: none;
     }
+    &:focus-within::after,
     &:hover::after {
       background-color: rgba(0, 0, 0, 0.4);
     }
@@ -210,6 +212,7 @@ const page = Page.Home
       calc(sin(var(--angle, 0deg)) * -1 * var(--radius) - 50%);
   }
 
+  .nav-item:focus-within .node-sub-item,
   .nav-item:hover .node-sub-item {
     --duration: 500ms;
     --delay: calc((var(--nth-child, 1) - 1) * 100ms);
@@ -221,6 +224,7 @@ const page = Page.Home
     position: relative;
     height: 100%;
 
+    &:focus-within,
     &:hover {
       @include border-circle();
       &::before {
@@ -262,7 +266,6 @@ const page = Page.Home
   }
 </style>
 
-<!-- Import D3 -->
 <script>
   import * as d3 from 'd3'
 

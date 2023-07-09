@@ -27,15 +27,24 @@ $themes: (
           map.get($themeVal, 'primary'),
           $lightness: 10%
         )};
+
       --theme-primary-active: #{color.adjust(
           map.get($themeVal, 'primary'),
           $lightness: 20%
         )};
+
       --transparent: rgb(255 255 255 / 0%);
+
+      --theme-background-accent: #{color.adjust(
+        map.get($themeVal, 'background'),
+        $lightness: 10%
+      )};
+
       --theme-background-box-shadow: #{color.adjust(
           map.get($themeVal, 'background'),
           $lightness: -10%
         )};
+
       --theme-background-gradient: linear-gradient(
         -200deg,
         #{color.adjust(map.get($themeVal, 'background'), $lightness: 0%)} 50%,

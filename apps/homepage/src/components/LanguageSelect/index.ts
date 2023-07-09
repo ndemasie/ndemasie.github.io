@@ -1,5 +1,5 @@
 import { html, css, unsafeCSS, LitElement } from 'lit'
-import { customElement, state, property } from 'lit/decorators.js'
+import { customElement, state, property, query } from 'lit/decorators.js'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 import { Language } from 'src/types/Language'
 
@@ -17,8 +17,14 @@ export class LanguageSelect extends LitElement {
     ${unsafeCSS(styles)}
   `
 
+  @query('select')
+  private select
+
   @property({ type: String })
-  value: Language = Language.EN
+  public value: Language = Language.EN
+
+  @state()
+  private isMobile = window.innerWidth < 500
 
   @state()
   private options = Object.values(Language).map((lang) => {
@@ -28,9 +34,18 @@ export class LanguageSelect extends LitElement {
     }
   })
 
+  @state()
+  private selected = null
+
   private handleChange(event: Event) {
     const [, , ...rest] = window.location.pathname.split('/')
     window.location.pathname = ['', event.target!.value, ...rest].join('/')
+  }
+
+  firstUpdated() {
+    if (this.isMobile) {
+      this.selected = this.options.find((opt) => opt.value === this.value)
+    }
   }
 
   protected render() {
@@ -38,17 +53,26 @@ export class LanguageSelect extends LitElement {
       <label>
         <div class="prepend-icon">${unsafeHTML(I18nIcon)}</div>
         <select .value=${this.value} @change=${this.handleChange}>
+          ${this.isMobile &&
+          this.selected &&
+          html`<option
+            selected
+            value=${this.selected.value}
+            label=${this.selected.value.toUpperCase()}
+          ></option>`}
           ${this.options.map((option) => {
             return html`
               <option
                 ?selected=${this.value === option.value}
-                value="${option.value}"
+                value=${option.value}
+                label=${option.label}
               >
-                <span>${option.label}&nbsp;</span>
+                ${option.label}
               </option>
             `
           })}
         </select>
+        <div class="append-icon"></div>
       </label>
     `
   }

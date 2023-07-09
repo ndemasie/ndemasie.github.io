@@ -12,7 +12,7 @@ declare global {
 
     interface IntrinsicElements {
       // JSX should recognize webcomponents
-      'my-button': MyButton
+      'base-button': BaseButton
     }
   }
 }

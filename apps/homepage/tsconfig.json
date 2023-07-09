@@ -3,16 +3,21 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "strict": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    // "verbatimModuleSyntax": true,
-    "jsx": "react-jsx",
     "baseUrl": ".",
+    "moduleResolution": "node",
+    //
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    // "verbatimModuleSyntax": true,
+    // Enable decorators
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    //
     "plugins": [
       {
         "name": "@astrojs/ts-plugin"

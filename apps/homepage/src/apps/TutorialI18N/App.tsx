@@ -21,7 +21,7 @@ const Loading: React.FC = () => {
 }
 
 const StyledButton = ({ className, ...props }) => (
-  <my-button {...props} class={className} />
+  <base-button {...props} class={className} />
 )
 
 const Footer: React.FC = () => {

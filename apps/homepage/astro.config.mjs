@@ -1,3 +1,4 @@
+import lit from '@astrojs/lit'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import svelte from '@astrojs/svelte'
@@ -11,7 +12,7 @@ export default defineConfig({
   srcDir: './src',
   publicDir: './public',
   outDir: './dist',
-  integrations: [react(), svelte(), sitemap()],
+  integrations: [lit(), react(), svelte(), sitemap()],
   trailingSlash: 'ignore',
   site:
     process.env.ENVIRONMENT_MODE === 'production'
@@ -28,6 +29,8 @@ export default defineConfig({
 
   vite: {
     ssr: {
+      // https://docs.astro.build/en/guides/styling/#import-a-stylesheet-from-an-npm-package
+      // https://vitejs.dev/config/ssr-options.html#ssr-noexternal
       noExternal: ['modern-normalize'],
     },
   },

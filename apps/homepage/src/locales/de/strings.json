@@ -1,18 +1,40 @@
 {
   "common": {
-    "unknown": "Unbekannt"
+    "more": "Mehr",
+    "unknown": "Unbekannt",
+    "undefined": "Undefiniert"
   },
   "page": {
-    "_title_undefined": "$t('common.unknown')",
-    "_description_undefined": "$t('common.undefined')",
+    "_title_undefined": "Undefiniert",
+    "_description_undefined": "Undefiniert",
+    "home": {
+      "_description": "Spielplatz für Experimente"
+    },
+    "app": {
+      "_title": "Apps",
+      "_description": "Diverse Apps",
+      "title": "Willkommen bei den Apps-Seiten"
+    },
+    "blog": {
+      "_title": "Blog",
+      "_description": "Ein Blog",
+      "title": "Willkommen auf den Blog-Seiten"
+    },
     "tutorial": {
       "_title": "Lehrgang",
-      "_description": ""
+      "_description": "",
+      "title": "Willkommen auf den Seiten der Lehrgänge"
+    }
+  },
+  "app": {
+    "fishChase": {
+      "name": "Fischjagd"
     }
   },
   "tutorial": {
     "i18next": {
-      "title": "Tutorial über i18n-next"
+      "name": "i18next",
+      "title": "Lernen von i18next"
     }
   }
 }

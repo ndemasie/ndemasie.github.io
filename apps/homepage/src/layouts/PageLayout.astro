@@ -5,6 +5,7 @@ import 'modern-normalize/modern-normalize.css'
 
 import HtmlHead from 'src/components/HtmlHead.astro'
 import { Page } from 'src/types/Page'
+import FooterActions from 'src/components/FooterActions.astro'
 
 interface Props {
   page: Page
@@ -24,5 +25,8 @@ const { page, lang } = Astro.props
     <main>
       <slot />
     </main>
+    <footer>
+      <FooterActions lang={lang} />
+    </footer>
   </body>
 </html>

@@ -1,0 +1,24 @@
+---
+import { Language } from 'src/types/Language'
+import { LanguageSelect } from 'src/components/LanguageSelect'
+
+interface Props {
+  lang: Language
+}
+
+const { lang } = Astro.props
+---
+
+<div class="footer-actions">
+  <LanguageSelect client:only="lit" value={lang} />
+</div>
+
+<style lang="scss">
+  .footer-actions {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    padding: 0.8em 0.5em 0.8em 1em;
+  }
+</style>

@@ -20,17 +20,23 @@
     &:nth-of-type(odd) {
       animation-delay: -0.5s;
     }
-    &:nth-of-type(3n) {
+
+    // &:nth-of-type(3n),
+    &:where([data-group='0']) {
       --inc: 45px;
       --x: -19px;
       --y: 25px;
     }
-    &:nth-of-type(3n + 1) {
+
+    // &:nth-of-type(3n + 1),
+    &:where([data-group='1']) {
       --inc: 50px;
       --x: -2px;
       --y: 125px;
     }
-    &:nth-of-type(3n + 2) {
+
+    // &:nth-of-type(3n + 2),
+    &:where([data-group='2']) {
       --inc: 44px;
       --x: -18px;
       --y: 222px;

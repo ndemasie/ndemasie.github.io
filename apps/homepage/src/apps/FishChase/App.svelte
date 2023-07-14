@@ -29,6 +29,10 @@
       }),
     )
 
+    fish.data(nodes).each((d, i, nodes) => {
+      d3.select(nodes[i]).attr('data-group', i % 3)
+    })
+
     const move = (event) => {
       const [x, y] = d3.pointer(event)
       nodes[0].fx = x - width / 2
@@ -38,6 +42,18 @@
     const tick = () => {
       fish.data(nodes).each((d, i, nodes) => {
         d3.select(nodes[i]).style('translate', `${d.x - d.r}px ${d.y - d.r}px`)
+
+        if (i === 0) {
+          return // skip shark
+        }
+
+        const shark = nodes[0]?.__data__
+        const distance = Math.hypot(d.x - shark.x, d.y - shark.y)
+        const minDistance = d.r + shark.r
+
+        if (distance < minDistance) {
+          d3.select(nodes[i]).remove()
+        }
       })
     }
 

@@ -17,29 +17,38 @@
     height: 50px;
     width: 50px;
 
-    &:nth-of-type(odd) {
-      animation-delay: -0.5s;
+    &:nth-of-type(4n) {
+      animation-delay: calc(-250ms * 0);
     }
+    &:nth-of-type(4n + 1) {
+      animation-delay: calc(-250ms * 1);
+    }
+    &:nth-of-type(4n + 2) {
+      animation-delay: calc(-250ms * 2);
+    }
+    &:nth-of-type(4n + 3) {
+      animation-delay: calc(-250ms * 3);
+    }
+  }
 
-    // &:nth-of-type(3n),
-    &:where([data-group='0']) {
-      --inc: 45px;
-      --x: -19px;
-      --y: 25px;
-    }
+  // &:nth-of-type(3n),
+  :global(.fish[data-group='0']) {
+    --inc: 45px;
+    --x: -19px;
+    --y: 25px;
+  }
 
-    // &:nth-of-type(3n + 1),
-    &:where([data-group='1']) {
-      --inc: 50px;
-      --x: -2px;
-      --y: 125px;
-    }
+  // &:nth-of-type(3n + 1),
+  :global(.fish[data-group='1']) {
+    --inc: 50px;
+    --x: -2px;
+    --y: 125px;
+  }
 
-    // &:nth-of-type(3n + 2),
-    &:where([data-group='2']) {
-      --inc: 44px;
-      --x: -18px;
-      --y: 222px;
-    }
+  // &:nth-of-type(3n + 2),
+  :global(.fish[data-group='2']) {
+    --inc: 44px;
+    --x: -18px;
+    --y: 222px;
   }
 </style>

@@ -1,4 +1,9 @@
-<div class="fish" />
+<script lang="ts">
+  export let index: number = 0
+  const type = index % 3
+</script>
+
+<div class="fish" data-type={type} />
 
 <style lang="scss">
   @import 'src/styles/abstracts/_mixins/_animations.scss';
@@ -32,21 +37,21 @@
   }
 
   // &:nth-of-type(3n),
-  :global(.fish[data-group='0']) {
+  :global(.fish[data-type='0']) {
     --inc: 45px;
     --x: -19px;
     --y: 25px;
   }
 
   // &:nth-of-type(3n + 1),
-  :global(.fish[data-group='1']) {
+  :global(.fish[data-type='1']) {
     --inc: 50px;
     --x: -2px;
     --y: 125px;
   }
 
   // &:nth-of-type(3n + 2),
-  :global(.fish[data-group='2']) {
+  :global(.fish[data-type='2']) {
     --inc: 44px;
     --x: -18px;
     --y: 222px;

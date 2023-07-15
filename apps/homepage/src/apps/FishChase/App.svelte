@@ -29,10 +29,6 @@
       }),
     )
 
-    fish.data(nodes).each((d, i, nodes) => {
-      d3.select(nodes[i]).attr('data-group', i % 3)
-    })
-
     const move = (event) => {
       const [x, y] = d3.pointer(event)
       nodes[0].fx = x - width / 2
@@ -89,5 +85,5 @@
 <canvas {id} />
 <Shark />
 {#each { length: count } as _, i}
-  <Fish />
+  <Fish index={i} />
 {/each}

@@ -10,7 +10,7 @@
 
     @include animate-sprite('shark-sprite', 8);
     animation: shark-sprite 2s infinite;
-    background-image: url('/apps/fish-chase/shark-sprite.png');
+    background-image: url('/app/fish-chase/shark-sprite.png');
     @include bg-sprit();
 
     position: absolute;

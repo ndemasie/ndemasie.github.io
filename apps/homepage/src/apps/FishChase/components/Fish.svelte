@@ -11,7 +11,7 @@
   :global(.fish) {
     @include animate-sprite('fish-sprite', 4);
     animation: fish-sprite 1s infinite;
-    background-image: url('/apps/fish-chase/fish-sprite.png');
+    background-image: url('/app/fish-chase/fish-sprite.png');
     @include bg-sprit();
 
     pointer-events: none;

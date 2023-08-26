@@ -37,7 +37,7 @@ function readDirectory(dirname: string): FileSystemTree {
 }
 
 // SCRIPT
-const tree = readDirectory(`./apps/webcontainer-i18next`)
+const tree = readDirectory(`./app/webcontainer-i18next`)
 const content = JSON.stringify(tree)
 
 fs.mkdirSync(`./apps/homepage/public/webcontainer-i18next`, { recursive: true })

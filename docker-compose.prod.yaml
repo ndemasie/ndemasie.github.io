@@ -1,28 +1,32 @@
-version: "3.9"
+version: '3.9'
 services:
   nginx:
-    image: my-nginx
+    image: demasie-nginx
     build:
       context: ./apps/nginx
       dockerfile: Dockerfile.prod
     ports:
-      - "80:80"
-      - "443:443"
+      - '80:80'
+      - '443:443'
+    environment:
+      - CERTBOT_EMAIL=$CERTBOT_EMAIL
     volumes:
-      - /etc/letsencrypt/live/nathan.demasie.com/fullchain.pem:/etc/letsencrypt/live/nathan.demasie.com/fullchain.pem:ro
-      - /etc/letsencrypt/live/nathan.demasie.com/privkey.pem:/etc/letsencrypt/live/nathan.demasie.com/privkey.pem:ro
-    restart: always
+      - nginx_secrets:/etc/letsencrypt
+    restart: unless-stopped
 
   homepage:
-    image: my-homepage
+    image: demasie-homepage
     build:
       context: ./apps/homepage
       dockerfile: Dockerfile.prod
     restart: always
 
   server-i18next-websocket:
-    image: my-server-i18next-websocket
+    image: demasie-server-i18next-websocket
     build:
       context: ./apps/server-i18next-websocket
       dockerfile: Dockerfile.prod
     restart: always
+
+volumes:
+  nginx_secrets:

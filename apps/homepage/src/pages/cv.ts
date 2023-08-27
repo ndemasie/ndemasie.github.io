@@ -5,6 +5,9 @@ import path from 'node:path'
 
 const CV_NAME = 'Nathan_DeMasie_CV'
 
+// opt out pre-rendering
+export const prerender = false
+
 export async function get(ctx: APIContext) {
   const file = path.join(process.cwd(), 'public', 'doc', `${CV_NAME}.pdf`)
   const buffer = Buffer.from(readFileSync(file, 'binary'), 'binary')

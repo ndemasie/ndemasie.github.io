@@ -1,4 +1,5 @@
 import lit from '@astrojs/lit'
+import nodejs from '@astrojs/node'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import svelte from '@astrojs/svelte'
@@ -14,12 +15,18 @@ export default defineConfig({
   outDir: './dist',
   integrations: [lit(), react(), svelte(), sitemap()],
   trailingSlash: 'ignore',
+
+  // SSR
+  adapter: nodejs({ mode: 'standalone' }),
+  output: 'hybrid',
+
   site:
     process.env.ENVIRONMENT_MODE === 'production'
       ? packageJson.homepage
-      : 'http://localhost:10000',
+      : 'http://localhost:10100',
 
   server: {
+    host: '0.0.0.0',
     port: 10100,
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',

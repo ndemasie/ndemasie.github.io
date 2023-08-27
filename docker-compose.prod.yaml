@@ -19,14 +19,14 @@ services:
     build:
       context: ./apps/homepage
       dockerfile: Dockerfile.prod
-    restart: always
+    restart: unless-stopped
 
   server-i18next-websocket:
     image: demasie-server-i18next-websocket
     build:
       context: ./apps/server-i18next-websocket
       dockerfile: Dockerfile.prod
-    restart: always
+    restart: unless-stopped
 
 volumes:
   nginx_secrets:

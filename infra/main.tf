@@ -136,6 +136,7 @@ resource "aws_budgets_budget" "demasie_month_budget" {
 
 # # Add user to docker group
 # sudo usermod --append --groups docker $USER
+# sudo groupadd docker
 #   EOF
 
 #   root_block_device {

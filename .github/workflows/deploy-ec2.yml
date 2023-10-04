@@ -37,7 +37,7 @@ jobs:
             fi
             '
 
-      - name: Load and tag docker images
+      - name: Build and tag docker images
         run: |
           get_images() {
             docker images --format "{{.Repository}} {{.ID}} {{.Tag}}" | grep '^demasie-'

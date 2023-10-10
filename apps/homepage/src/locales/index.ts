@@ -7,7 +7,7 @@ import deStrings from './de/strings.json'
 import enSchema from './en/schema.json'
 import enStrings from './en/strings.json'
 
-const language = Object.values(Language ?? {}).reduce((acc, lang) => {
+const language = Object.values(Language).reduce((acc, lang) => {
   acc[lang] = new Intl.DisplayNames([lang], { type: 'language' }).of(lang)
   return acc
 }, {})

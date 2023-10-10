@@ -47,9 +47,11 @@ const permalink = schema[lang].author.url.url
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content="" />
 
+  <slot name="meta" />
+
   <!-- Fonts -->
 
   <!-- JS -->
 
-  <slot />
+  <slot name="head" />
 </head>

@@ -1,8 +1,19 @@
 {
   "definitions": {
-    "Person": {
-      "Nathan_DeMasie": {
-        "jobTitle": "Software Entwickler"
+    "CreativeWork": {
+      "I18Next": {
+        "name": "Lernen von i18next",
+        "learningResourceType": [
+          "interaktive Demo"
+        ],
+        "audience": {
+          "audienceType": "Entwickler"
+        }
+      },
+      "Person": {
+        "Nathan_DeMasie": {
+          "jobTitle": "Software Entwickler"
+        }
       }
     }
   }

@@ -17,6 +17,7 @@ const page = Page.Tutorial
 ---
 
 <PageLayout page={page} lang={lang}>
+  <script slot="meta" type="application/ld+json"></script>
   <script slot="head" is:inline src="/headers-coop-coep.js"></script>
 
   <h1>{t('tutorial.i18next.title', lang)}</h1>

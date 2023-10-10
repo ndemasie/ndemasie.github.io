@@ -18,6 +18,7 @@ const { page, lang } = Astro.props
 <!DOCTYPE html>
 <html lang={lang} dir="ltr" data-theme="light">
   <HtmlHead page={page} lang={lang}>
+    <slot name="meta" />
     <slot name="head" />
   </HtmlHead>
 

@@ -1,0 +1,169 @@
+---
+import { t } from 'src/locales'
+import { Language } from 'src/types/Language'
+
+interface Props {
+  lang: Language
+  link: string
+  title: string
+  description?: string
+  img?: string
+  publishedDate?: string
+  author?: string
+}
+
+const { lang, title, link, description, publishedDate, img, author } =
+  Astro.props
+---
+
+<div class="card-wrapper">
+  <article class="card">
+    <a class="card-link" href={link}></a>
+
+    <div class="card-media-wrapper">
+      {img && <img class="card-media" src={img} />}
+      {!img && <slot name="media" />}
+    </div>
+
+    {title && <h2 class="card-title">{title}</h2>}
+    {description && <p class="card-description">{description}</p>}
+
+    <hr class="card-divider" />
+
+    <footer class="card-footer">
+      {
+        author && (
+          <div class="card-author">
+            <div class="wrapper">
+              <span>{t('common.by', lang)}</span>
+              <span>{author}</span>
+            </div>
+          </div>
+        )
+      }
+
+      {
+        publishedDate && (
+          <div class="card-publishedDate">
+            <i>◷</i>
+            <span>{publishedDate}</span>
+          </div>
+        )
+      }
+    </footer>
+  </article>
+</div>
+
+<style lang="scss">
+  .card-wrapper {
+    --card-width: clamp(350px, 100%, 450px);
+
+    border: 1px solid var(--theme-primary);
+    background-color: var(--theme-background);
+    background: linear-gradient(
+      0deg,
+      rgba(40, 44, 52, 1) 0%,
+      rgba(17, 0, 32, 0.5) 100%
+    );
+    box-shadow: 0 7px 16px 5px var(--theme-background-box-shadow);
+    border-radius: 0.7rem;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    width: var(--card-width);
+    overflow: hidden;
+    user-select: none;
+    margin: 5rem auto;
+
+    transition: 0.5s all;
+
+    // Glossy overlay
+    &::before {
+      position: fixed;
+      content: '';
+      box-shadow: 0 0 100px 40px var(--theme-primary);
+      top: -10%;
+      left: -100%;
+      transform: rotate(-45deg);
+      height: 60rem;
+      transition: 0.7s all;
+    }
+
+    &:hover {
+      border: 1px solid var(--theme-primary-hover);
+      box-shadow: 0 7px 50px 10px var(--theme-background-box-shadow);
+      transform: scale(1.015);
+      filter: brightness(1.3);
+
+      &::before {
+        filter: brightness(0.167);
+        top: -100%;
+        left: 200%;
+      }
+    }
+  }
+
+  .card-divider {
+    border: none;
+    border-bottom: 1px solid var(--theme-primary);
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: var(--card-width);
+  }
+
+  .card-link {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: block;
+    top: 0;
+    left: 0;
+  }
+
+  .card-media {
+    border-radius: 0.5rem;
+    max-width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .card-title {
+    margin: 2rem;
+    text-align: center;
+  }
+
+  .card-description {
+    margin: 0.5rem 0;
+    color: var(--theme-primary-active);
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4em 0;
+  }
+
+  .card-publishedDate {
+    float: right;
+    color: var(--theme-primary-active);
+
+    > i {
+      margin-inline-end: 0.5ch;
+      top: 0;
+      vertical-align: text-top;
+    }
+  }
+
+  .card-author {
+    display: flex;
+    align-items: center;
+  }
+</style>

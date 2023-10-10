@@ -1,5 +1,7 @@
 {
   "common": {
+    "by": "By",
+    "author": "Author",
     "more": "More",
     "unknown": "Unknown",
     "undefined": "Undefined"

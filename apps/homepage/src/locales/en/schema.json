@@ -1,5 +1,23 @@
 {
   "definitions": {
+    "CreativeWork": {
+      "FishChase": {
+        "@context": "https://schema.org/",
+        "name": "Fish Chase"
+      },
+      "I18Next": {
+        "@context": "https://schema.org/",
+        "@type": "LearningResource",
+        "name": "Learning i18next",
+        "learningResourceType": [
+          "interactive demo"
+        ],
+        "audience": {
+          "@type": "PeopleAudience",
+          "audienceType": "developer"
+        }
+      }
+    },
     "Person": {
       "Nathan_DeMasie": {
         "@context": "http://schema.org",
@@ -31,6 +49,16 @@
   },
   "author": {
     "$ref": "#/definitions/Person/Nathan_DeMasie"
+  },
+  "app": {
+    "fishChase": {
+      "$ref": "#/definitions/CreativeWork/FishChase"
+    }
+  },
+  "tutorial": {
+    "i18next": {
+      "$ref": "#/definitions/CreativeWork/I18Next"
+    }
   },
   "social": {
     "github": {

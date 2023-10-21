@@ -7,7 +7,7 @@
 
 ```mermaid
 flowchart LR
-  nginx(nginx <img src=&#39;https://skillicons.dev/icons?i=nginx,docker&#39;>)
+  nginx(nginx)
   click nginx "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/nginx" _blank
 
   %% Flow

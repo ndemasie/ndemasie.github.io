@@ -5,7 +5,10 @@
 
 ```mermaid
 flowchart LR
-  nginx(fa:fa-server nginx fa:fa-docker)
+  nginx(
+    nginx
+    <img src=&#39;https://skillicons.dev/icons?i=nginx,docker&#39;>
+  )
   click nginx "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/nginx" _blank
 
   %% Flow
@@ -14,17 +17,29 @@ flowchart LR
 
   wci18n -.->|ws|si18n -.->|ws|wci18n
 
-  subgraph Site[fa:fa-browser Site fa:fa-docker]
-    homepage(homepage fa:fa-node-js)
+  subgraph Site[
+    fa:fa-browser
+    Site
+  ]
+    homepage(
+      homepage
+      <img src=&#39;https://skillicons.dev/icons?i=docker,astro,react,svelte&#39;>
+    )
     click homepage "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/homepage" _blank
-    wci18n(webcontainer-i18next fa:fa-docker fa:fa-node-js)
+    wci18n(
+      webcontainer-i18next
+      <img src=&#39;https://skillicons.dev/icons?i=nodejs,react&#39;>
+    )
     click wci18n "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/webcontainer-i18next" _blank
 
     homepage --> wci18n
   end
 
   subgraph Server[fa:fa-server Server]
-    si18n(server-i18next-websocket fa:fa-docker fa:fa-node-js)
+    si18n(
+      server-i18next-websocket
+      <img src=&#39;https://skillicons.dev/icons?i=docker,nodejs&#39;>
+    )
     click si18n "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/server-i18next-websocket" _blank
   end
 ```

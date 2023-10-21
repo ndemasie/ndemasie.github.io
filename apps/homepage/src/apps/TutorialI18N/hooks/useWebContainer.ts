@@ -10,9 +10,7 @@ export const useWebContainer = (path: string, terminal: Terminal) => {
   const { value: fileSystemTree, ...fileSystemTreeAsync } = useAsync(
     async () => {
       const response = await fetch(path)
-      if (!response.ok) {
-        throw new Error('not loaded')
-      }
+      if (!response.ok) throw new Error('not loaded')
       return response.json() as Promise<FileSystemTree>
     },
   )
@@ -20,9 +18,7 @@ export const useWebContainer = (path: string, terminal: Terminal) => {
   const [{ value: container, ...containerAsync }, loadContainer] =
     useAsyncFn(async () => {
       try {
-        if (!fileSystemTree) {
-          return
-        }
+        if (!fileSystemTree) return
 
         const container = await WebContainer.boot()
         await container.mount(fileSystemTree)
@@ -62,15 +58,12 @@ export const useWebContainer = (path: string, terminal: Terminal) => {
 
   // Load
   useEffect(() => {
-    if (
-      !fileSystemTreeAsync.loading &&
+    !fileSystemTreeAsync.loading &&
       !fileSystemTreeAsync.error &&
       !containerAsync.loading &&
       !containerAsync.error &&
-      !container
-    ) {
+      !container &&
       loadContainer()
-    }
   }, [container, containerAsync, fileSystemTreeAsync, loadContainer])
 
   return {

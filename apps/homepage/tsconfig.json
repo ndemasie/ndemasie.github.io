@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    // "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     // Enable decorators
     "experimentalDecorators": true,
     "useDefineForClassFields": false,

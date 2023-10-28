@@ -40,7 +40,7 @@
 }
 
 @mixin animate-sprite($name, $count) {
-  $percentage: 1 / $count;
+  $percentage: calc(1 / $count);
 
   @keyframes #{$name} {
     @for $i from 0 to $count {

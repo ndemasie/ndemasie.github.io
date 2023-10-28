@@ -43,6 +43,9 @@ jobs:
             docker images --format "{{.Repository}} {{.ID}} {{.Tag}}" | grep '^demasie-'
           }
 
+          # ENV
+          export CERTBOT_EMAIL=${{ secrets.CERTBOT_EMAIL }}
+
           # Build Images
           docker compose --file ./docker-compose.prod.yaml build
           get_images

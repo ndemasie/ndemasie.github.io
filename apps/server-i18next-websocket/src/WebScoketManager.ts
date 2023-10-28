@@ -1,6 +1,6 @@
-import { RawData, WebSocketServer, WebSocket, ServerOptions } from 'ws'
+import { RawData, WebSocketServer, ServerOptions } from 'ws'
 
-import { LessonState, MessagePayload } from './types'
+import { LessonState, MessagePayload, WebSocket } from './types'
 
 export class WebSocketManager {
   private static _INSTANCE: WebSocketManager
@@ -9,10 +9,10 @@ export class WebSocketManager {
   }
 
   private _UPDATE_DELAY = 10 * 1000
-  private _UPDATE_TIMER: NodeJS.Timer
+  private _UPDATE_TIMER: NodeJS.Timeout
 
   private _POLL_DELAY = 30 * 1000
-  private _POLL_TIMER: NodeJS.Timer
+  private _POLL_TIMER: NodeJS.Timeout
 
   private _wss: WebSocketServer
   private _client_leader?: string
@@ -28,7 +28,7 @@ export class WebSocketManager {
 
     this._POLL_TIMER = setInterval(() => {
       this._log('Polling clients')
-      this._wss.clients.forEach((ws) => this.ping(ws))
+      this._wss.clients.forEach((ws) => this.ping(ws as WebSocket))
     }, this._POLL_DELAY)
 
     this._UPDATE_TIMER = setInterval(() => {
@@ -69,7 +69,7 @@ export class WebSocketManager {
   public broadcast(payload: Record<string, any>) {
     const message = this.serialize(payload)
     this._wss.clients.forEach((client) => {
-      if (!client.isAlive) return
+      if (!(client as WebSocket).isAlive) return
       client.send(message)
     })
   }

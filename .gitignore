@@ -20,5 +20,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# cert files
+key.pem
+cert.pem
+
 # macOS-specific files
 .DS_Store

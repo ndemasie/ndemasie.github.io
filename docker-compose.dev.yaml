@@ -6,6 +6,7 @@ services:
       - '10000:80'
     volumes:
       - ./apps/nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
+      - ./cert:/etc/nginx/cert:ro
     restart: always
 
   homepage:

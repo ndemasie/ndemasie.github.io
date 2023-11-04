@@ -5,8 +5,10 @@ import prompts, { PromptObject, PromptType } from 'prompts'
 type Kleur = Parameters<NonNullable<PromptObject['onRender']>>[0]
 
 export class PromptsBuilder {
-  #title: string = ''
-  #instructions: (() => void) | undefined
+  #fileDir?: string
+  #title?: string
+  #instructions?: string
+  #description?: string
 
   #list: PromptObject[] = []
 
@@ -15,6 +17,11 @@ export class PromptsBuilder {
     space: true,
     gradient: 'green,magenta',
     transitionGradient: true,
+  }
+
+  constructor(title?: string, dir?: string) {
+    this.#title = title
+    this.#fileDir = dir
   }
 
   #methodFactory = (type: PromptType) => {
@@ -27,26 +34,28 @@ export class PromptsBuilder {
   run() {
     if (this.#title) {
       cfonts.say(this.#title, this.#cfontsDefaults)
+      const path = `${this.#fileDir}/${this.#title.replaceAll(' ', '')}.ts`
+      console.log('%s\n', path)
     }
-    this.#instructions?.()
-
+    this.#description && console.log('%s\n', this.#description)
+    this.#instructions && console.log('%s\n', this.#instructions)
     return prompts(this.#list).then((res) => (console.log(), res))
   }
 
   title(title: string) {
-    this.#title = title
+    this.#title = title.trim()
     return this
   }
 
-  instructions(input: string | ((kleur: Kleur) => string)): this {
-    this.#instructions = () => {
-      if (typeof input === 'function') {
-        input(kleur)
-        return
-      }
+  description(input: string | ((kleur: Kleur) => string)): this {
+    this.#description =
+      typeof input === 'function' ? input?.(kleur) : input.trim()
+    return this
+  }
 
-      console.log(input)
-    }
+  instructions(input: string | ((kleur?: Kleur) => string)): this {
+    this.#instructions =
+      typeof input === 'function' ? input?.(kleur) : input.trim()
     return this
   }
 

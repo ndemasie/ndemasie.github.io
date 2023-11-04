@@ -1,23 +1,8 @@
-// DEMO
-import prompts from 'prompts'
-
 import { Factory } from './Factory.ts'
+import prompts from './prompts.ts'
 
-console.log('Try making a weapon!')
-const resources = await prompts([
-  {
-    type: 'number',
-    name: 'LeatherStrips',
-    message: 'How many leather strips?',
-    initial: 1,
-  },
-  {
-    type: 'number',
-    name: 'IronIngot',
-    message: 'How many iron ingots?',
-    initial: 1,
-  },
-])
+const resources = await prompts.run()
+
 const weapon = Factory.make(resources)
 
 if (!weapon) {

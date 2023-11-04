@@ -1,29 +1,7 @@
 import { AbstractFactory } from './AbstractFactory'
+import prompts from './prompts'
 
-import { PromptsBuilder } from '../Builder/PromptsBuilder'
-
-const { factory, ...resources } = await new PromptsBuilder()
-  .autocomplete({
-    name: 'factory',
-    message: 'What type of equipment Do you want to make?',
-    choices: [
-      { title: 'Armor', value: 'Armor' },
-      { title: 'Weapon', value: 'Weapon' },
-    ],
-  })
-  .number({
-    name: 'LeatherStrips',
-    message: 'How many leather strips?',
-    initial: 1,
-    min: 0,
-  })
-  .number({
-    name: 'IronIngot',
-    message: 'How many iron ingots?',
-    initial: 1,
-    min: 0,
-  })
-  .run()
+const { factory, ...resources } = await prompts.run()
 
 const item = AbstractFactory.make(factory)?.make(resources)
 

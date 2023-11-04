@@ -60,7 +60,9 @@
     "apidevtools",
     "astro",
     "astrojs",
+    "cfonts",
     "hljs",
+    "kleur",
     "preact",
     "webcontainer"
   ]

@@ -7,12 +7,14 @@
   },
   "devDependencies": {
     "@types/node": "^20.6.0",
+    "@types/prompts": "^2.4.7",
     "bun-types": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "cfonts": "^3.2.0",
     "prompts": "^2.4.2"
   }
 }

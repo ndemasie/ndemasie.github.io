@@ -25,7 +25,9 @@ const page = Page.Tutorial
     id="editor"
     title="Codedamn test"
     allow="cross-origin-isolated"
-    src="http://localhost:10000/server/editor/design-principles"
+    src={import.meta.env?.PROD
+      ? 'https://nathan.demasie.com/server/editor/design-principles'
+      : 'http://localhost:10000/server/editor/design-principles'}
   >
   </iframe>
 </PageLayout>

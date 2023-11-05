@@ -1,6 +1,6 @@
 import { PromptsBuilder } from '../../PromptsBuilder'
 
-export default new PromptsBuilder('Abstract Factory', import.meta.dir)
+export default new PromptsBuilder(import.meta.dir)
   .description(
     (kleur) =>
       `The ${kleur.cyan(

@@ -19,8 +19,9 @@ export class PromptsBuilder {
     transitionGradient: true,
   }
 
-  constructor(title?: string, dir?: string) {
-    this.#title = title
+  constructor(dir?: string) {
+    const title = dir?.split('/')?.at(-2)?.trim()
+    this.#title = title?.replaceAll(/([A-Z])/g, ' $1')
     this.#fileDir = dir
   }
 

@@ -1,7 +1,8 @@
-import { PromptsBuilder } from '../../PromptsBuilder'
 import { ProductData } from './Builder'
 
-export default new PromptsBuilder('Builder Pattern', import.meta.dir)
+import { PromptsBuilder } from '../../PromptsBuilder'
+
+export default new PromptsBuilder(import.meta.dir)
   .description(
     (kleur) =>
       `The ${kleur.cyan(

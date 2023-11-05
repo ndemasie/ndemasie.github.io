@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-export default function Context() {
+export default function Formatting() {
   const { t, i18n } = useTranslation()
 
   i18n.addResourceBundle(i18n.language, 'translation', {

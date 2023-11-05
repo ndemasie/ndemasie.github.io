@@ -1,4 +1,4 @@
-import { PromptsBuilder } from '../Builder/PromptsBuilder'
+import { PromptsBuilder } from '../../PromptsBuilder'
 
 export default new PromptsBuilder('Singleton', import.meta.dir)
   .description(

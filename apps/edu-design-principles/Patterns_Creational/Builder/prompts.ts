@@ -1,5 +1,5 @@
+import { PromptsBuilder } from '../../PromptsBuilder'
 import { ProductData } from './Builder'
-import { PromptsBuilder } from './PromptsBuilder'
 
 export default new PromptsBuilder('Builder Pattern', import.meta.dir)
   .description(

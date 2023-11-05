@@ -11,7 +11,7 @@ export default new PromptsBuilder(import.meta.dir)
   )
   .instructions(
     () => `We are going to add a product into a database.
-  Answer each question to load the products!`,
+Answer each question to load the products!`,
   )
   .text({ name: 'name', message: 'Product Name: ' })
   .autocomplete({

@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build homepage
+      - name: Build site
         run: bash ./scripts/build.sh --file ./apps/site-nathan/Dockerfile.prod
 
       - name: Deploy site

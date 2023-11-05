@@ -1,0 +1,46 @@
+---
+import PageLayout from 'src/layouts/PageLayout.astro'
+import { Language } from 'src/types/Language'
+import { Page } from 'src/types/Page'
+
+export function getStaticPaths() {
+  return Object.values(Language).map((lang) => ({ params: { lang } }))
+}
+
+type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
+
+const { lang } = Astro.params as unknown as Params
+
+const page = Page.Tutorial
+---
+
+<PageLayout page={page} lang={lang}>
+  <iframe
+    id="editor"
+    title="Codedamn test"
+    allow="cross-origin-isolated"
+    src={import.meta.env?.PROD
+      ? 'https://nathan.demasie.com/editor-design-principles'
+      : 'http://localhost:10000/editor-design-principles'}
+  >
+  </iframe>
+</PageLayout>
+
+<style lang="scss" is:global>
+  main {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+</style>
+
+<style lang="scss">
+  #editor {
+    margin-top: 40px;
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+</style>

@@ -38,6 +38,9 @@
     "i18next": {
       "name": "i18next",
       "title": "Learning i18next"
+    },
+    "designPrinciples": {
+      "name": "Design Principles"
     }
   }
 }

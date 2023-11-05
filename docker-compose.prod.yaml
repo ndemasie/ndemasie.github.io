@@ -14,10 +14,10 @@ services:
       - nginx_secrets:/etc/letsencrypt
     restart: unless-stopped
 
-  homepage:
-    image: demasie-homepage
+  site-nathan:
+    image: demasie-site-nathan
     build:
-      context: ./apps/homepage
+      context: ./apps/site-nathan
       dockerfile: Dockerfile.prod
     restart: unless-stopped
 

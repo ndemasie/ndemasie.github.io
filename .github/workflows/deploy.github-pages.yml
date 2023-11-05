@@ -19,8 +19,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build homepage
-        run: bash ./scripts/build.sh --file ./apps/homepage/Dockerfile.prod
+      - name: Build site
+        run: bash ./scripts/build.sh --file ./apps/site-nathan/Dockerfile.prod
 
       - name: Deploy site
         uses: peaceiris/actions-gh-pages@v3

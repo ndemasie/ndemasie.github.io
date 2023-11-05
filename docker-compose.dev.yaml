@@ -9,18 +9,20 @@ services:
       - ./cert:/etc/nginx/cert:ro
     restart: always
 
-  homepage:
+  site-homepage:
+    image: site-homepage
     build:
-      context: ./apps/homepage
+      context: ./apps/site-homepage
       dockerfile: Dockerfile.dev
     ports:
       - '10100:10100'
     restart: always
     volumes:
-      - ./apps/homepage/src:/root/src:ro
-      - ./apps/homepage/public:/root/public:ro
+      - ./apps/site-homepage/src:/root/src:ro
+      - ./apps/site-homepage/public:/root/public:ro
 
   server-i18next-websocket:
+    image: server-i18next-websocket
     build:
       context: ./apps/server-i18next-websocket
       dockerfile: Dockerfile.dev

@@ -1,3 +1,4 @@
+// https://gist.github.com/zentala/1e6f72438796d74531803cc3833c039c
 const formatBytes = (bytes: number, decimals: number) => {
   if (bytes == 0) return '0 Bytes'
   const k = 1024

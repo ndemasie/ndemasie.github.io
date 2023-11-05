@@ -40,10 +40,10 @@ function readDirectory(dirname: string): FileSystemTree {
 const tree = readDirectory(`./apps/webcontainer-i18next`)
 const content = JSON.stringify(tree)
 
-fs.mkdirSync(`./apps/site-homepage/public/webcontainer-i18next`, {
+fs.mkdirSync(`./apps/site-nathan/public/webcontainer-i18next`, {
   recursive: true,
 })
 fs.writeFileSync(
-  `./apps/site-homepage/public/webcontainer-i18next/fileSystemTree.json`,
+  `./apps/site-nathan/public/webcontainer-i18next/fileSystemTree.json`,
   content,
 )

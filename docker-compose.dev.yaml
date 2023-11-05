@@ -9,17 +9,17 @@ services:
       - ./cert:/etc/nginx/cert:ro
     restart: always
 
-  site-homepage:
-    image: site-homepage
+  site-nathan:
+    image: site-nathan
     build:
-      context: ./apps/site-homepage
+      context: ./apps/site-nathan
       dockerfile: Dockerfile.dev
     ports:
       - '10100:10100'
     restart: always
     volumes:
-      - ./apps/site-homepage/src:/root/src:ro
-      - ./apps/site-homepage/public:/root/public:ro
+      - ./apps/site-nathan/src:/root/src:ro
+      - ./apps/site-nathan/public:/root/public:ro
 
   server-i18next-websocket:
     image: server-i18next-websocket

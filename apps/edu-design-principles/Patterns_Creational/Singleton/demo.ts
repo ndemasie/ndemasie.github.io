@@ -1,16 +1,20 @@
+import kleur from 'kleur'
+
 import prompts from './prompts.ts'
 import { Singleton } from './Singleton.ts'
 
 const { ids } = await prompts.run()
 
 console.log(
-  `Trying to creating ${ids?.length} Singleton instances with ids ${ids}`,
+  `Trying to creating %s Singleton instances with ids %s`,
+  ids?.length,
+  ids,
 )
 
 ids.map((id) => {
   console.log(
-    `Creating Singleton instance with ${id} resulted in id ${
-      new Singleton(ids[0]).id
-    }`,
+    `Creating Singleton instance with id %s ended up returning instance %s`,
+    kleur.blue(id),
+    kleur.green(new Singleton(id).id),
   )
 })

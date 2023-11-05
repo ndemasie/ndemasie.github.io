@@ -1,3 +1,5 @@
+import kleur from 'kleur'
+
 import { Factory } from './Factory.ts'
 import prompts from './prompts.ts'
 
@@ -10,4 +12,8 @@ if (!weapon) {
   process.exit(0)
 }
 
-console.log(`You made a ${weapon.name} weapon with ${weapon.damage} damage!`)
+console.log(
+  `You made a %s weapon with %s damage!`,
+  kleur.cyan(weapon.name),
+  kleur.red(weapon.damage),
+)

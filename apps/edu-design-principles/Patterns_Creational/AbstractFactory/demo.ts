@@ -1,3 +1,5 @@
+import kleur from 'kleur'
+
 import { AbstractFactory } from './AbstractFactory'
 import prompts from './prompts'
 
@@ -10,4 +12,4 @@ if (!item) {
   process.exit(0)
 }
 
-console.log(`You made an ${item.name}!`)
+console.log(`You made an %s!`, kleur.cyan(item.name))

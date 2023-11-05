@@ -8,7 +8,7 @@ export default new PromptsBuilder('Singleton', import.meta.dir)
       )} ensures only 1 instance ever exists.`,
   )
   .instructions(
-    `List numeric ids comma separated to try to create a new instances for each id.`,
+    `Write a list of ids, comma separated, to try to create a new instances for each id.`,
   )
   .list({
     name: 'ids',

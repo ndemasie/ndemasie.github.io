@@ -4,7 +4,7 @@
   "module": "index.ts",
   "type": "module",
   "script": {
-    "start": "bun --hot index.ts"
+    "start": "bun main.ts"
   },
   "devDependencies": {
     "@types/node": "^20.6.0",

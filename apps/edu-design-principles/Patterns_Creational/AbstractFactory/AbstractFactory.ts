@@ -1,6 +1,6 @@
-import { ArmorFactory } from './ArmorFactory'
+import { ArmorFactory } from './ArmorFactory.ts'
 
-import { Factory as WeaponFactory } from '../Factory/Factory'
+import { Factory as WeaponFactory } from '../Factory/Factory.ts'
 
 // PATTERN
 export class AbstractFactory {

@@ -1,5 +1,8 @@
+#!/usr/bin/env ts-node
+
 import prompts from 'prompts'
 
+import child_process from 'child_process'
 import fs from 'fs'
 import path from 'path'
 
@@ -49,16 +52,29 @@ async function main() {
   }
 
   console.clear()
-  Bun.spawn(['bun', 'run', response.demo], {
-    stdin: 'inherit',
-    stdout: 'inherit',
-    onExit: () => {
-      console.log()
-      console.log('Try a new demo')
-      console.log()
-      main()
+
+  // NODE
+  const child = child_process.spawn(
+    'npx',
+    ['ts-node', '--esm', `./${response.demo}`],
+    {
+      detached: false,
+      stdio: 'inherit',
     },
+  )
+
+  child.on('exit', () => {
+    console.log()
+    console.log('Try a new demo')
+    main()
   })
+
+  // BUN
+  // Bun.spawn(['bun', 'run', response.demo], {
+  //   stdin: 'inherit',
+  //   stdout: 'inherit',
+  //   onExit: onExit,
+  // })
 }
 
 main()

@@ -2,6 +2,8 @@ import cfonts from 'cfonts'
 import kleur from 'kleur'
 import prompts, { PromptObject, PromptType } from 'prompts'
 
+import path from 'path'
+
 type Kleur = Parameters<NonNullable<PromptObject['onRender']>>[0]
 
 export class PromptsBuilder {
@@ -19,7 +21,9 @@ export class PromptsBuilder {
     transitionGradient: true,
   }
 
-  constructor(dir?: string) {
+  constructor(url?: string) {
+    const dir = url && path.dirname(new URL(url).pathname)
+
     const title = dir?.split('/')?.at(-1)?.trim()
     this.#title = title?.replaceAll(/([A-Z])/g, ' $1')
     this.#fileDir = dir

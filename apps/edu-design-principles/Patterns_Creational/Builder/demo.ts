@@ -1,6 +1,5 @@
-import { Builder } from './Builder'
-import prompts from './prompts'
-
+import { Builder } from './Builder.ts'
+import prompts from './prompts.ts'
 const input = await prompts.run()
 
 const product = new Builder({})

@@ -1,4 +1,4 @@
-import { Resource, Resources } from '../Factory/Resource'
+import { Resource, Resources } from '../Factory/Resource.ts'
 
 class BandedIronShield extends Resource {
   static readonly makeResources = { LeatherStrips: 1, IronIngot: 4 }

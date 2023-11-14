@@ -1,8 +1,7 @@
 import kleur from 'kleur'
 
-import { AbstractFactory } from './AbstractFactory'
-import prompts from './prompts'
-
+import { AbstractFactory } from './AbstractFactory.ts'
+import prompts from './prompts.ts'
 const { factory, ...resources } = await prompts.run()
 
 const item = AbstractFactory.make(factory)?.make(resources)

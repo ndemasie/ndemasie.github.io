@@ -1,6 +1,6 @@
-import { PromptsBuilder } from '../../PromptsBuilder'
+import { PromptsBuilder } from '../../PromptsBuilder.ts'
 
-export default new PromptsBuilder(import.meta.dir).description(
+export default new PromptsBuilder(import.meta.url).description(
   (kleur) =>
     `The ${kleur.cyan(
       'ProtoType Pattern',

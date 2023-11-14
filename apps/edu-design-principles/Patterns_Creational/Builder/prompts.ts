@@ -1,8 +1,8 @@
-import { ProductData } from './Builder'
+import { ProductData } from './Builder.ts'
 
-import { PromptsBuilder } from '../../PromptsBuilder'
+import { PromptsBuilder } from '../../PromptsBuilder.ts'
 
-export default new PromptsBuilder(import.meta.dir)
+export default new PromptsBuilder(import.meta.url)
   .description(
     (kleur) =>
       `The ${kleur.cyan(

@@ -11,10 +11,10 @@ console.log(
   ids,
 )
 
-ids.map((id) => {
+ids.map((id: string) => {
   console.log(
     `Creating Singleton instance with id %s ended up returning instance %s`,
     kleur.blue(id),
-    kleur.green(new Singleton(id).id),
+    kleur.green(new Singleton(Number(id)).id),
   )
 })

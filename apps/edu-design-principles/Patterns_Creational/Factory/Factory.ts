@@ -1,5 +1,5 @@
 // PATTERN
-import { Resource, Resources } from './Resource'
+import { Resource, Resources } from './Resource.ts'
 
 class IronDagger extends Resource {
   static readonly makeResources = { LeatherStrips: 1, IronIngot: 1 }

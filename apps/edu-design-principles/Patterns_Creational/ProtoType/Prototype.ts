@@ -1,3 +1,5 @@
+import child_process from 'child_process'
+
 // https://gist.github.com/zentala/1e6f72438796d74531803cc3833c039c
 const formatBytes = (bytes: number, decimals: number) => {
   if (bytes == 0) return '0 Bytes'
@@ -21,7 +23,12 @@ export class Prototype {
     if (this.data) return
 
     // Generate random data
-    const process = Bun.spawn(['openssl', 'rand', '-base64', '230179038'])
+    // const process = Bun.spawn(['openssl', 'rand', '-base64', '230179038'])
+    const process = child_process.spawn('openssl', [
+      'rand',
+      '-base64',
+      '230179038',
+    ])
     const randomData = await new Response(process?.stdout).arrayBuffer()
 
     this.data = {

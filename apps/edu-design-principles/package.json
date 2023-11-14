@@ -1,18 +1,16 @@
 {
   "name": "@ndemasie/edu-design-principles",
   "version": "0.0.1",
-  "module": "index.ts",
+  "module": "main.ts",
   "type": "module",
-  "script": {
-    "start": "bun main.ts"
+  "scripts": {
+    "start": "npx ts-node --esm ./main.ts"
   },
   "devDependencies": {
     "@types/node": "^20.6.0",
     "@types/prompts": "^2.4.7",
-    "bun-types": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "cfonts": "^3.2.0",

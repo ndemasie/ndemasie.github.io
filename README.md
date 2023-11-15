@@ -7,7 +7,9 @@
 ![Tech stack](https://skillicons.dev/icons?i=nginx,docker,nodejs,ts,astro,svelte,react)
 
 ```mermaid
-flowchart LR
+%%{init: {'flowchart' : {'curve' : 'linear'}}}%%
+
+flowchart TB
   nathanSubDomain("nathan.demasie.com")
 
   nginx(nginx)
@@ -15,12 +17,17 @@ flowchart LR
 
   %% Flow
   nathanSubDomain ---|3.123.185.1|nginx
+  nginx ---|http://server-i18next-websocket:10200|si18n
   nginx ---|http://site-nathan:10100|siteNathan
   nginx ---|http://site-nathan:10100/edu-design-principles/proxy|codedamn
-  nginx ---|http://server-i18next-websocket:10200|si18n
 
-  wci18n -.->|ws|si18n -.->|ws|wci18n
+  wci18n <-.->|ws|si18n
   eduDesignPrinciples -.-> codedamn
+
+  subgraph Server[fa:fa-server Server]
+    si18n(server-i18next-websocket )
+    click si18n "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/server-i18next-websocket" _blank
+  end
 
   subgraph Site[fa:fa-browser Site]
     siteNathan(site-nathan)
@@ -30,17 +37,12 @@ flowchart LR
     eduDesignPrinciples(edu-design-principles)
     click eduDesignPrinciples "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/edu-design-principles" _blank
 
-    siteNathan --> eduDesignPrinciples
     siteNathan --> wci18n
+    siteNathan --> eduDesignPrinciples
   end
 
-  subgraph Codedamn[fa:fa-browser Codedamn]
-    codedamn(design-principles)
+  subgraph External[fa:fa-browser External]
+    codedamn(codedamn-design-principles)
     click codedamn "https://codedamn.com/playground/qjHW2vXxppVc48uXH5UWv" _blank
-  end
-
-  subgraph Server[fa:fa-server Server]
-    si18n(server-i18next-websocket )
-    click si18n "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/server-i18next-websocket" _blank
   end
 ```

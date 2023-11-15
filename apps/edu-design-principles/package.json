@@ -1,6 +1,6 @@
 {
   "name": "@ndemasie/edu-design-principles",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "module": "main.ts",
   "type": "module",
   "scripts": {

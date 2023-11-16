@@ -26,6 +26,14 @@ const page = Page.Tutorial
   </iframe>
 </PageLayout>
 
+<script lang="ts">
+  document?.querySelector('iframe').addEventListener('load', function () {
+    this.contentWindow?.document
+      ?.querySelector?.('.fixed.z\\-\\[1000\\]')
+      ?.remove()
+  })
+</script>
+
 <style lang="scss" is:global>
   main {
     position: relative;
@@ -38,7 +46,7 @@ const page = Page.Tutorial
 
 <style lang="scss">
   #editor {
-    margin-top: 40px;
+    padding-top: 40px;
     border: none;
     width: 100%;
     height: 100%;

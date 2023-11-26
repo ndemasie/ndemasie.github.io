@@ -9,6 +9,8 @@
     "moduleResolution": "NodeNext",
     "moduleDetection": "force",
     "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "composite": true,

@@ -55,9 +55,9 @@ jobs:
           while read -r image_repo image_id image_tag; do
             docker save ${image_id} \
               | bzip2 \
-              | ssh -o "ServerAliveInterval 60" ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load
+              | ssh -o "ServerAliveInterval 120" ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} docker load
 
-            ssh -o "ServerAliveInterval 60" ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} "docker tag ${image_id} ${image_repo}:${image_tag}"  < /dev/null
+            ssh -o "ServerAliveInterval 120" ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_PUBLIC_DNS }} "docker tag ${image_id} ${image_repo}:${image_tag}"  < /dev/null
           done
 
       - name: Copy build files

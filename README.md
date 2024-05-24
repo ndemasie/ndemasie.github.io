@@ -1,4 +1,4 @@
-# https://nathan.demasie.com
+# nathan.demasie.com
 
 ![Website status](https://img.shields.io/website-up-down-green-red/http/nathan.demasie.com.svg)
 ![GitHub Repo stars](https://img.shields.io/github/stars/ndemasie/ndemasie.github.io)

@@ -1,32 +1,34 @@
 version: '3.9'
 services:
+  cloudflared:
+    image: cloudflare/cloudflared
+    container_name: cloudflare-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    env_file: ./env
+    environment:
+      - TUNNEL_TOKEN=$CLOUDFLARE_TUNNEL_TOKEN
+
   nginx:
-    image: demasie-nginx
+    image: nginx:1.27.1-alpine
     build:
       context: ./apps/nginx
       dockerfile: Dockerfile.prod
     ports:
       - '80:80'
       - '443:443'
-    environment:
-      - CERTBOT_EMAIL=$CERTBOT_EMAIL
-    volumes:
-      - nginx_secrets:/etc/letsencrypt
     restart: unless-stopped
 
   site-nathan:
-    image: demasie-site-nathan
+    image: site-nathan
     build:
       context: ./apps/site-nathan
       dockerfile: Dockerfile.prod
     restart: unless-stopped
 
   server-i18next-websocket:
-    image: demasie-server-i18next-websocket
+    image: server-i18next-websocket
     build:
       context: ./apps/server-i18next-websocket
       dockerfile: Dockerfile.prod
     restart: unless-stopped
-
-volumes:
-  nginx_secrets:

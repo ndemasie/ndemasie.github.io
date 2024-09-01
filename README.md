@@ -16,7 +16,7 @@ flowchart TB
   click nginx "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/nginx" _blank
 
   %% Flow
-  nathanSubDomain ---|3.123.185.1|nginx
+  nathanSubDomain ---|Cloudflare Tunnel|nginx
   nginx ---|http://server-i18next-websocket:10200|si18n
   nginx ---|http://site-nathan:10100|siteNathan
   nginx ---|http://site-nathan:10100/edu-design-principles/proxy|codedamn

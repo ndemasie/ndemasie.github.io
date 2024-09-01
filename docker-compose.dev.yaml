@@ -2,6 +2,7 @@ version: '3.9'
 services:
   nginx:
     image: nginx:1.27.1-alpine
+    container_name: nginx
     ports:
       - '10000:80'
     volumes:
@@ -11,6 +12,7 @@ services:
 
   site-nathan:
     image: site-nathan
+    container_name: site-nathan
     build:
       context: ./apps/site-nathan
       dockerfile: Dockerfile.dev
@@ -23,6 +25,7 @@ services:
 
   server-i18next-websocket:
     image: server-i18next-websocket
+    container_name: server-i18next-websocket
     build:
       context: ./apps/server-i18next-websocket
       dockerfile: Dockerfile.dev

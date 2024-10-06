@@ -1,16 +1,15 @@
 {
   "name": "@ndemasie/mono",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": {
     "name": "Nathan DeMasie"
   },
   "license": "MIT",
   "scripts": {
     "app": "bash -c 'npm --prefix ./apps/$0 run start'",
-    "dev": "npm run docker:dev & npm run watch:webcontainer",
+    "dev": "npm run docker:dev & npm run watch:webcontainer:edu-i18next-react",
     "docker:clean": "bash ./scripts/docker_functions.sh stop && bash ./scripts/docker_functions.sh clean",
     "docker:dev": "docker compose --file ./docker-compose.dev.yaml up --build --abort-on-container-exit",
-    "docker:deploy": "docker compose --file ./docker-compose.prod.yaml up --build --abort-on-container-exit",
     "lint:check": "npx eslint src",
     "lint:fix": "npx eslint src --fix",
     "run:ts-script": "npx ts-node --transpile-only --project ./scripts/tsconfig.json",
@@ -18,7 +17,7 @@
     "update": "bash -c 'project=\"$([ \"$0\" != \"bash\" ] && echo \"./apps/$0\")\"; npx npm-check $project --update'",
     "terraform": "terraform -chdir='./infra'",
     "watch:site:public": "echo \"Deprecated: $ npx nodemon --ext 'tsx' --watch './site/src/**/public/**/*.tsx' --exec 'bash ./scripts/copy_public_dirs.sh'\"",
-    "watch:webcontainer": "npx nodemon --watch './apps/webcontainer-*/**/*.*' --exec 'npm run script:buildWebContainerFileSystemTree'"
+    "watch:webcontainer:edu-i18next-react": "npx nodemon --watch './apps/edu-i18next-react/**/*.*' --exec 'npm run script:buildWebContainerFileSystemTree'"
   },
   "devDependencies": {
     "@styled/typescript-styled-plugin": "^1.0.0",

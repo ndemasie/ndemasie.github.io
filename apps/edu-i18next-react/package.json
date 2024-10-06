@@ -1,5 +1,5 @@
 {
-  "name": "@ndemasie/webcontainer-i18next",
+  "name": "@ndemasie/edu-i18next-react",
   "description": "Demonstration of i18next",
   "license": "MIT",
   "version": "0.0.1",
@@ -15,17 +15,5 @@
   },
   "devDependencies": {
     "react-scripts": "5.0.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }

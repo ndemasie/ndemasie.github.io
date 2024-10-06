@@ -13,7 +13,8 @@ import { Role, UserContextProvider, useUserContext } from './context/user'
 import { WebSocketProvider, useWebSocketContext } from './context/webSocket'
 import { styles } from './styles'
 
-const WEBCONTAINER_APP_I18N = '/webcontainer-i18next/fileSystemTree.json'
+const WEBCONTAINER_EDU_I18NEXT_REACT =
+  'webcontainer/edu-i18next-react/fileSystemTree.json'
 
 const Loading: React.FC = () => {
   const { t } = useTranslation()
@@ -122,7 +123,7 @@ const App: React.FC = () => {
       <LessonProvider>
         <WebSocketProvider>
           <Suspense fallback={<Loading />}>
-            <Repl app={WEBCONTAINER_APP_I18N} />
+            <Repl app={WEBCONTAINER_EDU_I18NEXT_REACT} />
             <Footer />
           </Suspense>
         </WebSocketProvider>

@@ -6,7 +6,7 @@ services:
     ports:
       - '10000:80'
     volumes:
-      - ./apps/nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
+      - ./packages/nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
       - ./cert:/etc/nginx/cert:ro
     restart: always
 
@@ -14,23 +14,23 @@ services:
     image: site-nathan
     container_name: site-nathan
     build:
-      context: ./apps/site-nathan
+      context: ./packages/site-nathan
       dockerfile: Dockerfile.dev
     ports:
       - '10100:10100'
     restart: always
     volumes:
-      - ./apps/site-nathan/src:/root/src:ro
-      - ./apps/site-nathan/public:/root/public:ro
+      - ./packages/site-nathan/src:/root/src:ro
+      - ./packages/site-nathan/public:/root/public:ro
 
   server-i18next-websocket:
     image: server-i18next-websocket
     container_name: server-i18next-websocket
     build:
-      context: ./apps/server-i18next-websocket
+      context: ./packages/server-i18next-websocket
       dockerfile: Dockerfile.dev
     ports:
       - '10200:10200'
     restart: always
     volumes:
-      - ./apps/server-i18next-websocket/src:/root/src:ro
+      - ./packages/server-i18next-websocket/src:/root/src:ro

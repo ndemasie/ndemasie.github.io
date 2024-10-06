@@ -16,15 +16,15 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - ./apps/nginx/deploy/conf.d:/etc/nginx/conf.d:ro
-      - ./apps/nginx/deploy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./packages/nginx/deploy/conf.d:/etc/nginx/conf.d:ro
+      - ./packages/nginx/deploy/nginx.conf:/etc/nginx/nginx.conf:ro
     restart: unless-stopped
 
   site-nathan:
     image: site-nathan
     container_name: site-nathan
     build:
-      context: ./apps/site-nathan
+      context: ./packages/site-nathan
       dockerfile: Dockerfile.prod
     ports:
       - '10100:10100'
@@ -34,7 +34,7 @@ services:
     image: server-i18next-websocket
     container_name: server-i18next-websocket
     build:
-      context: ./apps/server-i18next-websocket
+      context: ./packages/server-i18next-websocket
       dockerfile: Dockerfile.prod
     ports:
       - '10200:10200'

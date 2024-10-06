@@ -1,11 +1,12 @@
 {
   "name": "@ndemasie/site",
+  "description": "Personal website of Nathan DeMasie",
   "version": "0.4.0",
-  "author": {
-    "name": "Nathan DeMasie"
-  },
+  "author": "Nathan DeMasie",
   "license": "MIT",
-  "bugs": "https://github.com/ndemasie/ndemasie.github.io/issues",
+  "bugs": {
+    "url": "https://github.com/ndemasie/ndemasie.github.io/issues"
+  },
   "homepage": "https://nathan.demasie.com",
   "scripts": {
     "astro:build": "npx astro build",
@@ -79,5 +80,7 @@
     "react-use-websocket": "^4.5.0",
     "xterm": "^5.3.0",
     "xterm-addon-fit": "^0.8.0"
-  }
+  },
+  "main": "postcss.config.js",
+  "keywords": []
 }

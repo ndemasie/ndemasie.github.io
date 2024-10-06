@@ -1,0 +1,23 @@
+{
+  "name": "@ndemasie/server-i18next-websocket",
+  "description": "Server for i18next with WebSockets",
+  "version": "0.1.0",
+  "author": "Nathan DeMasie",
+  "license": "ISC",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npx nodemon --watch './**/*.*' --exec 'tsx src/index.ts'"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.9",
+    "@types/ws": "8.5.12",
+    "nodemon": "3.1.7",
+    "tsx": "4.19.1",
+    "typescript": "5.6.2"
+  },
+  "dependencies": {
+    "ws": "8.18.0"
+  }
+}

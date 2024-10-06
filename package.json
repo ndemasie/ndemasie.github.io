@@ -5,19 +5,23 @@
     "name": "Nathan DeMasie"
   },
   "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "app": "bash -c 'npm --prefix ./apps/$0 run start'",
-    "dev": "npm run docker:dev & npm run watch:webcontainer:edu-i18next-react",
+    "app": "bash -c 'npm --prefix ./packages/$0 run start'",
+    "dev": "npm run docker:dev & watch:package & npm run watch:webcontainer:edu-i18next-react",
     "docker:clean": "bash ./scripts/docker_functions.sh stop && bash ./scripts/docker_functions.sh clean",
     "docker:dev": "docker compose --file ./docker-compose.dev.yaml up --build --abort-on-container-exit",
     "lint:check": "npx eslint src",
     "lint:fix": "npx eslint src --fix",
     "run:ts-script": "npx ts-node --transpile-only --project ./scripts/tsconfig.json",
     "script:buildWebContainerFileSystemTree": "npm run run:ts-script -- ./scripts/buildWebContainerFileSystemTree.ts",
-    "update": "bash -c 'project=\"$([ \"$0\" != \"bash\" ] && echo \"./apps/$0\")\"; npx npm-check $project --update'",
+    "update": "bash -c 'project=\"$([ \"$0\" != \"bash\" ] && echo \"./packages/$0\")\"; npx npm-check $project --update'",
     "terraform": "terraform -chdir='./infra'",
     "watch:site:public": "echo \"Deprecated: $ npx nodemon --ext 'tsx' --watch './site/src/**/public/**/*.tsx' --exec 'bash ./scripts/copy_public_dirs.sh'\"",
-    "watch:webcontainer:edu-i18next-react": "npx nodemon --watch './apps/edu-i18next-react/**/*.*' --exec 'npm run script:buildWebContainerFileSystemTree'"
+    "watch:package": "npx nodemon --watch './packages/**/package.json' --exec 'npm i --package-lock-only --workspaces=false",
+    "watch:webcontainer:edu-i18next-react": "npx nodemon --watch './packages/edu-i18next-react/**/*.*' --exec 'npm run script:buildWebContainerFileSystemTree'"
   },
   "devDependencies": {
     "@styled/typescript-styled-plugin": "^1.0.0",
@@ -42,6 +46,7 @@
     "stylelint-config-standard-scss": "^11.0.0",
     "stylelint-prettier": "^4.0.2",
     "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "tsx": "4.19.1",
+    "typescript": "5.6.2"
   }
 }

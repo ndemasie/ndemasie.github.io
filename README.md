@@ -14,7 +14,7 @@ flowchart TB
   nathanSubDomain("nathan.demasie.com")
 
   nginx(nginx)
-  click nginx "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/nginx" _blank
+  click nginx "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/nginx" _blank
 
   %% Flow
   nathanSubDomain ---|Cloudflare Tunnel|nginx
@@ -27,16 +27,16 @@ flowchart TB
 
   subgraph Server[fa:fa-server Server]
     server_i18next_websocket(server-i18next-websocket )
-    click server_i18next_websocket "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/server-i18next-websocket" _blank
+    click server_i18next_websocket "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/server-i18next-websocket" _blank
   end
 
   subgraph Site[fa:fa-browser Site]
     site_nathan(site-nathan)
-    click site_nathan "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/site-nathan" _blank
+    click site_nathan "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/site-nathan" _blank
     edu_i18next_react(edu-i18next-react)
-    click edu_i18next_react "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/edu-i18next-react" _blank
+    click edu_i18next_react "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/edu-i18next-react" _blank
     edu_design_principles(edu-design-principles)
-    click edu_design_principles "https://github.com/ndemasie/ndemasie.github.io/tree/main/apps/edu-design-principles" _blank
+    click edu_design_principles "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/edu-design-principles" _blank
 
     site_nathan --> edu_i18next_react
     site_nathan --> edu_design_principles

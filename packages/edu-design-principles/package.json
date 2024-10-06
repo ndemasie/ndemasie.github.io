@@ -1,8 +1,11 @@
 {
   "name": "@ndemasie/edu-design-principles",
+  "description": "Demonstration of design principles",
   "version": "0.1.0",
-  "module": "main.ts",
+  "author": "Nathan DeMasie",
+  "license": "ISC",
   "type": "module",
+  "module": "main.ts",
   "scripts": {
     "start": "npx ts-node --esm ./main.ts"
   },

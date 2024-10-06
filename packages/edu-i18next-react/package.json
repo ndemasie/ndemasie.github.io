@@ -1,9 +1,9 @@
 {
   "name": "@ndemasie/edu-i18next-react",
   "description": "Demonstration of i18next",
-  "license": "MIT",
   "version": "0.0.1",
-  "private": true,
+  "author": "Nathan DeMasie",
+  "license": "ISC",
   "dependencies": {
     "i18next": "^23.6.0",
     "react": "^18.2.0",

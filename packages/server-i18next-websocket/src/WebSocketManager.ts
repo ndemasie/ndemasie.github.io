@@ -141,7 +141,7 @@ export class WebSocketManager {
     })
     ws.on('error', this._onClientError)
     ws.on('pong', () => (ws.isAlive = true))
-    ws.on('message', (data) => this._onClientMessage(data, ws))
+    ws.on('message', (data: RawData) => this._onClientMessage(data, ws))
     ws.on('close', () => {
       this._log(`Closing ${ws.id} connection`)
       if (ws.id === this._client_leader) this._unassignLeader()

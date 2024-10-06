@@ -11,13 +11,14 @@
 %%{init: {'flowchart' : {'curve' : 'linear'}}}%%
 
 flowchart TB
-  nathanSubDomain("nathan.demasie.com")
+  domain("nathan.demasie.com")
+  click domain "https://nathan.demasie.com" _blank
 
   nginx(nginx)
   click nginx "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/nginx" _blank
 
   %% Flow
-  nathanSubDomain ---|Cloudflare Tunnel|nginx
+  domain ---|Cloudflare Tunnel|nginx
   nginx ---|http://server-i18next-websocket:10200|server_i18next_websocket
   nginx ---|http://site-nathan:10100|site_nathan
   nginx ---|http://site-nathan:10100/edu-design-principles/proxy|codedamn_design_principles

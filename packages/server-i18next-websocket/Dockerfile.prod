@@ -12,6 +12,6 @@ RUN npm ci
 
 COPY ./src ./src/
 
-EXPOSE 10300
+EXPOSE 10200
 
 ENTRYPOINT ["npm", "run", "dev"]

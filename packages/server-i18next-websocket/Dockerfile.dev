@@ -7,6 +7,6 @@ WORKDIR /root
 COPY package*.json ./
 RUN npm install
 
-EXPOSE 10300
+EXPOSE 10200
 
 ENTRYPOINT ["npm", "run", "dev"]

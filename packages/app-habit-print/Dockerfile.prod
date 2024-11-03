@@ -10,7 +10,7 @@ COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci
 
-COPY ./src ./src/
+COPY ./src ./src
 
 EXPOSE 10300
 

@@ -11,4 +11,4 @@ COPY .env ./
 
 EXPOSE 10300
 
-CMD npm run start
+ENTRYPOINT ["npm", "run", "dev"]

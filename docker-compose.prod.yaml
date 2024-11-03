@@ -48,6 +48,6 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - '10300:10300'
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./packages/app-habit-print/src:/root/src:ro

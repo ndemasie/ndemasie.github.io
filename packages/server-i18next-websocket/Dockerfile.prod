@@ -1,35 +1,17 @@
-# Linux with node install for a light container
-FROM alpine as base
-RUN apk add --update nodejs npm
+# Stage 1: Build
+FROM node:22-alpine AS build
 
-# BUILDER
-FROM base as builder
-ENV ENVIRONMENT_MODE development
-ENV NODE_ENV development
-
-WORKDIR /root
-
-COPY ./package.json ./
-COPY ./package-lock.json ./
-RUN npm ci
-
-COPY ./tsconfig.json ./
-COPY ./src ./src/
-RUN npm run build
-
-# RUNNER
-FROM base
 ENV ENVIRONMENT_MODE production
 ENV NODE_ENV production
 
 WORKDIR /root
 
-COPY  --from=builder /root/package.json ./
-COPY  --from=builder /root/package-lock.json ./
+COPY package.json ./
+COPY package-lock.json ./
 RUN npm ci
 
-COPY --from=builder /root/dist ./dist/
+COPY ./src ./src/
 
-EXPOSE 10200
+EXPOSE 10300
 
-ENTRYPOINT ["node", "/root/dist/index.js"]
+ENTRYPOINT ["npm", "run", "dev"]

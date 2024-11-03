@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser'
 import express from 'express'
+import type { Request, Response } from 'express'
 import { create } from 'express-handlebars'
 import helmet from 'helmet'
 
@@ -18,8 +19,8 @@ const hbs = create({
   defaultLayout: 'main',
   extname: '.hbs',
   helpers: {
-    eq: (a, b) => a === b,
-    times: (n, block) => {
+    eq: (a: any, b: any) => a === b,
+    times: (n: number, block: any) => {
       let accum = ''
       for (let i = 0; i < n; ++i) {
         block.data.index = i
@@ -29,11 +30,11 @@ const hbs = create({
       }
       return accum
     },
-    getHour: (a) => new Date(a).getHours(),
-    getDay: (a) => new Date(a).getDay(),
-    getDate: (a) => new Date(a).getDate(),
-    getMonth: (a) => new Date(a).getMonth(),
-    getYear: (a) => new Date(a).getFullYear(),
+    getHour: (a: number) => new Date(a).getHours(),
+    getDay: (a: number) => new Date(a).getDay(),
+    getDate: (a: number) => new Date(a).getDate(),
+    getMonth: (a: number) => new Date(a).getMonth(),
+    getYear: (a: number) => new Date(a).getFullYear(),
   },
 })
 app.engine('hbs', hbs.engine)
@@ -61,7 +62,7 @@ app.use(
 app.get(
   '/config/:configId/week/:week',
   [getConfig, getCalendarData, getEventByName],
-  (req, res) => {
+  (req: Request, res: Response) => {
     res.locals.days = Array.from({ length: 31 }, (_, i) => i).slice(14, 21)
     res.render('calendarWeek')
   },

@@ -1,6 +1,7 @@
-import { RawData, WebSocketServer, ServerOptions } from 'ws'
+import { WebSocketServer } from 'ws'
+import type { RawData, ServerOptions } from 'ws'
 
-import { LessonState, MessagePayload, WebSocket } from './types'
+import type { LessonState, MessagePayload, WebSocket } from './types.ts'
 
 export class WebSocketManager {
   private static _INSTANCE: WebSocketManager

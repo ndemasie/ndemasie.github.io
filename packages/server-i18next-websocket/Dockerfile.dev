@@ -1,19 +1,12 @@
-# Linux with node install after for a lighter container
-FROM alpine
-RUN apk add --update nodejs npm
-
-ENV ENVIRONMENT_MODE development
+# Stage 1: Build
+FROM node:22-alpine AS build
 
 WORKDIR /root
 
 # NPM install
-COPY ./package.json ./
-COPY ./package-lock.json ./
-RUN npm ci
+COPY package*.json ./
+RUN npm install
 
-# Copy files
-COPY ./tsconfig.json ./
+EXPOSE 10300
 
-EXPOSE 10200
-
-CMD npm run start
+ENTRYPOINT ["npm", "run", "dev"]

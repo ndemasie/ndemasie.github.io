@@ -1,3 +1,3 @@
-import { WebSocketManager } from './WebSocketManager'
+import { WebSocketManager } from './WebSocketManager.ts'
 
 WebSocketManager.getInstance()

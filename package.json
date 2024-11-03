@@ -18,7 +18,8 @@
     "lint:fix": "npx eslint src --fix",
     "run:ts-script": "npx ts-node --transpile-only --project ./scripts/tsconfig.json",
     "script:buildWebContainerFileSystemTree": "npm run run:ts-script -- ./scripts/buildWebContainerFileSystemTree.ts",
-    "update": "bash -c 'project=\"$([ \"$0\" != \"bash\" ] && echo \"./packages/$0\")\"; npx npm-check $project --update'",
+    "update": "npm run update:pkgs --workspaces",
+    "update:lock": "npm run update:lock --workspaces",
     "terraform": "terraform -chdir='./infra'",
     "watch:site:public": "echo \"Deprecated: $ npx nodemon --ext 'tsx' --watch './site/src/**/public/**/*.tsx' --exec 'bash ./scripts/copy_public_dirs.sh'\"",
     "watch:package": "npx nodemon --watch './packages/**/package.json' --exec 'npm i --package-lock-only --workspaces=false",
@@ -47,7 +48,7 @@
     "stylelint-config-standard-scss": "^11.0.0",
     "stylelint-prettier": "^4.0.2",
     "ts-node": "^10.9.1",
-    "tsx": "4.19.1",
-    "typescript": "5.6.2"
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
   }
 }

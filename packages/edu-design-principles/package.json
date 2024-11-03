@@ -7,7 +7,9 @@
   "type": "module",
   "module": "main.ts",
   "scripts": {
-    "start": "npx ts-node --esm ./main.ts"
+    "dev": "npx ts-node --esm ./main.ts",
+    "update:pkgs": "npx npm-check --update",
+    "update:lock": "npm i --package-lock-only --workspaces false"
   },
   "devDependencies": {
     "@types/node": "^20.6.0",

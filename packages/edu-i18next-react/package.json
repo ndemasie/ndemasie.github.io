@@ -11,7 +11,9 @@
     "react-i18next": "^13.3.1"
   },
   "scripts": {
-    "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start"
+    "dev": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
+    "update:pkgs": "npx npm-check --update",
+    "update:lock": "npm i --package-lock-only --workspaces false"
   },
   "devDependencies": {
     "react-scripts": "5.0.1"

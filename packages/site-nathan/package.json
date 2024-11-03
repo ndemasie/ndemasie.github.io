@@ -11,12 +11,13 @@
   "scripts": {
     "astro:build": "npx astro build",
     "astro:dev": "npx astro dev",
-    "start": "npx astro dev",
+    "dev": "npx astro dev",
     "format:check": "npx prettier --check \"src/**/*.{astro,js,jsx,ts,tsx,css,scss,sass,md}\"",
     "format:write": "npx prettier --write \"src/**/*.{astro,js,jsx,ts,tsx,css,scss,sass,md}\"",
     "lint:check": "npx eslint src",
     "lint:fix": "npx eslint src --fix",
-    "update": "npx npm-check --update",
+    "update:pkgs": "npx npm-check --update",
+    "update:lock": "npm i --package-lock-only --workspaces false",
     "watch:public": "npx nodemon --ext 'tsx' --watch './src/**/public/**/*.tsx' --exec 'bash ./scripts/copy_public_dirs.sh'"
   },
   "devDependencies": {

@@ -8,7 +8,9 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "npx nodemon --watch './**/*.*' --exec 'tsx src/index.ts'"
+    "dev": "npx nodemon --watch './**/*.*' --exec 'tsx src/index.ts'",
+    "update:pkgs": "npx npm-check --update",
+    "update:lock": "npm i --package-lock-only --workspaces false"
   },
   "devDependencies": {
     "@types/node": "^20.8.9",

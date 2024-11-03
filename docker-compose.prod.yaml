@@ -45,7 +45,7 @@ services:
     container_name: app-habit-print
     build:
       context: ./packages/app-habit-print
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     ports:
       - '10300:10300'
     restart: always

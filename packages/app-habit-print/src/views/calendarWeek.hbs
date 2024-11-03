@@ -1,0 +1,81 @@
+<div class="calendar">
+  <div></div>
+  <div class="header">Monday</div>
+  <div class="header">Tuesday</div>
+  <div class="header">Wednesday</div>
+  <div class="header">Thursday</div>
+  <div class="header">Friday</div>
+  <div class="header">Saturday</div>
+  <div class="header">Sunday</div>
+
+  {{#each calendarData as |dates eventName|}}
+  <div class="item event-name">{{eventName}}</div>
+  {{#each @root.days as |day|}}
+  <div class="item event">
+    {{#each (lookup dates day) as |event|}}
+    {{#with (lookup @root.eventByName @eventName)~}}
+    {{#if (eq type "list")}}
+    <div class="{{type}}">
+      {{#times 10}}
+      <label>
+        <input type="text"></input>
+      </label>
+      {{/times}}
+    </div>
+    {{else}}
+    <label>
+      <input type="{{type}}"></input>
+    </label>
+    {{/if}}
+    {{/with}}
+    {{/each}}
+  </div>
+  {{/each}}
+  {{/each}}
+</div>
+
+<style>
+  .calendar {
+    --highlight-color: #7221ff;
+    --item-padding: 6px;
+
+    display: grid;
+    grid-template-columns: 60px repeat(7, minmax(0, 1fr));
+  }
+
+  .calendar .header {
+    font-weight: bold;
+    text-align: center;
+    background-color: var(--highlight-color);
+    color: white;
+    padding: var(--item-padding);
+  }
+
+  .calendar .event-name {
+    font-weight: bold;
+    padding-top: var(--item-padding);
+    padding-bottom: var(--item-padding);
+  }
+
+  .calendar .event {
+    padding-top: var(--item-padding);
+    padding-bottom: var(--item-padding);
+  }
+
+  .calendar .list {
+    display: flex;
+    flex-direction: column;
+
+    row-gap: var(--item-padding);
+    padding-right: var(--item-padding);
+  }
+
+  .calendar .list>label {
+    border-bottom: black 1px solid;
+  }
+
+  .calendar input[type="text"] {
+    width: 100%;
+    border: none;
+  }
+</style>

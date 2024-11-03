@@ -39,3 +39,15 @@ services:
     ports:
       - '10200:10200'
     restart: unless-stopped
+
+  app-habit-print:
+    image: app-habit-print
+    container_name: app-habit-print
+    build:
+      context: ./packages/app-habit-print
+      dockerfile: Dockerfile.dev
+    ports:
+      - '10300:10300'
+    restart: always
+    volumes:
+      - ./packages/app-habit-print/src:/root/src:ro

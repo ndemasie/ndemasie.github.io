@@ -13,6 +13,7 @@
     "dev": "npm run docker:dev & watch:package & npm run watch:webcontainer:edu-i18next-react",
     "docker:clean": "bash ./scripts/docker_functions.sh stop && bash ./scripts/docker_functions.sh clean",
     "docker:dev": "docker compose --file ./docker-compose.dev.yaml up --build --abort-on-container-exit",
+    "docker:prod": "docker compose --file ./docker-compose.prod.yaml up --detach",
     "lint:check": "npx eslint src",
     "lint:fix": "npx eslint src --fix",
     "run:ts-script": "npx ts-node --transpile-only --project ./scripts/tsconfig.json",

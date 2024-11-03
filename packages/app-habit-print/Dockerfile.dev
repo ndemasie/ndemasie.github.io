@@ -1,0 +1,14 @@
+# Stage 1: Build
+FROM node:22-alpine AS build
+
+WORKDIR /root
+
+# NPM install
+COPY package*.json ./
+RUN npm install
+
+COPY .env ./
+
+EXPOSE 10300
+
+CMD npm run start

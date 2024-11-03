@@ -1,0 +1,34 @@
+<section>
+  <h1>Home</h1>
+  <p>Welcome to the Home page</p>
+</section>
+
+<sction>
+  <table>
+    <thead>
+      <tr>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each weeks | week |}}
+      <tr>
+        {{#each this}}
+        <td class="{{#if event}}event{{/if}}">
+          {{day}}
+          {{#if event}}
+          <div>{{event.name}}</div>
+          {{/if}}
+        </td>
+        {{/each}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</sction>

@@ -12,28 +12,32 @@
 
 flowchart TB
   domain("nathan.demasie.com")
-  nginx(nginx)
 
   %% Flow
   domain ---|Cloudflare Tunnel|nginx
-  nginx ---|<div>http://server-i18next-websocket:10200</div>|server_i18next_websocket
   nginx ---|<div>http://site-nathan:10100</div>|site_nathan
+  nginx ---|<div>http://server-i18next-websocket:10200</div>|server_i18next_websocket
+  nginx ---|<div>http://app-habit-print:10300/</div>|app_habit_print
   nginx ---|<div>http://site-nathan:10100/edu-design-principles/proxy</div>|codedamn_design_principles
 
   edu_i18next_react <-.->|ws|server_i18next_websocket
-  edu_design_principles -.-> codedamn_design_principles
+  site_nathan -->|/app-habit-print|app_habit_print
+  edu_design_principles -.-> |/edu-design-principles/proxy|codedamn_design_principles
 
-  subgraph Server[fa:fa-server Server]
+  subgraph DockerCompose[fa:fa-server Docker Compose]
+    cloudflared(cloudflared)
+    nginx(nginx)
+    app_habit_print(app-habit-print)
     server_i18next_websocket(server-i18next-websocket)
-  end
 
-  subgraph Site[fa:fa-browser Site]
-    site_nathan(site-nathan)
-    edu_i18next_react(edu-i18next-react)
-    edu_design_principles(edu-design-principles)
+    subgraph Site[fa:fa-browser Site]
+      site_nathan(site-nathan)
+      edu_i18next_react(edu-i18next-react)
+      edu_design_principles(edu-design-principles)
 
-    site_nathan --> edu_i18next_react
-    site_nathan --> edu_design_principles
+      site_nathan --> edu_i18next_react
+      site_nathan --> edu_design_principles
+    end
   end
 
   subgraph External[fa:fa-browser External]
@@ -43,6 +47,7 @@ flowchart TB
   click domain "https://nathan.demasie.com" _blank
   click nginx "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/nginx" _blank
 
+  click app_habit_print "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/app-habit-print" _blank
   click edu_design_principles "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/edu-design-principles" _blank
   click edu_i18next_react "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/edu-i18next-react" _blank
   click server_i18next_websocket "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/server-i18next-websocket" _blank

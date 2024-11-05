@@ -5,7 +5,7 @@
 
 <!-- ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ndemasie/ndemasie.github.io/deploy-ec2.yml) -->
 
-![Tech stack](https://skillicons.dev/icons?i=nginx,docker,nodejs,ts,astro,svelte,react)
+![Tech stack](https://skillicons.dev/icons?i=docker,cloudflare,nginx,nodejs,ts,astro,svelte,react)
 
 ```mermaid
 %%{init: {'flowchart' : {'curve' : 'linear'}}}%%

@@ -14,9 +14,9 @@ flowchart TB
 
   %% Flow
   domain ---|Cloudflare Tunnel|nginx
-  nginx ---|<div>http://site-nathan:10100</div>|site_nathan
-  nginx ---|<div>http://server-i18next-websocket:10200</div>|server_i18next_websocket
-  nginx ---|<div>http://app-habit-print:10300/</div>|app_habit_print
+  nginx ---|<div>site-nathan:10100</div>|site_nathan
+  nginx ---|<div>server-i18next-websocket:10200</div>|server_i18next_websocket
+  nginx ---|<div>app-habit-print:10300</div>|app_habit_print
 
   edu_i18next_react <-.->|ws|server_i18next_websocket
   site_nathan -->|/app-habit-print|app_habit_print

@@ -4,6 +4,9 @@ import type { CalConfig } from '../types.ts'
 
 export default {
   name: 'Nathan',
+  defaultRecurrence: {
+    wkst: 0, // Sunday
+  },
   events: [
     {
       name: 'Fish oil',

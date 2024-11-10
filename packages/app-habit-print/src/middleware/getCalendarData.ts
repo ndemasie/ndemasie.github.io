@@ -17,26 +17,20 @@ export const getCalendarData = catchRequestError(
 
     if (!calDataCache.has(configId)) {
       const data: ReqCalendarData = {}
-      const startMonth = new Date(
-        new Date().getUTCFullYear(),
-        new Date().getMonth(),
-        0,
-        1,
-      )
-      const endMonth = new Date(
-        new Date().getUTCFullYear(),
-        new Date().getMonth() + 1,
-        0,
-        1,
-      )
+      const startMonth = new Date().startMonth()
+      const endMonth = new Date().endMonth()
 
       for (const event of config?.events ?? []) {
         data[event.name] ??= {}
 
         for (const recurrence of event.recurrence) {
-          const rrule = new RRule.RRule(recurrence)
+          const rrule = new RRule.RRule({
+            dtstart: new Date().startMonth(),
+            ...(!!config?.defaultRecurrence && config?.defaultRecurrence),
+            ...recurrence,
+          })
 
-          for (const date of rrule.between(startMonth, endMonth)) {
+          for (const date of rrule.between(startMonth, endMonth, true)) {
             data[event.name][date.getDate()] ??= []
             data[event.name][date.getDate()].push(date)
           }

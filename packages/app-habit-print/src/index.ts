@@ -6,6 +6,7 @@ import helmet from 'helmet'
 
 import { fileURLToPath } from 'url'
 
+import './prototype.ts'
 import { getCalendarData } from './middleware/getCalendarData.ts'
 import { getConfig } from './middleware/getConfig.ts'
 import { getEventByName } from './middleware/getEventByName.ts'
@@ -60,10 +61,31 @@ app.use(
 
 // Routes
 app.get(
+  '/config/:configId/week',
+  [getConfig, getCalendarData, getEventByName],
+  (req: Request, res: Response) => {
+    const weekStartDay = +(res.locals.config?.defaultRecurrence?.wkst || 0)
+
+    res.locals.days = Array.from({ length: 31 }, (_, i) => i).slice(
+      new Date().startWeekDate({ weekStartDay }),
+      new Date().endWeekDate({ weekStartDay }),
+    )
+
+    res.render('calendarWeek')
+  },
+)
+
+app.get(
   '/config/:configId/week/:week',
   [getConfig, getCalendarData, getEventByName],
   (req: Request, res: Response) => {
-    res.locals.days = Array.from({ length: 31 }, (_, i) => i).slice(14, 21)
+    const weekStartDay = +(res.locals.config?.defaultRecurrence?.wkst || 0)
+
+    res.locals.days = Array.from({ length: 31 }, (_, i) => i).slice(
+      new Date().startWeekDate({ weekStartDay }),
+      new Date().endWeekDate({ weekStartDay }),
+    )
+
     res.render('calendarWeek')
   },
 )

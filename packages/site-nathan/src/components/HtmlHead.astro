@@ -10,11 +10,8 @@ interface Props {
 
 const { page, lang } = Astro.props
 
-const title = t([`page.${page}._title`, 'page._title_undefined'], lang)
-const description = t(
-  [`page.${page}._description`, 'page._description_undefined'],
-  lang,
-)
+const title = t([`page.${page}._title`, 'common.undefined'], lang)
+const description = t([`page.${page}._description`, 'common.undefined'], lang)
 
 const permalink = schema[lang].author.url.url
 ---

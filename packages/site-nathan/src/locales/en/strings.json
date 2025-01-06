@@ -7,12 +7,6 @@
     "undefined": "Undefined"
   },
   "page": {
-    "_title_undefined": "Undefined",
-    "_description_undefined": "Undefined",
-    "home": {
-      "_title": "Nathan DeMasie",
-      "_description": "Playground for experiments"
-    },
     "app": {
       "_title": "Apps",
       "_description": "Assorted apps",
@@ -22,6 +16,10 @@
       "_title": "Blog",
       "_description": "A blog",
       "title": "Welcome to the blog pages"
+    },
+    "home": {
+      "_title": "Nathan DeMasie",
+      "_description": "Playground for experiments"
     },
     "tutorial": {
       "_title": "Tutorials",

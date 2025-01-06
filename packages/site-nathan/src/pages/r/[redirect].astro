@@ -14,7 +14,7 @@ export const redirects = {
 
 type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 export function getStaticPaths() {
-  return Object.keys(redirects).map((key) => ({ params: { redirect: key } }))
+  return Object.keys(redirects).map((redirect) => ({ params: { redirect } }))
 }
 
 const { redirect } = Astro.params as unknown as Params

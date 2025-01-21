@@ -13,7 +13,8 @@ flowchart TB
   domain("nathan.demasie.com")
 
   %% Flow
-  domain ---|Cloudflare Tunnel|nginx
+  domain ---cloudflared
+  cloudflared ---nginx
   nginx ---|<div>site-nathan:10100</div>|site_nathan
   nginx ---|<div>server-i18next-websocket:10200</div>|server_i18next_websocket
   nginx ---|<div>app-habit-print:10300</div>|app_habit_print

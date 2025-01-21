@@ -1,23 +1,24 @@
 version: '3.9'
 services:
-  cloudflared:
-    image: cloudflare/cloudflared
-    container_name: cloudflare-tunnel
-    restart: unless-stopped
-    command: tunnel --no-autoupdate run
-    env_file: ./.env
-    environment:
-      - TUNNEL_TOKEN=$CLOUDFLARE_TUNNEL_TOKEN
+  # cloudflared:
+  #   image: cloudflare/cloudflared
+  #   container_name: cloudflare-tunnel
+  #   restart: unless-stopped
+  #   command: tunnel --no-autoupdate run
+  #   env_file: ./.env
+  #   environment:
+  #     - TUNNEL_TOKEN=$CLOUDFLARE_TUNNEL_TOKEN
 
   nginx:
-    image: nginx:1.27.1-alpine
+    image: nginx:1.27.3-alpine
     container_name: nginx
     ports:
       - '80:80'
       - '443:443'
+      - '9000:9000'
     volumes:
-      - ./packages/nginx/deploy/conf.d:/etc/nginx/conf.d:ro
-      - ./packages/nginx/deploy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./packages/nginx/prod/conf.d:/etc/nginx/conf.d:ro
+      - ./packages/nginx/prod/nginx.conf:/etc/nginx/nginx.conf:ro
     restart: unless-stopped
 
   site-nathan:
@@ -51,3 +52,15 @@ services:
     restart: unless-stopped
     volumes:
       - ./packages/app-habit-print/src:/root/src:ro
+
+  app-referral-codes:
+    image: app-referral-codes
+    container_name: app-referral-codes
+    build:
+      context: ./packages/app-referral-codes
+      dockerfile: Dockerfile
+    ports:
+      - '9000:9000'
+    restart: unless-stopped
+    volumes:
+      - ./packages/app-referral-codes/src:/root/src:ro

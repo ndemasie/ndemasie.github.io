@@ -8,10 +8,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
+    "dev": "npx astro dev",
+    "astro:dev": "npx astro dev",
+    "astro:build": "npx astro build",
     "update:pkgs": "npx npm-check --update",
     "update:lock": "npm i --package-lock-only --workspaces false"
   },

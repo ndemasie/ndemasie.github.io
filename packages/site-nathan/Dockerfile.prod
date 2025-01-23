@@ -1,4 +1,5 @@
-FROM node:18-alpine as builder
+# Stage 1: Build
+FROM node:22-alpine AS runtime
 
 ENV ENVIRONMENT_MODE production
 

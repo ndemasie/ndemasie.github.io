@@ -1,13 +1,13 @@
 version: '3.9'
 services:
-  # cloudflared:
-  #   image: cloudflare/cloudflared
-  #   container_name: cloudflare-tunnel
-  #   restart: unless-stopped
-  #   command: tunnel --no-autoupdate run
-  #   env_file: ./.env
-  #   environment:
-  #     - TUNNEL_TOKEN=$CLOUDFLARE_TUNNEL_TOKEN
+  cloudflared:
+    image: cloudflare/cloudflared
+    container_name: cloudflare-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    env_file: ./.env
+    environment:
+      - TUNNEL_TOKEN=$CLOUDFLARE_TUNNEL_TOKEN
 
   nginx:
     image: nginx:1.27.3-alpine

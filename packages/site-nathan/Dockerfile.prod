@@ -25,9 +25,4 @@ RUN npm run astro:build
 
 EXPOSE 10100
 
-ENTRYPOINT [ "node", "./dist/server/entry.mjs" ]
-
-# # Static server
-# FROM nginx:alpine as static_server
-# COPY --from=builder /root/dist /var/www/dist/
-# COPY ./nginx.conf /etc/nginx/nginx.conf
+ENTRYPOINT ["node", "./dist/server/entry.mjs"]

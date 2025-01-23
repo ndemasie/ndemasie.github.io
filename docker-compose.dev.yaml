@@ -4,59 +4,60 @@ services:
     image: nginx:1.27.3-alpine
     container_name: nginx
     ports:
-      - '10000:80'
-      - '9000:9000'
+      - '10000:80' # site-nathan, server-i18next-websocket
+      - '10300:10300' # app-habit-print
+      - '10400:10400' # app-referral-codes
     volumes:
       - ./packages/nginx/dev/conf.d:/etc/nginx/conf.d:ro
       - ./packages/nginx/dev/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./cert:/etc/nginx/cert:ro
     restart: always
 
-  # site-nathan:
-  #   image: site-nathan
-  #   container_name: site-nathan
-  #   build:
-  #     context: ./packages/site-nathan
-  #     dockerfile: Dockerfile.dev
-  #   ports:
-  #     - '10100:10100'
-  #   restart: always
-  #   volumes:
-  #     - ./packages/site-nathan/src:/root/src:ro
-  #     - ./packages/site-nathan/public:/root/public:ro
+  site-nathan:
+    image: site-nathan
+    container_name: site-nathan
+    build:
+      context: ./packages/site-nathan
+      dockerfile: Dockerfile.dev
+    ports:
+      - '10100:10100'
+    restart: always
+    volumes:
+      - ./packages/site-nathan/src:/root/src:ro
+      - ./packages/site-nathan/public:/root/public:ro
 
-  # server-i18next-websocket:
-  #   image: server-i18next-websocket
-  #   container_name: server-i18next-websocket
-  #   build:
-  #     context: ./packages/server-i18next-websocket
-  #     dockerfile: Dockerfile.dev
-  #   ports:
-  #     - '10200:10200'
-  #   restart: always
-  #   volumes:
-  #     - ./packages/server-i18next-websocket/src:/root/src:ro
+  server-i18next-websocket:
+    image: server-i18next-websocket
+    container_name: server-i18next-websocket
+    build:
+      context: ./packages/server-i18next-websocket
+      dockerfile: Dockerfile.dev
+    ports:
+      - '10200:10200'
+    restart: always
+    volumes:
+      - ./packages/server-i18next-websocket/src:/root/src:ro
 
-  # app-habit-print:
-  #   image: app-habit-print
-  #   container_name: app-habit-print
-  #   build:
-  #     context: ./packages/app-habit-print
-  #     dockerfile: Dockerfile.dev
-  #   ports:
-  #     - '10300:10300'
-  #   restart: always
-  #   volumes:
-  #     - ./packages/app-habit-print/src:/root/src:ro
+  app-habit-print:
+    image: app-habit-print
+    container_name: app-habit-print
+    build:
+      context: ./packages/app-habit-print
+      dockerfile: Dockerfile.dev
+    # ports:
+    #   - '10300:10300'
+    restart: always
+    volumes:
+      - ./packages/app-habit-print/src:/root/src:ro
 
   app-referral-codes:
     image: app-referral-codes
     container_name: app-referral-codes
     build:
       context: ./packages/app-referral-codes
-      dockerfile: Dockerfile
-    ports:
-      - '9001:9001'
+      dockerfile: Dockerfile.dev
+    # ports:
+    #   - '10400:10400'
     restart: always
     volumes:
       - ./packages/app-referral-codes/src:/root/src:ro

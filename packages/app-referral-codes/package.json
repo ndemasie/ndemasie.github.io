@@ -11,7 +11,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "update:pkgs": "npx npm-check --update",
+    "update:lock": "npm i --package-lock-only --workspaces false"
   },
   "dependencies": {
     "@astrojs/node": "9.0.1",

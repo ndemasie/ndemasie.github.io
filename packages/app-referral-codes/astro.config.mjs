@@ -20,9 +20,9 @@ export default defineConfig({
   site:
     process.env.ENVIRONMENT_MODE === 'production'
       ? packageJson.homepage
-      : 'http://localhost:9001',
+      : 'http://localhost:10400',
   server: {
-    host: '0.0.0.0',
-    port: 9001,
+    host: process.env.HOST || '0.0.0.0',
+    port: parseInt(process.env.PORT, 10) || 10400,
   },
 })

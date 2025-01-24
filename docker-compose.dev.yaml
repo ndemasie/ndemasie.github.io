@@ -61,3 +61,4 @@ services:
     restart: always
     volumes:
       - ./packages/app-referral-codes/src:/root/src:ro
+      - ./packages/app-referral-codes/public:/root/public:ro

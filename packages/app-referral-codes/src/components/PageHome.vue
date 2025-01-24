@@ -9,15 +9,21 @@ const search = ref('')
 </script>
 
 <template>
-  <section id="search" class="mx-auto my-6 py-4 max-w-5xl flex justify-center">
-    <SearchBar v-model:search="search" />
-  </section>
+  <div class="p-4 pb-8">
+    <h2 class="mt-6 text-center text-3xl font-semibold">
+      Search brand promo codes
+    </h2>
 
-  <section id="results" class="mx-auto max-w-5xl gap-6">
-    <CodeGrid :search="search" />
-  </section>
+    <section id="search" class="mx-auto my-6 max-w-5xl flex justify-center">
+      <SearchBar v-model:search="search" />
+    </section>
 
-  <CodeModal />
+    <section id="results" class="mx-auto max-w-5xl gap-6">
+      <CodeGrid :search="search" />
+    </section>
+
+    <CodeModal />
+  </div>
 </template>
 
 <style scoped></style>

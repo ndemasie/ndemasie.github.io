@@ -18,8 +18,8 @@ services:
       - '10300:10300' # app-habit-print
       - '10400:10400' # app-referral-codes
     volumes:
-      - ./packages/nginx/prod/conf.d:/etc/nginx/conf.d:ro
-      - ./packages/nginx/prod/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./packages/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./packages/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     restart: unless-stopped
 
   site-nathan:

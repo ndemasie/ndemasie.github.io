@@ -1,4 +1,4 @@
-# nathan.demasie.com
+# [nathan.demasie.com](https://nathan.demasie.com)
 
 ![Website status](https://img.shields.io/website-up-down-green-red/http/nathan.demasie.com.svg)
 

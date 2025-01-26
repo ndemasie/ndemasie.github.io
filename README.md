@@ -1,13 +1,18 @@
-# [nathan.demasie.com](https://nathan.demasie.com)
+# [demasie.com](https://demasie.com)
 
-![demasie.com](https://img.shields.io/website.svg?label=demasie.com&url=http%3A%2F%2Fwww.demasie.com/health)<br/>
-![nathan.demasie.com](https://img.shields.io/website.svg?label=nathan.demasie.com&url=http%3A%2F%2Fnathan.demasie.com/health)<br/>
-![habit.demasie.com](https://img.shields.io/website.svg?label=habit.demasie.com&url=http%3A%2F%2Fhabit.demasie.com/health)<br/>
-![refer.demasie.com](https://img.shields.io/website.svg?label=refer.demasie.com&url=http%3A%2F%2Frefer.demasie.com/health)<br/>
+<img alt="www.demasie.com" src="https://img.shields.io/website.svg?label=demasie.com&url=http%3A%2F%2Fwww.demasie.com/health"/><br/>
+<img alt="nathan.demasie.com" src="https://img.shields.io/website.svg?label=nathan.demasie.com&url=http%3A%2F%2Fnathan.demasie.com/health"/><br/>
+<img alt="habit.demasie.com" src="https://img.shields.io/website.svg?label=habit.demasie.com&url=http%3A%2F%2Fhabit.demasie.com/health"/><br/>
+<img alt="refer.demasie.com" src="https://img.shields.io/website.svg?label=refer.demasie.com&url=http%3A%2F%2Frefer.demasie.com/health"/>
 
 <!-- ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ndemasie/ndemasie.github.io/deploy-ec2.yml) -->
 
-![Tech stack](https://skillicons.dev/icons?i=docker,cloudflare,nginx,nodejs,ts,astro,react,vue,svelte)
+|          |                                                                             |
+| -------- | --------------------------------------------------------------------------- |
+| DevOps   | ![Infra](https://skillicons.dev/icons?i=cloudflare,raspberrypi,docker)<br/> |
+| Backend  | ![Backend](https://skillicons.dev/icons?i=nginx,nodejs)<br/>                |
+| Frontend | ![Frontend](https://skillicons.dev/icons?i=astro,react,vue,svelte,lit)<br/> |
+| Styling  | ![Styling](https://skillicons.dev/icons?i=tailwind,css)<br/>                |
 
 ```mermaid
 %%{init: { 'theme': 'dark', 'flowchart' : {'curve' : 'linear'}}}%%

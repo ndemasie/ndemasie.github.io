@@ -29,9 +29,9 @@ const filteredCodes = computed(() => {
   <TransitionGroup
     tag="ul"
     name="list"
-    class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 justify-center align-center px-6"
+    class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 justify-center align-center"
   >
-    <li v-for="code in filteredCodes" :key="code.key" class="h-full">
+    <li v-for="code in filteredCodes" :key="code.key">
       <CodeCard :codeKey="code.key" />
     </li>
   </TransitionGroup>

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { ExternalLinkIcon } from '@radix-icons/vue'
+
 import {
   Card,
   CardHeader,
@@ -13,16 +15,11 @@ import { store } from '@/stores/store.ts'
 
 const props = defineProps<{
   codeKey: Code['key']
-  active: boolean
+  direct?: boolean
 }>()
 
 const code = store.codeByKey[props.codeKey]
 const brand = store.brandByKey[code.brandKey]
-
-const logoStyles = {
-  backgroundColor: brand.theme === 'light' ? 'white' : 'inherit',
-  backgroundImage: `url('${brand.logoUrl}')`,
-}
 
 const onSelect = () => {
   store.setSelectedCodeKey(code.key)
@@ -30,27 +27,39 @@ const onSelect = () => {
 </script>
 
 <template>
-  <Card class="flex flex-col h-full" @click="onSelect">
-    <CardHeader>
-      <div class="brand-logo" aria-label="{{brand.name}}" :style="logoStyles" />
+  <Card
+    class="sm:@container w-full flex flex-col h-full overflow-hidden"
+    @click="onSelect"
+  >
+    <CardHeader
+      class="mb-6 h-[160px] @[400px]:h-full @[400px]:max-h-[280px]"
+      :style="{
+        backgroundColor: brand.theme === 'light' ? 'white' : 'inherit',
+      }"
+    >
+      <img
+        class="h-full w-full"
+        :src="brand.logoUrl"
+        :aria-label="`${brand.name} logo`"
+        :alt="`${brand.name} logo`"
+      />
     </CardHeader>
+
     <CardContent class="flex-1">
-      <CardTitle>{{ code.description }}</CardTitle>
-      <!-- <CardDescription>{{ brand.name }}</CardDescription> -->
+      <CardTitle class="mb-2">{{ code.description }}</CardTitle>
+      <CardDescription class="text-lg">{{ brand.name }}</CardDescription>
     </CardContent>
-    <CardFooter>
-      <Button class="w-full" @click="onSelect">Open</Button>
+
+    <CardFooter class="w-full">
+      <a v-if="props.direct" :href="code.url" target="_blank" class="w-full">
+        <Button class="my-2 w-full" @click="onClose"
+          >Get deal <ExternalLinkIcon class="w-4 h-4 mr-2"
+        /></Button>
+      </a>
+
+      <Button v-else class="my-2 w-full" @click="onSelect">Open</Button>
     </CardFooter>
   </Card>
 </template>
 
-<style scoped>
-.brand-logo {
-  width: 100%;
-  height: 100px;
-  background-size: calc(100% - 16px);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-origin: content-box;
-}
-</style>
+<style scoped></style>

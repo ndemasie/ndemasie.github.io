@@ -4,5 +4,7 @@ import PageHome from '@/components/PageHome.vue'
 ---
 
 <Layout>
-  <PageHome client:only />
+  <Fragment slot="body">
+    <PageHome client:only />
+  </Fragment>
 </Layout>

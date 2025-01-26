@@ -12,7 +12,6 @@
 | DevOps   | ![Infra](https://skillicons.dev/icons?i=cloudflare,raspberrypi,docker)<br/> |
 | Backend  | ![Backend](https://skillicons.dev/icons?i=nginx,nodejs)<br/>                |
 | Frontend | ![Frontend](https://skillicons.dev/icons?i=astro,react,vue,svelte,lit)<br/> |
-| Styling  | ![Styling](https://skillicons.dev/icons?i=tailwind,css)<br/>                |
 
 ```mermaid
 %%{init: { 'theme': 'dark', 'flowchart' : {'curve' : 'linear'}}}%%

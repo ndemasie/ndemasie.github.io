@@ -1,0 +1,17 @@
+FROM node:22-alpine AS runtime
+
+ENV HOST app-referral-codes
+ENV PORT 10400
+
+WORKDIR /root
+
+COPY ./package.json ./
+COPY ./astro.config.mjs ./
+COPY ./components.json ./
+COPY ./tsconfig.json ./
+COPY ./tailwind.config.mjs ./
+RUN npm install
+
+EXPOSE 10400
+
+ENTRYPOINT ["npm", "run", "dev"]

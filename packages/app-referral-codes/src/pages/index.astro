@@ -1,0 +1,10 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import PageHome from '@/components/PageHome.vue'
+---
+
+<Layout>
+  <Fragment slot="body">
+    <PageHome client:only />
+  </Fragment>
+</Layout>

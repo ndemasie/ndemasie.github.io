@@ -1,5 +1,10 @@
 # [nathan.demasie.com](https://nathan.demasie.com)
 
+![demasie.com](https://img.shields.io/website.svg?label=demasie.com&url=http%3A%2F%2Fwww.demasie.com/health)<br/>
+![nathan.demasie.com](https://img.shields.io/website.svg?label=nathan.demasie.com&url=http%3A%2F%2Fnathan.demasie.com/health)<br/>
+![habit.demasie.com](https://img.shields.io/website.svg?label=habit.demasie.com&url=http%3A%2F%2Fhabit.demasie.com/health)<br/>
+![refer.demasie.com](https://img.shields.io/website.svg?label=refer.demasie.com&url=http%3A%2F%2Frefer.demasie.com/health)<br/>
+
 <!-- ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ndemasie/ndemasie.github.io/deploy-ec2.yml) -->
 
 ![Tech stack](https://skillicons.dev/icons?i=docker,cloudflare,nginx,nodejs,ts,astro,react,vue,svelte)
@@ -9,10 +14,10 @@
 
 flowchart TB
   subgraph Internet
-    domain("<img alt="www.demasie.com" src="https://img.shields.io/website.svg?label=www.demasie.com&url=http%3A%2F%2Fwww.demasie.com/health"/>")
-    domain_nathan("<img alt="nathan.demasie.com" src="https://img.shields.io/website.svg?label=nathan.demasie.com&url=http%3A%2F%2Fnathan.demasie.com/health"/>")
-    domain_habit("<img alt="habit.demasie.com" src="https://img.shields.io/website.svg?label=habit.demasie.com&url=http%3A%2F%2Fhabit.demasie.com/health"/>")
-    domain_refer("<img alt="refer.demasie.com" src="https://img.shields.io/website.svg?label=refer.demasie.com&url=http%3A%2F%2Frefer.demasie.com/health"/>")
+    domain("demasie.com")
+    domain_nathan("nathan.demasie.com")
+    domain_habit("habit.demasie.com")
+    domain_refer("refer.demasie.com")
   end
 
   subgraph External

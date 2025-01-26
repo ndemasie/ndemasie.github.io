@@ -58,7 +58,7 @@ export const codes: Code[] = [
     key: 'prenuvo',
     brandKey: 'prenuvo',
     description: '$300 off full body scan',
-    code: '',
+    code: 'https://prenuvo.com/ref/UrKj1',
   },
   {
     key: 'purple',

@@ -10,23 +10,32 @@
 %%{init: {'flowchart' : {'curve' : 'linear'}}}%%
 
 flowchart TB
-  domain("nathan.demasie.com")
+  domain("demasie.com")
+  domainNathan("nathan.demasie.com")
+  domainHabit("habit.demasie.com")
+  domainRefer("refer.demasie.com")
 
   %% Flow
   domain ---cloudflared
-  cloudflared ---nginx
+  domainNathan ---cloudflared
+  domainHabit ---cloudflared
+  domainRefer ---cloudflared
+
+  cloudflared ---|:80<br/>:443<br/>:10300<br/>:10400|nginx
+
   nginx ---|<div>site-nathan:10100</div>|site_nathan
   nginx ---|<div>server-i18next-websocket:10200</div>|server_i18next_websocket
   nginx ---|<div>app-habit-print:10300</div>|app_habit_print
+  nginx ---|<div>app-referal-codes:10400</div>|app_referral_codes
 
   edu_i18next_react <-.->|ws|server_i18next_websocket
-  site_nathan -->|/app-habit-print|app_habit_print
   edu_design_principles -.-> |/edu-design-principles/proxy|codedamn_design_principles
 
   subgraph DockerCompose[fa:fa-server Docker Compose]
     cloudflared(cloudflared)
     nginx(nginx)
     app_habit_print(app-habit-print)
+    app_referral_codes(app-referral-codes)
     server_i18next_websocket(server-i18next-websocket)
 
     subgraph Site[fa:fa-browser Site]

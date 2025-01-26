@@ -18,7 +18,19 @@ export const prerender = true
 ---
 
 <Layout>
-  <Fragment slot="head"></Fragment>
+  <Fragment slot="head">
+    <title>{brand.name} referral code</title>
+
+    <meta name="description" content=`Referral code for ${brand.name}` />
+    <meta
+      name="apple-mobile-web-app-title"
+      content=`Referral code for ${brand.name}`
+    />
+    <meta
+      name="keywords"
+      content=`${brand.name}, promo, code, discount, coupon, referral, refer`
+    />
+  </Fragment>
 
   <Fragment slot="body">
     <div

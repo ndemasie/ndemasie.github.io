@@ -13,8 +13,9 @@ services:
     image: nginx:1.27.3-alpine
     container_name: nginx
     ports:
-      - '80:80' # site-nathan, server-i18next-websocket
-      - '443:443' # site-nathan, server-i18next-websocket
+      - '10000:80' # site-nathan
+      - '10100:10100' # site-nathan
+      - '10200:10200' # server-i18next-websocket
       - '10300:10300' # app-habit-print
       - '10400:10400' # app-referral-codes
     volumes:

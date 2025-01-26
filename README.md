@@ -1,61 +1,65 @@
 # [nathan.demasie.com](https://nathan.demasie.com)
 
-![Website status](https://img.shields.io/website-up-down-green-red/http/nathan.demasie.com.svg)
-
 <!-- ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ndemasie/ndemasie.github.io/deploy-ec2.yml) -->
 
-![Tech stack](https://skillicons.dev/icons?i=docker,cloudflare,nginx,nodejs,ts,astro,svelte,react)
+![Tech stack](https://skillicons.dev/icons?i=docker,cloudflare,nginx,nodejs,ts,astro,react,vue,svelte)
 
 ```mermaid
-%%{init: {'flowchart' : {'curve' : 'linear'}}}%%
+%%{init: { 'theme': 'dark', 'flowchart' : {'curve' : 'linear'}}}%%
 
 flowchart TB
-  domain("demasie.com")
-  domainNathan("nathan.demasie.com")
-  domainHabit("habit.demasie.com")
-  domainRefer("refer.demasie.com")
+  subgraph Internet
+    domain("<img alt="www.demasie.com" src="https://img.shields.io/website.svg?label=www.demasie.com&url=http%3A%2F%2Fwww.demasie.com/health"/>")
+    domain_nathan("<img alt="nathan.demasie.com" src="https://img.shields.io/website.svg?label=nathan.demasie.com&url=http%3A%2F%2Fnathan.demasie.com/health"/>")
+    domain_habit("<img alt="habit.demasie.com" src="https://img.shields.io/website.svg?label=habit.demasie.com&url=http%3A%2F%2Fhabit.demasie.com/health"/>")
+    domain_refer("<img alt="refer.demasie.com" src="https://img.shields.io/website.svg?label=refer.demasie.com&url=http%3A%2F%2Frefer.demasie.com/health"/>")
+  end
 
-  %% Flow
-  domain ---cloudflared
-  domainNathan ---cloudflared
-  domainHabit ---cloudflared
-  domainRefer ---cloudflared
+  subgraph External
+    codedamn_design_principles(codedamn-design-principles)
+  end
 
-  cloudflared ---|:80<br/>:443<br/>:10300<br/>:10400|nginx
-
-  nginx ---|<div>site-nathan:10100</div>|site_nathan
-  nginx ---|<div>server-i18next-websocket:10200</div>|server_i18next_websocket
-  nginx ---|<div>app-habit-print:10300</div>|app_habit_print
-  nginx ---|<div>app-referal-codes:10400</div>|app_referral_codes
-
-  edu_i18next_react <-.->|ws|server_i18next_websocket
-  edu_design_principles -.-> |/edu-design-principles/proxy|codedamn_design_principles
-
-  subgraph DockerCompose[fa:fa-server Docker Compose]
+  subgraph Docker Compose
     cloudflared(cloudflared)
     nginx(nginx)
     app_habit_print(app-habit-print)
     app_referral_codes(app-referral-codes)
     server_i18next_websocket(server-i18next-websocket)
 
-    subgraph Site[fa:fa-browser Site]
+    subgraph Site
       site_nathan(site-nathan)
       edu_i18next_react(edu-i18next-react)
       edu_design_principles(edu-design-principles)
-
-      site_nathan --> edu_i18next_react
-      site_nathan --> edu_design_principles
     end
   end
 
-  subgraph External[fa:fa-browser External]
-    codedamn_design_principles(codedamn-design-principles)
-  end
+  %% Flow
+  domain --- cloudflared
+  domain_nathan --- cloudflared
+  domain_habit --- cloudflared
+  domain_refer --- cloudflared
 
-  click domain "https://nathan.demasie.com" _blank
+  cloudflared --- nginx
+
+  nginx ---|<div>site-nathan:10100</div>| site_nathan
+  nginx ---|<div>server-i18next-websocket:10200</div>| server_i18next_websocket
+  nginx ---|<div>app-habit-print:10300</div>| app_habit_print
+  nginx ---|<div>app-referal-codes:10400</div>| app_referral_codes
+
+  site_nathan --> edu_i18next_react
+  site_nathan --> edu_design_principles
+  edu_i18next_react <-.->|ws| server_i18next_websocket
+  edu_design_principles -.-> |/edu-design-principles/proxy| codedamn_design_principles
+
+  click domain "https://www.demasie.com" _blank
+  click domain_nathan "https://nathan.demasie.com" _blank
+  click domain_habit "https://habit.demasie.com" _blank
+  click domain_refer "https://refer.demasie.com" _blank
+
   click nginx "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/nginx" _blank
 
   click app_habit_print "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/app-habit-print" _blank
+  click app_referral_codes "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/app-referral-codes" _blank
   click edu_design_principles "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/edu-design-principles" _blank
   click edu_i18next_react "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/edu-i18next-react" _blank
   click server_i18next_websocket "https://github.com/ndemasie/ndemasie.github.io/tree/main/packages/server-i18next-websocket" _blank

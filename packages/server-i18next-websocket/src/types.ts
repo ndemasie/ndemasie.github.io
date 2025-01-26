@@ -5,6 +5,12 @@ export interface WebSocket extends ws {
   isAlive: boolean
 }
 
+export enum CLIENT_MESSGAE_TYPE {
+  REQUEST_LEAD = 'REQUEST_LEAD',
+  REMOVE_LEAD = 'REMOVE_LEAD',
+  UPDATE_STATE = 'UPDATE_STATE',
+}
+
 export enum Role {
   Leader = 'leader',
   Participant = 'participant',
@@ -18,7 +24,7 @@ export type LessonState = {
 }
 
 export type MessagePayload = {
-  type: 'updateState' | 'requestLead' | 'removeLead'
+  type: CLIENT_MESSGAE_TYPE
   data: {
     user?: {
       id?: string

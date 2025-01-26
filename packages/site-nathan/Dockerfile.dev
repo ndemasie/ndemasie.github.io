@@ -23,4 +23,4 @@ COPY ./src/types ./src/types
 
 EXPOSE 10100
 
-CMD npm run astro:dev -- --host
+CMD npm run dev -- --host

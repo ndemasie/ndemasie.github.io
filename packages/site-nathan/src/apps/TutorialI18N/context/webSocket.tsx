@@ -40,8 +40,8 @@ const Context = () => {
 
   const { sendMessage, lastMessage, readyState } = useLibWebSocket(
     import.meta.env?.PROD
-      ? 'wss://nathan.demasie.com/server-i18next-websocket/'
-      : 'ws://localhost:10000/server-i18next-websocket/',
+      ? 'wss://server-i18next-websocket.demasie.com'
+      : 'ws://localhost:10200',
     {
       onOpen: () => console.log('opened websocket'),
       onMessage,
@@ -69,14 +69,14 @@ export const useWebSocketContext = () => {
 
   const requestLead = useCallback(() => {
     context.sendMessage({
-      type: 'requestLead',
+      type: 'REQUEST_LEAD',
       data: { user, lessonState: { hash } },
     })
     setUser({ role: Role.Leader })
   }, [context, hash, setUser, user])
 
   const removeLead = useCallback(() => {
-    context.sendMessage({ type: 'removeLead' })
+    context.sendMessage({ type: 'REMOVE_LEAD' })
     setUser({ role: Role.Participant })
   }, [context, setUser])
 
@@ -105,7 +105,7 @@ export const WebSocketProvider: React.FC<any> = ({ children }) => {
     refHash.current = hash
 
     context.sendMessage({
-      type: 'updateState',
+      type: 'UPDATE_STATE',
       data: { lessonState: { hash } },
     })
   }, [user, hash, context, lessonState.leaderId])

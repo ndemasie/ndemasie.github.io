@@ -4,11 +4,11 @@ services:
     image: nginx:1.27.3-alpine
     container_name: nginx
     ports:
-      - '10000:80' # site-nathan, server-i18next-websocket
+      - '10000:80' # site-nathan
+      - '10100:10100' # site-nathan
+      - '10200:10200' # server-i18next-websocket
       - '10300:10300' # app-habit-print
       - '10400:10400' # app-referral-codes
-    environment:
-      - ENV=development
     volumes:
       - ./packages/nginx/conf.d:/etc/nginx/conf.d:ro
       - ./packages/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -21,8 +21,6 @@ services:
     build:
       context: ./packages/site-nathan
       dockerfile: Dockerfile.dev
-    ports:
-      - '10100:10100'
     restart: always
     volumes:
       - ./packages/site-nathan/src:/root/src:ro
@@ -34,8 +32,6 @@ services:
     build:
       context: ./packages/server-i18next-websocket
       dockerfile: Dockerfile.dev
-    ports:
-      - '10200:10200'
     restart: always
     volumes:
       - ./packages/server-i18next-websocket/src:/root/src:ro
@@ -46,8 +42,6 @@ services:
     build:
       context: ./packages/app-habit-print
       dockerfile: Dockerfile.dev
-    # ports:
-    #   - '10300:10300'
     restart: always
     volumes:
       - ./packages/app-habit-print/src:/root/src:ro
@@ -58,8 +52,6 @@ services:
     build:
       context: ./packages/app-referral-codes
       dockerfile: Dockerfile.dev
-    # ports:
-    #   - '10400:10400'
     restart: always
     volumes:
       - ./packages/app-referral-codes/src:/root/src:ro

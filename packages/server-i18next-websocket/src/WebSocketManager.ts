@@ -1,7 +1,12 @@
 import { WebSocketServer } from 'ws'
 import type { RawData, ServerOptions } from 'ws'
 
-import type { LessonState, MessagePayload, WebSocket } from './types.ts'
+import {
+  CLIENT_MESSGAE_TYPE,
+  type LessonState,
+  type MessagePayload,
+  type WebSocket,
+} from './types.ts'
 
 export class WebSocketManager {
   private static _INSTANCE: WebSocketManager
@@ -51,7 +56,7 @@ export class WebSocketManager {
     return this
   }
 
-  public deserialize(data: RawData) {
+  public deserialize(data: RawData): unknown {
     try {
       return JSON.parse(data?.toString())
     } catch {
@@ -94,7 +99,7 @@ export class WebSocketManager {
       (this.deserialize(data) as MessagePayload) ?? {}
 
     switch (type) {
-      case 'requestLead': {
+      case CLIENT_MESSGAE_TYPE.REQUEST_LEAD: {
         if (this._client_leader) break
         this._client_leader = client.id
         this.lessonState.hash = message?.lessonState?.hash
@@ -103,14 +108,14 @@ export class WebSocketManager {
         break
       }
 
-      case 'removeLead': {
+      case CLIENT_MESSGAE_TYPE.REMOVE_LEAD: {
         if (client.id !== this._client_leader) break
         this._log('Updating lead', message)
         this._unassignLeader()
         break
       }
 
-      case 'updateState': {
+      case CLIENT_MESSGAE_TYPE.UPDATE_STATE: {
         if (client.id !== this._client_leader) break
         this._log('Updating state')
         this.lessonState.hash = message.lessonState?.hash

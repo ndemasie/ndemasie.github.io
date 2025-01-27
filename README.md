@@ -5,6 +5,11 @@
 <a href="https://habit.demasie.com"><img src="https://img.shields.io/website.svg?label=habit.demasie.com&url=http%3A%2F%2Fhabit.demasie.com/health"/></a><br/>
 <a href="https://refer.demasie.com"><img src="https://img.shields.io/website.svg?label=refer.demasie.com&url=http%3A%2F%2Frefer.demasie.com/health"/></a><br/>
 
+<img src="https://img.shields.io/website.svg?label=site-nathan&url=http%3A%2F%2Fsite-nathan.demasie.com/health"/><br/>
+<img src="https://img.shields.io/website.svg?label=server-i18next-websocket&url=http%3A%2F%2Fserver-i18next-websocket.demasie.com/health"/><br/>
+<img src="https://img.shields.io/website.svg?label=app-habit-print&url=http%3A%2F%2Fapp-habit-print.demasie.com/health"/><br/>
+<img src="https://img.shields.io/website.svg?label=app-referral-codes&url=http%3A%2F%2Fapp-referral-codes.demasie.com/health"/><br/>
+
 <!-- ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ndemasie/ndemasie.github.io/deploy-ec2.yml) -->
 
 |          |                                                                             |
@@ -31,9 +36,9 @@ flowchart TB
   subgraph Docker Compose
     cloudflared(cloudflared)
     nginx(nginx)
+    server_i18next_websocket(server-i18next-websocket)
     app_habit_print(app-habit-print)
     app_referral_codes(app-referral-codes)
-    server_i18next_websocket(server-i18next-websocket)
 
     subgraph Site
       site_nathan(site-nathan)

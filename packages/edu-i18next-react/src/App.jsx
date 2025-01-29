@@ -3,12 +3,12 @@ import { useEffect } from 'react'
 import Context from './components/Context'
 import Essentials from './components/Essentials'
 import Fallback from './components/Fallback'
+import Formatting from './components/Formatting'
 import Interpolation from './components/Interpolation'
 import Namespaces from './components/Namespaces'
 import Nesting from './components/Nesting'
 import ObjectsAndArrays from './components/ObjectsAndArrays'
 import Plurals from './components/Plurals'
-import Formatting from './components/Formatting'
 
 import packageJson from '../package.json'
 

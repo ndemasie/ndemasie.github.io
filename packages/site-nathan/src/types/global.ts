@@ -1,6 +1,3 @@
-// Affects whole project
-import '@total-typescript/ts-reset'
-
 /* eslint-disable @typescript-eslint/no-namespace */
 import 'react'
 

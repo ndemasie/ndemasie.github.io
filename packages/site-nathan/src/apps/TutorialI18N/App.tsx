@@ -14,7 +14,7 @@ import { WebSocketProvider, useWebSocketContext } from './context/webSocket'
 import { styles } from './styles'
 
 const WEBCONTAINER_EDU_I18NEXT_REACT =
-  'webcontainer/edu-i18next-react/fileSystemTree.json'
+  '/webcontainer/edu-i18next-react/fileSystemTree.json'
 
 const Loading: React.FC = () => {
   const { t } = useTranslation()

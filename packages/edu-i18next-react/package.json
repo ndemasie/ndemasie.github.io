@@ -2,7 +2,7 @@
   "name": "@ndemasie/edu-i18next-react",
   "description": "Demonstration of i18next",
   "version": "0.0.1",
-  "author": "Nathan DeMasie",
+  "author": "Nathan DeMasie (https://nathan.demasie.com)",
   "license": "ISC",
   "dependencies": {
     "i18next": "^23.6.0",

@@ -1,4 +1,5 @@
 ---
+import pkgJson from '../../../package.json'
 import CodeCard from '@/components/CodeCard.vue'
 import Layout from '@/layouts/Layout.astro'
 
@@ -14,22 +15,52 @@ const { key } = Astro.params as unknown as Params
 const code = codes.find((code) => code.key === key)!
 const brand = brands.find((brand) => brand.key === code?.brandKey)!
 
+const meta = {
+  pageTitle: `${brand.name} referral code`,
+  description: `Referral code for ${brand.name}`,
+}
+
 export const prerender = true
 ---
 
 <Layout>
   <Fragment slot="head">
-    <title>{brand.name} referral code</title>
+    <title>{meta.pageTitle}</title>
+    <meta name="apple-mobile-web-app-title" content={meta.pageTitle} />
 
-    <meta name="description" content=`Referral code for ${brand.name}` />
-    <meta
-      name="apple-mobile-web-app-title"
-      content=`Referral code for ${brand.name}`
-    />
+    <meta name="description" content={meta.description} />
     <meta
       name="keywords"
       content=`${brand.name}, promo, code, discount, coupon, referral, refer`
     />
+
+    <title>{meta.pageTitle}</title>
+    <meta name="description" content={meta.description} />
+    <meta name="apple-mobile-web-app-title" content={meta.pageTitle} />
+    <meta
+      name="keywords"
+      content="promo, code, discount, coupon, referral, refer"
+    />
+
+    <!-- Social Media Meta Tags -->
+    <meta itemprop="name" content={meta.pageTitle} />
+    <meta itemprop="description" content={meta.description} />
+    <meta itemprop="image" content={brand.logoUrl} />
+
+    <!-- Facebook -->
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:image" content={brand.logoUrl} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:title" content={meta.pageTitle} />
+    <meta property="og:site_name" content={meta.pageTitle} />
+    <meta property="og:see_also" content={pkgJson.homepage} />
+
+    <!-- Twitter/X? -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content={Astro.url} />
+    <meta name="twitter:title" content={meta.pageTitle} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={brand.logoUrl} />
   </Fragment>
 
   <Fragment slot="body">

@@ -2,9 +2,8 @@
   "name": "@ndemasie/app-referral-codes",
   "description": "App Referral Codes",
   "version": "0.0.1",
-  "author": {
-    "name": "Nathan DeMasie"
-  },
+  "author": "Nathan DeMasie (https://nathan.demasie.com)",
+  "homepage": "https://refer.demasie.com",
   "license": "MIT",
   "type": "module",
   "scripts": {

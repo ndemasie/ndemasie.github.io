@@ -1,5 +1,10 @@
 ---
 import '../styles/globals.css'
+
+const meta = {
+  pageTitle: 'Referral codes',
+  description: 'Referral codes for brands',
+}
 ---
 
 <!doctype html>
@@ -10,21 +15,40 @@ import '../styles/globals.css'
     <meta name="generator" content={Astro.generator} />
     <meta name="ROBOTS" content="NOODP" />
 
-    <meta name="author" content="Nathan DeMasie" />
-
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={Astro.url} />
 
     <slot name="head">
-      <title>Referral codes</title>
-      <meta name="description" content="Referral codes for brands" />
-      <meta name="apple-mobile-web-app-title" content="Referral codes" />
+      <title>{meta.pageTitle}</title>
+      <meta name="apple-mobile-web-app-title" content={meta.pageTitle} />
+      <meta name="description" content={meta.description} />
       <meta
         name="keywords"
         content="promo, code, discount, coupon, referral, refer"
       />
+
+      <!-- Social Media Meta Tags -->
+      <meta itemprop="name" content={meta.pageTitle} />
+      <meta itemprop="description" content={meta.description} />
+      <!-- <meta itemprop="image" content="{{imageUrl}}" /> -->
+
+      <!-- Facebook -->
+      <meta property="og:url" content={Astro.url} />
+      <!-- <meta property="og:image" content="{{imageUrl}}" /> -->
+      <meta property="og:description" content={meta.description} />
+      <meta property="og:title" content={meta.pageTitle} />
+      <meta property="og:site_name" content={meta.pageTitle} />
+      <meta property="og:see_also" content={Astro.url} />
+
+      <!-- Twitter/X? -->
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:url" content={Astro.url} />
+      <meta name="twitter:title" content={meta.pageTitle} />
+      <meta name="twitter:description" content={meta.description} />
+      <!-- <meta name="twitter:image" content="{{imageUrl}}" /> -->
     </slot>
   </head>
 

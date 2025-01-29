@@ -2,7 +2,7 @@
   "name": "@ndemasie/edu-design-principles",
   "description": "Demonstration of design principles",
   "version": "0.1.0",
-  "author": "Nathan DeMasie",
+  "author": "Nathan DeMasie (https://nathan.demasie.com)",
   "license": "ISC",
   "type": "module",
   "module": "main.ts",

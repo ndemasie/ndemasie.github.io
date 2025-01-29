@@ -2,7 +2,7 @@
   "name": "@ndemasie/app-habit-print",
   "description": "Printable habit tracker",
   "version": "0.0.1",
-  "author": "Nathan DeMasie",
+  "author": "Nathan DeMasie (https://nathan.demasie.com)",
   "license": "ISC",
   "engines": {
     "node": ">=22.0.0"

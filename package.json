@@ -1,9 +1,9 @@
 {
   "name": "@ndemasie/mono",
   "version": "0.4.0",
-  "author": {
-    "name": "Nathan DeMasie"
-  },
+  "description": "Repo to tinker",
+  "author": "Nathan DeMasie (https://nathan.demasie.com)",
+  "homepage": "https://github.com/ndemasie/demasie.com",
   "license": "MIT",
   "workspaces": [
     "packages/*"

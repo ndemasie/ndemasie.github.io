@@ -2,7 +2,7 @@
   "name": "@ndemasie/server-i18next-websocket",
   "description": "Server for i18next with WebSockets",
   "version": "0.1.0",
-  "author": "Nathan DeMasie",
+  "author": "Nathan DeMasie (https://nathan.demasie.com)",
   "license": "ISC",
   "type": "module",
   "main": "./dist/index.js",

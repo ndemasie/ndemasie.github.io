@@ -46,8 +46,6 @@ services:
       context: ./packages/app-habit-print
       dockerfile: Dockerfile.prod
     restart: unless-stopped
-    volumes:
-      - ./packages/app-habit-print/src:/root/src:ro
 
   app-referral-codes:
     image: app-referral-codes
@@ -56,5 +54,3 @@ services:
       context: ./packages/app-referral-codes
       dockerfile: Dockerfile.prod
     restart: unless-stopped
-    volumes:
-      - ./packages/app-referral-codes/src:/root/src:ro

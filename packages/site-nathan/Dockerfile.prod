@@ -1,28 +1,34 @@
 # Stage 1: Build
-FROM node:22-alpine AS runtime
-
+FROM node:22-alpine AS build
+WORKDIR /root
 ENV ENVIRONMENT_MODE production
 
-WORKDIR /root
-
-# NPM install
 COPY ./package.json ./
 COPY ./package-lock.json ./
-RUN npm ci
+RUN npm install
 
 # Fix Astro Vite issue compiling JSX with @emotion/react
 # https://github.com/withastro/astro/issues/4432#issuecomment-1309770060
 RUN sed -i 's/jsxImportSource: "react"/jsxImportSource: "@emotion\/react"/' ./node_modules/@astrojs/react/dist/index.js
 RUN sed -i 's/importSource: ReactVersion.startsWith("18.") ? "react" : "@astrojs\/react"/importSource: ReactVersion.startsWith("18.") ? "@emotion\/react" : "@astrojs\/react"/' node_modules/@astrojs/react/dist/index.js
 
-# Copy files
 COPY ./astro.config.mjs ./
 COPY ./tsconfig.json ./
 COPY ./postcss.config.js ./
-COPY ./src ./src/
-COPY ./public ./public/
+COPY ./public ./public
+COPY ./src ./src
 
 RUN npm run astro:build
+
+
+# Stage 2: Runtime
+FROM node:22-alpine AS runtime
+WORKDIR /root
+
+COPY --from=build /root/dist ./dist
+COPY --from=build /root/package.json ./
+COPY --from=build /root/package-lock.json ./
+RUN npm ci
 
 EXPOSE 10100
 

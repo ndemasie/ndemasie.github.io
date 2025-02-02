@@ -1,4 +1,4 @@
-name: Publish app-referral-codes to ghcr
+name: publish ghcr app-referral-codes
 on:
   workflow_dispatch:
   push:
@@ -22,4 +22,4 @@ jobs:
       - name: push image to docker hub
         run: |
           echo "${{secrets.GITHUB_TOKEN}}" | docker login ghcr.io -u ${{github.actor}} --password-stdin
-          docker push ghcr.io/${{github.actor}}/${{env.APP_NAME}} :latest
+          docker push ghcr.io/${{github.actor}}/${{env.APP_NAME}}:latest

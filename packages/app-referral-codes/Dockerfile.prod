@@ -27,6 +27,8 @@ ENV ENVIRONMENT_MODE production
 
 COPY --from=build /root/dist ./dist
 COPY --from=build /root/package.json ./
+COPY --from=build /root/package-lock.json ./
+RUN npm ci --omit=dev
 
 EXPOSE 10400
 

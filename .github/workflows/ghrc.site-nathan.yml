@@ -22,7 +22,7 @@ jobs:
       - name: set variables
         id: vars
         run: |
-          cat <<EOF >> $GITHUB_ENV
+          cat <<EOF >> $GITHUB_OUTPUT
           CONTAINER_TAG="${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:$(date +%Y_%m_%d_%H%S)"
           EOF
 

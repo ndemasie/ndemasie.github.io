@@ -19,11 +19,16 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
+      - name: set variables
+        id: vars
+        run: |
+          echo "CONTAINER_TAG="${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:$(date +%Y_%m_%d_%H%S)" >> $GITHUB_ENV
+
       - name: build image
         run: |
-          docker build ./packages/${{env.IMAGE_NAME}} --file ./packages/${{env.IMAGE_NAME}}/Dockerfile.prod --tag ${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest
+          docker build ./packages/${{env.IMAGE_NAME}} --file ./packages/${{env.IMAGE_NAME}}/Dockerfile.prod --tag ${{steps.vars.outputs.CONTAINER_TAG}}
 
       - name: push image
         run: |
           echo "${{secrets.GITHUB_TOKEN}}" | docker login ${{env.REGISTRY}} -u ${{github.actor}} --password-stdin
-          docker push ${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest
+          docker push ${{steps.vars.outputs.CONTAINER_TAG}}

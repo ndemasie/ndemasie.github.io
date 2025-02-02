@@ -11,7 +11,6 @@ on:
 env:
   IMAGE_NAME: app-habit-print
   REGISTRY: ghcr.io
-  CONTAINER_TAG: ${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest
 
 jobs:
   publish_container:
@@ -22,9 +21,9 @@ jobs:
 
       - name: build image
         run: |
-          docker build ./packages/${{env.IMAGE_NAME}} --file ./packages/${{env.IMAGE_NAME}}/Dockerfile.prod --tag ${{env.CONTAINER_TAG}}
+          docker build ./packages/${{env.IMAGE_NAME}} --file ./packages/${{env.IMAGE_NAME}}/Dockerfile.prod --tag ${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest
 
       - name: push image
         run: |
           echo "${{secrets.GITHUB_TOKEN}}" | docker login ${{env.REGISTRY}} -u ${{github.actor}} --password-stdin
-          docker push ${{env.CONTAINER_TAG}}
+          docker push ${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest

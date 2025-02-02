@@ -1,15 +1,16 @@
-name: publish ghcr app-referral-codes
+env:
+  IMAGE_NAME: app-referral-codes
+  REGISTRY: ghcr.io
+
+name: publish ghcr ${{env.REGISTRY}}
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
     paths:
-      - 'packages/app-referral-codes/**'
-
-env:
-  IMAGE_NAME: app-referral-codes
-  REGISTRY: ghcr.io
+      - 'packages/${{env.REGISTRY}}/**'
 
 jobs:
   publish_container:

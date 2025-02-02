@@ -1,17 +1,17 @@
-<div class="shark" />
+<div class="shark"></div>
 
 <style lang="scss">
-  @import 'src/styles/abstracts/_mixins/_animations.scss';
+  @use 'src/styles/abstracts/mixins/animations.scss';
 
   .shark {
     --inc: 32px;
     --x: 1px;
     --y: 1px;
 
-    @include animate-sprite('shark-sprite', 8);
+    @include animations.animate-sprite('shark-sprite', 8);
     animation: shark-sprite 2s infinite;
     background-image: url('/app/fish-chase/shark-sprite.png');
-    @include bg-sprit();
+    @include animations.bg-sprit();
 
     position: absolute;
     pointer-events: none;

@@ -6,13 +6,13 @@
 <div class="fish" data-type={type} />
 
 <style lang="scss">
-  @import 'src/styles/abstracts/_mixins/_animations.scss';
+  @use 'src/styles/abstracts/mixins/animations.scss';
 
   :global(.fish) {
-    @include animate-sprite('fish-sprite', 4);
+    @include animations.animate-sprite('fish-sprite', 4);
     animation: fish-sprite 1s infinite;
     background-image: url('/app/fish-chase/fish-sprite.png');
-    @include bg-sprit();
+    @include animations.bg-sprit();
 
     pointer-events: none;
     position: absolute;

@@ -1,0 +1,13 @@
+@use '../abstracts/variables.scss';
+
+.mobile-only {
+  @media (min-width: #{variables.$screen-md-min}) {
+    display: none !important;
+  }
+}
+
+.desktop-only {
+  @media (max-width: #{variables.$screen-md-min}) {
+    display: none !important;
+  }
+}

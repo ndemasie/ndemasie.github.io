@@ -1,3 +1,6 @@
+@use "../abstracts/mixins/sizes.scss";
+@use "../abstracts/variables.scss";
+
 body {
   height: 100vh;
   min-height: 100vh;
@@ -5,7 +8,7 @@ body {
 
   padding: 1rem;
 
-  @include md {
+  @include sizes.md {
     padding: 1rem 2rem;
   }
 }
@@ -15,8 +18,8 @@ main {
   margin: 0 auto;
   width: 100%;
 
-  @include md {
-    max-width: $screen-lg-min;
+  @include sizes.md {
+    max-width: variables.$screen-lg-min;
   }
 }
 

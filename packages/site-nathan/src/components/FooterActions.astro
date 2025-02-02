@@ -1,6 +1,5 @@
 ---
 import { Language } from 'src/types/Language'
-import { LanguageSelect } from 'src/components/LanguageSelect'
 
 interface Props {
   lang: Language
@@ -9,8 +8,12 @@ interface Props {
 const { lang } = Astro.props
 ---
 
+<script>
+  import 'src/components/LanguageSelect'
+</script>
+
 <div class="footer-actions">
-  <LanguageSelect client:only="lit" value={lang} />
+  <language-select value={lang}></language-select>
 </div>
 
 <style lang="scss">

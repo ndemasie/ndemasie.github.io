@@ -1,4 +1,3 @@
-import lit from '@astrojs/lit'
 import nodejs from '@astrojs/node'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
@@ -6,19 +5,19 @@ import svelte from '@astrojs/svelte'
 import { defineConfig } from 'astro/config'
 
 import packageJson from './package.json' assert { type: 'json' }
-
+console.log('HELP', packageJson.name?.split('/').at(-1))
 // https://astro.build/config
 export default defineConfig({
   root: '.',
   srcDir: './src',
   publicDir: './public',
   outDir: './dist',
-  integrations: [lit(), react(), svelte(), sitemap()],
+  integrations: [react(), svelte(), sitemap()],
   trailingSlash: 'ignore',
 
   // SSR
   adapter: nodejs({ mode: 'standalone' }),
-  output: 'hybrid',
+  output: 'static',
 
   site:
     process.env.ENVIRONMENT_MODE === 'production'
@@ -26,8 +25,9 @@ export default defineConfig({
       : 'http://localhost:10100',
 
   server: {
-    host: '0.0.0.0',
-    port: 10100,
+    host: process.env.HOST || '0.0.0.0',
+    port: parseInt(process.env.PORT, 10) || 10100,
+    allowedHosts: [packageJson.name?.split('/').at(-1)],
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',

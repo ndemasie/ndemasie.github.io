@@ -25,6 +25,8 @@ RUN npm run astro:build
 FROM node:22-alpine AS runtime
 WORKDIR /root
 
+ENV ENVIRONMENT_MODE production
+
 COPY --from=build /root/dist ./dist
 COPY --from=build /root/package.json ./
 COPY --from=build /root/package-lock.json ./

@@ -1,0 +1,16 @@
+name: Build and Publish image to Github Container Registry
+on: workflow_dispatch
+
+jobs:
+  publish_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: build image
+        run: |
+          docker build ./packages/app-referral-codes --file ./packages/app-referral-codes/Dockerfile.prod --tag ndemasie/app-referral-codes:latest
+      - name: push image to docker hub
+        run: |
+          docker login -u ndemasie -p ${{secrets.GITHUB_TOKEN}}
+          docker push ghcr.io/ndemasie/app-referral-codes :latest

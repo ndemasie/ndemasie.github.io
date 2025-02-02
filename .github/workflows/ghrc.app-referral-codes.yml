@@ -22,7 +22,9 @@ jobs:
       - name: set variables
         id: vars
         run: |
-          echo "CONTAINER_TAG="${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:$(date +%Y_%m_%d_%H%S)" >> $GITHUB_ENV
+          cat <<EOF >> $GITHUB_ENV
+          CONTAINER_TAG="${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:$(date +%Y_%m_%d_%H%S)"
+          EOF
 
       - name: build image
         run: |

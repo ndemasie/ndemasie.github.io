@@ -1,4 +1,4 @@
-name: publish ghcr app-referral-codes
+name: publish ghcr nginx-demasie
 
 on:
   workflow_dispatch:
@@ -6,10 +6,10 @@ on:
     branches:
       - main
     paths:
-      - 'packages/app-referral-codes/**'
+      - 'packages/nginx-demasie/**'
 
 env:
-  IMAGE_NAME: app-referral-codes
+  IMAGE_NAME: nginx-demasie
   REGISTRY: ghcr.io
   CONTAINER_TAG: ${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest
 

@@ -1,4 +1,4 @@
-name: publish ghcr app-referral-codes
+name: publish ghcr server-i18next-websocket
 
 on:
   workflow_dispatch:
@@ -6,10 +6,10 @@ on:
     branches:
       - main
     paths:
-      - 'packages/app-referral-codes/**'
+      - 'packages/server-i18next-websocket/**'
 
 env:
-  IMAGE_NAME: app-referral-codes
+  IMAGE_NAME: server-i18next-websocket
   REGISTRY: ghcr.io
   CONTAINER_TAG: ${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest
 

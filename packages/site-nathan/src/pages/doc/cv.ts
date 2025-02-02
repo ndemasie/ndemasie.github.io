@@ -9,11 +9,10 @@ export const prerender = false
 export async function get() {
   const file = path.join(process.cwd(), 'public', 'doc', `${CV_NAME}.pdf`)
   const buffer = Buffer.from(readFileSync(file, 'binary'), 'binary')
+  const headers = {
+    'Content-Type': 'application/pdf',
+    'Content-Disposition': `inline; filename="${CV_NAME}.pdf`,
+  }
 
-  return new Response(buffer, {
-    headers: {
-      'Content-Type': 'application/pdf',
-      'Content-Disposition': `inline; filename="${CV_NAME}.pdf`,
-    },
-  })
+  return new Response(buffer, { headers })
 }

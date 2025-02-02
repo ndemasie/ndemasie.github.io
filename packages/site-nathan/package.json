@@ -42,7 +42,6 @@
     "xterm-addon-fit": "0.8.0"
   },
   "devDependencies": {
-    "@astrojs/node": "9.0.2",
     "@astrojs/react": "4.2.0",
     "@astrojs/sitemap": "3.2.1",
     "@astrojs/svelte": "7.0.4",

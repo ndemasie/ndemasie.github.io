@@ -1,8 +1,10 @@
-# build
+# build & dependencies
 dist/
-
-# dependencies
 node_modules/
+
+# env variables
+.env
+.env.production
 
 # logs
 npm-debug.log*
@@ -10,15 +12,15 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Terrafrom
+# Caching
+## astro
+**/.astro/*
+
+## terraform
 **/.terraform/*
 *.tfstate
 *.tfstate.*
 *.tsvars
-
-# environment variables
-.env
-.env.production
 
 # cert files
 key.pem

@@ -17,7 +17,7 @@ export default defineConfig({
 
   // SSR
   adapter: nodejs({ mode: 'standalone' }),
-  output: 'static',
+  output: 'server',
 
   site:
     process.env.ENVIRONMENT_MODE === 'production'

@@ -13,10 +13,11 @@ export default defineConfig({
   outDir: './dist',
   integrations: [tailwind(), vue()],
   trailingSlash: 'ignore',
+
+  // SSR
+  adapter: node({ mode: 'standalone' }),
   output: 'server',
-  adapter: node({
-    mode: 'standalone',
-  }),
+
   site:
     process.env.ENVIRONMENT_MODE === 'production'
       ? packageJson.homepage

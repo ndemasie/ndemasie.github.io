@@ -11,9 +11,9 @@ COPY ./package-lock.json ./
 RUN npm install
 
 COPY ./astro.config.mjs ./
-COPY ./tsconfig.json ./
 COPY ./svelte.config.js ./
 COPY ./postcss.config.js ./
+COPY ./tsconfig.json ./
 COPY ./public ./public
 COPY ./src ./src
 
@@ -29,7 +29,7 @@ ENV ENVIRONMENT_MODE production
 COPY --from=build /root/dist ./dist
 COPY --from=build /root/package.json ./
 COPY --from=build /root/package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
 EXPOSE 10100
 

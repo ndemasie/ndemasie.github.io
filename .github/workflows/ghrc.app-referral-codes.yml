@@ -22,7 +22,7 @@ jobs:
         run: |
           docker build ./packages/${{env.IMAGE_NAME}} --file ./packages/${{env.IMAGE_NAME}}/Dockerfile.prod --tag ${{REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest
 
-      - name: push image to ${{REGISTRY}}
+      - name: push image
         run: |
           echo "${{secrets.GITHUB_TOKEN}}" | docker login ${{REGISTRY}} -u ${{github.actor}} --password-stdin
           docker push ${{REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest

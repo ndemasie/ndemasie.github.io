@@ -1,16 +1,24 @@
-name: Build and Publish image to Github Container Registry
-on: workflow_dispatch
+name: Publish app-referral-codes to ghcr
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/app-referral-codes/**'
+
+env:
+  APP_NAME: app-referral-codes
 
 jobs:
-  publish_images:
+  publish_container:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
       - name: build image
         run: |
-          docker build ./packages/app-referral-codes --file ./packages/app-referral-codes/Dockerfile.prod --tag ndemasie/app-referral-codes:latest
+          docker build ./packages/${{env.APP_NAME}} --file ./packages/${{env.APP_NAME}}/Dockerfile.prod --tag ${{github.actor}}/${{env.APP_NAME}}:latest
       - name: push image to docker hub
         run: |
-          docker login -u ndemasie -p ${{secrets.GITHUB_TOKEN}}
-          docker push ghcr.io/ndemasie/app-referral-codes :latest
+          docker login -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+          docker push ghcr.io/${{github.actor}}/${{env.APP_NAME}} :latest

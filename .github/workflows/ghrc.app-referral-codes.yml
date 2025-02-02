@@ -8,7 +8,8 @@ on:
       - 'packages/app-referral-codes/**'
 
 env:
-  APP_NAME: app-referral-codes
+  IMAGE_NAME: app-referral-codes
+  REGISTRY: ghcr.io
 
 jobs:
   publish_container:
@@ -16,10 +17,12 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+
       - name: build image
         run: |
-          docker build ./packages/${{env.APP_NAME}} --file ./packages/${{env.APP_NAME}}/Dockerfile.prod --tag ${{github.actor}}/${{env.APP_NAME}}:latest
-      - name: push image to docker hub
+          docker build ./packages/${{env.IMAGE_NAME}} --file ./packages/${{env.IMAGE_NAME}}/Dockerfile.prod --tag ${{REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest
+
+      - name: push image to ${{REGISTRY}}
         run: |
-          echo "${{secrets.GITHUB_TOKEN}}" | docker login ghcr.io -u ${{github.actor}} --password-stdin
-          docker push ghcr.io/${{github.actor}}/${{env.APP_NAME}}:latest
+          echo "${{secrets.GITHUB_TOKEN}}" | docker login ${{REGISTRY}} -u ${{github.actor}} --password-stdin
+          docker push ${{REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest

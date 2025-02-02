@@ -1,0 +1,29 @@
+name: publish ghcr site-demasie
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/site-demasie/**'
+
+env:
+  IMAGE_NAME: site-demasie
+  REGISTRY: ghcr.io
+
+jobs:
+  publish_container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: build image
+        run: |
+          docker build ./packages/${{env.IMAGE_NAME}} --file ./packages/${{env.IMAGE_NAME}}/Dockerfile.prod --tag ${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest
+
+      - name: push image
+        run: |
+          echo "${{secrets.GITHUB_TOKEN}}" | docker login ${{env.REGISTRY}} -u ${{github.actor}} --password-stdin
+          docker push ${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest

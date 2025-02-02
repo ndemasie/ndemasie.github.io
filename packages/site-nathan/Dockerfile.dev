@@ -6,6 +6,7 @@ ENV HOST site-nathan
 ENV PORT 10100
 
 COPY ./package.json ./
+COPY ./package-lock.json ./
 COPY ./astro.config.mjs ./
 COPY ./tsconfig.json ./
 COPY ./postcss.config.js ./

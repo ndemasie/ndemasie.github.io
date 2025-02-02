@@ -5,6 +5,7 @@ ENV HOST app-referral-codes
 ENV PORT 10400
 
 COPY ./package.json ./
+COPY ./package-lock.json ./
 COPY ./astro.config.mjs ./
 COPY ./components.json ./
 COPY ./tsconfig.json ./

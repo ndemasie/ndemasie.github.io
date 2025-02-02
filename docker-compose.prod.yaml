@@ -1,56 +1,55 @@
 version: '3.9'
 services:
   cloudflared:
-    image: cloudflare/cloudflared
     container_name: cloudflare-tunnel
+    image: cloudflare/cloudflared
     restart: unless-stopped
     command: tunnel --no-autoupdate run
     env_file: ./.env
     environment:
       - TUNNEL_TOKEN=$CLOUDFLARE_TUNNEL_TOKEN
 
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/.docker/config.json:/config.json
+    command: |-
+      --interval 30
+      nginx-demasie
+      site-nathan
+      server-i18next-websocket
+      app-habit-print
+      app-referral-codes
+
   nginx:
-    image: nginx:1.27.3-alpine
-    container_name: nginx
+    container_name: nginx-demasie
+    image: ghcr.io/ndemasie/nginx-demasie:latest
     ports:
       - '10000:80' # site-nathan
       - '10100:10100' # site-nathan
       - '10200:10200' # server-i18next-websocket
       - '10300:10300' # app-habit-print
       - '10400:10400' # app-referral-codes
-    volumes:
-      - ./packages/nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./packages/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     restart: unless-stopped
 
   site-nathan:
-    image: site-nathan
     container_name: site-nathan
-    build:
-      context: ./packages/site-nathan
-      dockerfile: Dockerfile.prod
+    image: ghcr.io/ndemasie/site-nathan:latest
     restart: unless-stopped
 
   server-i18next-websocket:
-    image: server-i18next-websocket
     container_name: server-i18next-websocket
-    build:
-      context: ./packages/server-i18next-websocket
-      dockerfile: Dockerfile.prod
+    image: ghcr.io/ndemasie/server-i18next-websocket:latest
     restart: unless-stopped
 
   app-habit-print:
-    image: app-habit-print
     container_name: app-habit-print
-    build:
-      context: ./packages/app-habit-print
-      dockerfile: Dockerfile.prod
+    image: ghcr.io/ndemasie/app-habit-print:latest
     restart: unless-stopped
 
   app-referral-codes:
-    image: app-referral-codes
     container_name: app-referral-codes
-    build:
-      context: ./packages/app-referral-codes
-      dockerfile: Dockerfile.prod
+    image: ghcr.io/ndemasie/app-referral-codes:latest
     restart: unless-stopped

@@ -1,8 +1,8 @@
 # Stage 1: Build
 FROM node:22-alpine AS build
 WORKDIR /root
-ENV NODE_ENV production
-ENV ENVIRONMENT_MODE production
+ENV NODE_ENV=production
+ENV ENVIRONMENT_MODE=production
 
 COPY package.json ./
 COPY package-lock.json ./

@@ -1,8 +1,8 @@
 # Stage 1: Build
 FROM node:22-alpine AS build
 WORKDIR /root
-ENV HOST app-referral-codes
-ENV PORT 10400
+ENV HOST=app-referral-codes
+ENV PORT=10400
 
 COPY ./package.json ./
 COPY ./package-lock.json ./

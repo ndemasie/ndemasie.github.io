@@ -18,6 +18,7 @@
     "watch:public": "npx nodemon --ext 'tsx' --watch './src/**/public/**/*.tsx' --exec 'bash ./scripts/copy_public_dirs.sh'"
   },
   "dependencies": {
+    "@astrojs/node": "9.0.2",
     "@apidevtools/json-schema-ref-parser": "11.9.0",
     "@codemirror/lang-javascript": "6.2.2",
     "@emotion/css": "11.13.5",
@@ -42,7 +43,6 @@
     "xterm-addon-fit": "0.8.0"
   },
   "devDependencies": {
-    "@astrojs/node": "9.0.2",
     "@astrojs/react": "4.2.0",
     "@astrojs/sitemap": "3.2.1",
     "@astrojs/svelte": "7.0.4",

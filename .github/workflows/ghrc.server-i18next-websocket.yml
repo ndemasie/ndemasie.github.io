@@ -26,9 +26,15 @@ jobs:
           CONTAINER_TAG="${{env.REGISTRY}}/${{github.actor}}/${{env.IMAGE_NAME}}:latest"
           EOF
 
-      - name: build image
+      - name: Set up Docker Buildx (multi-platform builds)
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
         run: |
-          docker build ./packages/${{env.IMAGE_NAME}} --file ./packages/${{env.IMAGE_NAME}}/Dockerfile.prod --tag ${{steps.vars.outputs.CONTAINER_TAG}}
+          docker buildx build ./packages/${{env.IMAGE_NAME}} \
+            --platform linux/amd64,linux/arm64 \
+            --file ./packages/${{env.IMAGE_NAME}}/Dockerfile.prod \
+            --tag ${{steps.vars.outputs.CONTAINER_TAG}}
 
       - name: push image
         run: |

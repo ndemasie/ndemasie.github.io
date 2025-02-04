@@ -1,0 +1,6 @@
+- uses: actions/delete-package-versions@v5
+  with: 
+    package-name: 'nginx-demasie'
+    package-type: 'container'
+    min-versions-to-keep: 1
+    delete-only-untagged-versions: 'true'

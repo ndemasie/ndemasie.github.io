@@ -1,6 +1,16 @@
-- uses: actions/delete-package-versions@v5
-  with: 
-    package-name: 'nginx-demasie'
-    package-type: 'container'
-    min-versions-to-keep: 1
-    delete-only-untagged-versions: 'true'
+name: remove old pkgs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish_container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: remove-nginx-demise
+        uses: actions/delete-package-versions@v5
+        with: 
+          package-name: 'nginx-demasie'
+          package-type: 'container'
+          min-versions-to-keep: 1
+          delete-only-untagged-versions: 'true'

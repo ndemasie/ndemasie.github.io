@@ -6,7 +6,7 @@ on:
     - cron: "0 9 * * *"   # 9:00 UTC-0 time daily
 
 jobs:
-  publish_container:
+  remove_old_containers:
     runs-on: ubuntu-latest
     steps:
       - name: remove-app-habit-print

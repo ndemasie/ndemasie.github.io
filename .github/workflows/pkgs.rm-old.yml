@@ -3,7 +3,7 @@ name: remove old pkgs
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 9 * * *"   # 9:00 UTC-0 time daily
+    - cron: '0 9 * * *' # 9:00 UTC-0 time daily
 
 jobs:
   remove_old_containers:
@@ -11,40 +11,40 @@ jobs:
     steps:
       - name: remove-app-habit-print
         uses: actions/delete-package-versions@v5
-        with: 
+        with:
           package-name: 'app-habit-print'
           package-type: 'container'
-          min-versions-to-keep: 1
+          min-versions-to-keep: 0
           delete-only-untagged-versions: 'true'
 
       - name: remove-app-referral-codes
         uses: actions/delete-package-versions@v5
-        with: 
+        with:
           package-name: 'app-referral-codes'
           package-type: 'container'
-          min-versions-to-keep: 1
+          min-versions-to-keep: 0
           delete-only-untagged-versions: 'true'
-      
+
       - name: remove-nginx-demise
         uses: actions/delete-package-versions@v5
-        with: 
+        with:
           package-name: 'nginx-demasie'
           package-type: 'container'
-          min-versions-to-keep: 1
+          min-versions-to-keep: 0
           delete-only-untagged-versions: 'true'
-          
+
       - name: remove-server-i18next-websocket
         uses: actions/delete-package-versions@v5
-        with: 
+        with:
           package-name: 'server-i18next-websocket'
           package-type: 'container'
-          min-versions-to-keep: 1
+          min-versions-to-keep: 0
           delete-only-untagged-versions: 'true'
-          
+
       - name: remove-site-nathan
         uses: actions/delete-package-versions@v5
-        with: 
+        with:
           package-name: 'site-nathan'
           package-type: 'container'
-          min-versions-to-keep: 1
+          min-versions-to-keep: 0
           delete-only-untagged-versions: 'true'

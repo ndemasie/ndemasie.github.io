@@ -5,7 +5,7 @@ import svelte from '@astrojs/svelte'
 import { defineConfig } from 'astro/config'
 
 import packageJson from './package.json' assert { type: 'json' }
-console.log('HELP', packageJson.name?.split('/').at(-1))
+
 // https://astro.build/config
 export default defineConfig({
   root: '.',
@@ -27,7 +27,6 @@ export default defineConfig({
   server: {
     host: process.env.HOST || '0.0.0.0',
     port: parseInt(process.env.PORT, 10) || 10100,
-    allowedHosts: [packageJson.name?.split('/').at(-1)],
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',

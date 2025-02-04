@@ -3,7 +3,7 @@ FROM node:22-alpine AS build
 WORKDIR /root
 
 ENV ENVIRONMENT_MODE=production
-ENV HOST=site-demasie
+ENV HOST=site-nathan
 ENV PORT=10100
 
 COPY ./package.json ./

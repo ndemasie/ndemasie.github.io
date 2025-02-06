@@ -12,5 +12,3 @@ EXPOSE 10100
 EXPOSE 10200
 EXPOSE 10300
 EXPOSE 10400
-
-ENTRYPOINT ['nginx', '-g', "'daemon off;'"]

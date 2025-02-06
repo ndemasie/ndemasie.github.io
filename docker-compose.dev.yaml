@@ -1,5 +1,5 @@
 services:
-  nginx:
+  nginx-demasie:
     container_name: nginx-demasie
     build:
       context: ./packages/nginx-demasie

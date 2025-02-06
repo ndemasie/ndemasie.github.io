@@ -24,14 +24,19 @@ services:
 
   nginx-demasie:
     container_name: nginx-demasie
-    image: ghcr.io/ndemasie/nginx-demasie:latest
+    build:
+      context: ./packages/nginx-demasie
+      dockerfile: Dockerfile.prod
     ports:
       - '10000:80' # site-nathan
       - '10100:10100' # site-nathan
       - '10200:10200' # server-i18next-websocket
       - '10300:10300' # app-habit-print
       - '10400:10400' # app-referral-codes
-    restart: unless-stopped
+    restart: always
+    volumes:
+      - ./packages/nginx-demasie/conf.d:/etc/nginx/conf.d:ro
+      - ./packages/nginx-demasie/nginx.conf:/etc/nginx/nginx.conf:ro
 
   site-nathan:
     container_name: site-nathan

@@ -16,14 +16,14 @@ services:
       - $HOME/.docker/config.json:/config.json
     command: |-
       --interval 30
-      nginx-demasie
+      nginx
       site-nathan
       server-i18next-websocket
       app-habit-print
       app-referral-codes
 
-  nginx-demasie:
-    container_name: nginx-demasie
+  nginx:
+    container_name: nginx
     build:
       context: ./packages/nginx-demasie
       dockerfile: Dockerfile.prod

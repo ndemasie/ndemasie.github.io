@@ -3,16 +3,16 @@
   const type = index % 3
 </script>
 
-<div class="fish" data-type={type} />
+<div class="fish" data-type={type}></div>
 
 <style lang="scss">
-  @use 'src/styles/abstracts/mixins/animations.scss';
+  @use '../styles/main.scss';
 
-  :global(.fish) {
-    @include animations.animate-sprite('fish-sprite', 4);
+  .fish {
+    @include main.animate-sprite('fish-sprite', 4);
     animation: fish-sprite 1s infinite;
-    background-image: url('/app/fish-chase/fish-sprite.png');
-    @include animations.bg-sprit();
+    background-image: url("../static/fish-sprite.png");
+    @include main.bg-sprit();
 
     pointer-events: none;
     position: absolute;
@@ -37,21 +37,21 @@
   }
 
   // &:nth-of-type(3n),
-  :global(.fish[data-type='0']) {
+  .fish[data-type='0'] {
     --inc: 45px;
     --x: -19px;
     --y: 25px;
   }
 
   // &:nth-of-type(3n + 1),
-  :global(.fish[data-type='1']) {
+  .fish[data-type='1'] {
     --inc: 50px;
     --x: -2px;
     --y: 125px;
   }
 
   // &:nth-of-type(3n + 2),
-  :global(.fish[data-type='2']) {
+  .fish[data-type='2'] {
     --inc: 44px;
     --x: -18px;
     --y: 222px;

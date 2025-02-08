@@ -1,17 +1,20 @@
+<script lang="ts">
+</script>
+
 <div class="shark"></div>
 
 <style lang="scss">
-  @use 'src/styles/abstracts/mixins/animations.scss';
+  @use '../styles/main.scss';
 
   .shark {
     --inc: 32px;
     --x: 1px;
     --y: 1px;
 
-    @include animations.animate-sprite('shark-sprite', 8);
+    @include main.animate-sprite('shark-sprite', 8);
     animation: shark-sprite 2s infinite;
-    background-image: url('/app/fish-chase/shark-sprite.png');
-    @include animations.bg-sprit();
+    background-image: url("../static/shark-sprite.png");
+    @include main.bg-sprit();
 
     position: absolute;
     pointer-events: none;

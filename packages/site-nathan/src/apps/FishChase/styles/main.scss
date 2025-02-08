@@ -1,0 +1,24 @@
+@mixin bg-sprit() {
+  background-position:
+    calc(var(--frame) * var(--inc) - var(--x))
+    calc(var(--y) * -1);
+}
+
+@mixin animate-sprite($name, $count) {
+  $percentage: calc(1 / $count);
+
+  @keyframes #{$name} {
+    100% {
+      --frame: 1;
+      @include bg-sprit();
+    }
+
+    @for $i from 0 to $count {
+      #{$i * 100 * $percentage}%,
+      #{(($i + 1) * 100 - 0.01) * $percentage}% {
+        --frame: #{$i + 1};
+        @include bg-sprit();
+      }
+    }
+  }
+}

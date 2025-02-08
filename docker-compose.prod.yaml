@@ -22,8 +22,8 @@ services:
       app-habit-print
       app-referral-codes
 
-  nginx:
-    container_name: nginx
+  nginx-demasie:
+    container_name: nginx-demasie
     image: ghcr.io/ndemasie/nginx-demasie:latest
     ports:
       - '10000:80' # site-nathan

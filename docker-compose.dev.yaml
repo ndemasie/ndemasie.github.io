@@ -1,6 +1,6 @@
 services:
-  nginx:
-    container_name: nginx
+  nginx-demasie:
+    container_name: nginx-demasie
     build:
       context: ./packages/nginx-demasie
       dockerfile: Dockerfile.prod

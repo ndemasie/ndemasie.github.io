@@ -14,7 +14,7 @@ jobs:
         with:
           package-name: 'app-habit-print'
           package-type: 'container'
-          min-versions-to-keep: 0
+          min-versions-to-keep: 5
           delete-only-untagged-versions: 'true'
 
       - name: remove-app-referral-codes
@@ -22,7 +22,7 @@ jobs:
         with:
           package-name: 'app-referral-codes'
           package-type: 'container'
-          min-versions-to-keep: 0
+          min-versions-to-keep: 5
           delete-only-untagged-versions: 'true'
 
       - name: remove-nginx-demise
@@ -30,7 +30,7 @@ jobs:
         with:
           package-name: 'nginx-demasie'
           package-type: 'container'
-          min-versions-to-keep: 0
+          min-versions-to-keep: 5
           delete-only-untagged-versions: 'true'
 
       - name: remove-server-i18next-websocket
@@ -38,7 +38,7 @@ jobs:
         with:
           package-name: 'server-i18next-websocket'
           package-type: 'container'
-          min-versions-to-keep: 0
+          min-versions-to-keep: 5
           delete-only-untagged-versions: 'true'
 
       - name: remove-site-nathan
@@ -46,5 +46,5 @@ jobs:
         with:
           package-name: 'site-nathan'
           package-type: 'container'
-          min-versions-to-keep: 0
+          min-versions-to-keep: 5
           delete-only-untagged-versions: 'true'

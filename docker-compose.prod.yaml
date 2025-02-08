@@ -1,12 +1,12 @@
 services:
-  cloudflared:
-    container_name: cloudflare-tunnel
-    image: cloudflare/cloudflared
-    restart: unless-stopped
-    command: tunnel --no-autoupdate run
-    env_file: ./.env
-    environment:
-      - TUNNEL_TOKEN=$CLOUDFLARE_TUNNEL_TOKEN
+  # cloudflared:
+  #   container_name: cloudflare-tunnel
+  #   image: cloudflare/cloudflared
+  #   restart: unless-stopped
+  #   command: tunnel --no-autoupdate run
+  #   env_file: ./.env
+  #   environment:
+  #     - TUNNEL_TOKEN=$CLOUDFLARE_TUNNEL_TOKEN
 
   watchtower:
     container_name: watchtower
@@ -24,19 +24,14 @@ services:
 
   nginx:
     container_name: nginx
-    build:
-      context: ./packages/nginx-demasie
-      dockerfile: Dockerfile.prod
+    image: ghcr.io/ndemasie/nginx-demasie:latest
     ports:
       - '10000:80' # site-nathan
       - '10100:10100' # site-nathan
       - '10200:10200' # server-i18next-websocket
       - '10300:10300' # app-habit-print
       - '10400:10400' # app-referral-codes
-    restart: always
-    volumes:
-      - ./packages/nginx-demasie/conf.d:/etc/nginx/conf.d:ro
-      - ./packages/nginx-demasie/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
 
   site-nathan:
     container_name: site-nathan

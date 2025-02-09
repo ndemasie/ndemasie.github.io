@@ -1,4 +1,4 @@
-name: publish ghcr nginx-demasie
+name: publish nginx-demasie
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: publish ghcr app-referral-codes
+name: publish app-referral-codes
 
 on:
   workflow_dispatch:

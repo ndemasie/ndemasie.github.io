@@ -1,4 +1,4 @@
-name: remove old pkgs
+name: pkg remove old
 
 on:
   workflow_dispatch:

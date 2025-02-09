@@ -1,4 +1,4 @@
-name: publish ghcr server-i18next-websocket
+name: publish app-habit-print
 
 on:
   workflow_dispatch:
@@ -6,10 +6,10 @@ on:
     branches:
       - main
     paths:
-      - 'packages/server-i18next-websocket/**'
+      - 'packages/app-habit-print/**'
 
 env:
-  IMAGE_NAME: server-i18next-websocket
+  IMAGE_NAME: app-habit-print
   REGISTRY: ghcr.io
 
 jobs:

@@ -1,4 +1,4 @@
-name: publish ghcr app-habit-print
+name: publish site-nathan
 
 on:
   workflow_dispatch:
@@ -6,20 +6,20 @@ on:
     branches:
       - main
     paths:
-      - 'packages/app-habit-print/**'
+      - 'packages/site-nathan/**'
 
 env:
-  IMAGE_NAME: app-habit-print
+  IMAGE_NAME: site-nathan
   REGISTRY: ghcr.io
 
 jobs:
   publish_container:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: set variables
+      - name: Set variables
         id: vars
         run: |
           cat <<EOF >> $GITHUB_OUTPUT

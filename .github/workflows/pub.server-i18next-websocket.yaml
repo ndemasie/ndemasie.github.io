@@ -1,4 +1,4 @@
-name: publish ghcr site-nathan
+name: publish server-i18next-websocket
 
 on:
   workflow_dispatch:
@@ -6,20 +6,20 @@ on:
     branches:
       - main
     paths:
-      - 'packages/site-nathan/**'
+      - 'packages/server-i18next-websocket/**'
 
 env:
-  IMAGE_NAME: site-nathan
+  IMAGE_NAME: server-i18next-websocket
   REGISTRY: ghcr.io
 
 jobs:
   publish_container:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v4
 
-      - name: Set variables
+      - name: set variables
         id: vars
         run: |
           cat <<EOF >> $GITHUB_OUTPUT

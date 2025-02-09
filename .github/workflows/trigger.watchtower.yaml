@@ -1,0 +1,15 @@
+name: trigger watchtower
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  trigger_watchtower:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Watchtower via update url
+        run: |
+          curl \
+            --header "Authorization: Bearer ${{secrets.WATCHTOWER_HTTP_API_TOKEN}}" \
+            https://watchtower.demasie.com:9000/v1/update

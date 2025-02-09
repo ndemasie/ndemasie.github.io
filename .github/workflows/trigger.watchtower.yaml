@@ -12,4 +12,7 @@ jobs:
         run: |
           curl \
             --header "Authorization: Bearer ${{secrets.WATCHTOWER_HTTP_API_TOKEN}}" \
+            --silent \
+            --show-error \
+            --max-time 10 \
             https://watchtower.demasie.com/v1/update

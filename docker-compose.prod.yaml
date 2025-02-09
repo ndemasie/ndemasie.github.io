@@ -3,20 +3,29 @@ services:
     container_name: cloudflare-tunnel
     image: cloudflare/cloudflared
     restart: unless-stopped
-    command: tunnel --no-autoupdate run
     env_file: ./.env
     environment:
       - TUNNEL_TOKEN=$CLOUDFLARE_TUNNEL_TOKEN
+    command: tunnel --no-autoupdate run
 
   watchtower:
     container_name: watchtower
     image: containrrr/watchtower
+    env_file: ./.env
+    environment:
+      - WATCHTOWER_HTTP_API_TOKEN=$WATCHTOWER_HTTP_API_TOKEN
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - $HOME/.docker/config.json:/config.json
     command: |-
-      --interval 30
-      nginx
+      --schedule "0 0 9 * * *"
+      --http-api-update
+      --http-api-periodic-polls
+      --cleanup
+      --include-stopped
+      --revive-stopped
+      --stop-timeout 30s
+      nginx-demasie
       site-nathan
       server-i18next-websocket
       app-habit-print
@@ -26,6 +35,7 @@ services:
     container_name: nginx-demasie
     image: ghcr.io/ndemasie/nginx-demasie:latest
     ports:
+      - '9000:9000' # watchtower
       - '10000:80' # site-nathan
       - '10100:10100' # site-nathan
       - '10200:10200' # server-i18next-websocket

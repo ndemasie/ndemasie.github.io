@@ -36,7 +36,7 @@ services:
     image: ghcr.io/ndemasie/nginx-demasie:latest
     ports:
       - '9000:9000' # watchtower
-      - '10000:80' # site-nathan
+      - '10000:10000' # site-nathan
       - '10100:10100' # site-nathan
       - '10150:10150' # site-cutie
       - '10200:10200' # server-i18next-websocket

@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "app": "bash -c 'npm --prefix ./packages/$0 run dev'",
+    "commit": "git-cz",
     "dev": "npm run docker:dev & watch:package & npm run watch:webcontainer:edu-i18next-react",
     "docker:clean": "bash ./scripts/docker_functions.sh stop && bash ./scripts/docker_functions.sh clean",
     "docker:dev": "docker compose --file ./docker-compose.dev.yaml up --build --abort-on-container-exit",
@@ -25,18 +26,28 @@
     "watch:package": "npx nodemon --watch './packages/**/package.json' --exec 'npm i --package-lock-only --workspaces=false",
     "watch:webcontainer:edu-i18next-react": "npx nodemon --watch './packages/edu-i18next-react/**/*.*' --exec 'npm run script:buildWebContainerFileSystemTree'"
   },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
   "devDependencies": {
+    "@commitlint/cli": "19.7.1",
+    "@commitlint/config-conventional": "19.7.1",
+    "@commitlint/cz-commitlint": "19.6.1",
     "@styled/typescript-styled-plugin": "^1.0.0",
     "@total-typescript/ts-reset": "^0.6.1",
     "@types/lodash": "^4.14.200",
     "@types/node": "^20.8.9",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
+    "commitizen": "4.3.1",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "inquirer": "12.4.2",
     "nodemon": "^3.1.9",
     "npm-check": "^6.0.1",
     "prettier": "^3.4.2",

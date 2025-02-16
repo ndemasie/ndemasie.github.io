@@ -1,8 +1,8 @@
 ---
 import App from 'src/apps/TutorialI18N/App'
 import PageLayout from 'src/layouts/PageLayout.astro'
-import { Language } from 'src/types/Language'
-import { Page } from 'src/types/Page'
+import { Theme, Page, Language } from 'src/types'
+
 import { t } from 'src/locales'
 
 export function getStaticPaths() {
@@ -12,11 +12,9 @@ export function getStaticPaths() {
 type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 
 const { lang } = Astro.params as unknown as Params
-
-const page = Page.Tutorial
 ---
 
-<PageLayout page={page} lang={lang}>
+<PageLayout page={Page.Tutorial} lang={lang} theme={Theme.Light}>
   <script slot="meta" type="application/ld+json"></script>
   <script slot="head" is:inline src="/headers-coop-coep.js"></script>
 

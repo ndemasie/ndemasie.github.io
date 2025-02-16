@@ -5,6 +5,7 @@ import svelte from '@astrojs/svelte'
 import { defineConfig } from 'astro/config'
 
 import packageJson from './package.json' assert { type: 'json' }
+import { Language } from './src/types/Language'
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,6 +20,10 @@ export default defineConfig({
   adapter: nodejs({ mode: 'standalone' }),
   output: 'server',
 
+  experimental: {
+    svg: true,
+  },
+
   site:
     process.env.ENVIRONMENT_MODE === 'production'
       ? packageJson.homepage
@@ -30,6 +35,14 @@ export default defineConfig({
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',
+    },
+  },
+
+  i18n: {
+    locales: Object.values(Language),
+    defaultLocale: Language.EN,
+    routing: {
+      prefixDefaultLocale: true,
     },
   },
 

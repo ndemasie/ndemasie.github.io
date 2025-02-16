@@ -1,5 +1,37 @@
 ---
-import RedirectHomeLayout from 'src/layouts/RedirectHomeLayout.astro'
+import PageLayout from 'src/layouts/PageLayout.astro'
+import { Language } from 'src/types/Language'
+import { Page } from 'src/types/Page'
+
+export function getStaticPaths() {
+  return Object.values(Language).map((lang) => ({ params: { lang } }))
+}
+
+type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
+
+const { lang } = Astro.params as unknown as Params
+
+const page = Page.Home
 ---
 
-<RedirectHomeLayout />
+<PageLayout page={page} lang={lang} />
+
+<style lang="scss" is:global>
+  body {
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  main {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    overflow: hidden;
+  }
+</style>

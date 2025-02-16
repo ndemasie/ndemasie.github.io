@@ -1,7 +1,6 @@
 ---
 import PageLayout from 'src/layouts/PageLayout.astro'
-import { Language } from 'src/types/Language'
-import { Page } from 'src/types/Page'
+import { Theme, Page, Language } from 'src/types'
 
 export function getStaticPaths() {
   return Object.values(Language).map((lang) => ({ params: { lang } }))
@@ -10,11 +9,9 @@ export function getStaticPaths() {
 type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 
 const { lang } = Astro.params as unknown as Params
-
-const page = Page.Tutorial
 ---
 
-<PageLayout page={page} lang={lang}>
+<PageLayout page={Page.Tutorial} lang={lang} theme={Theme.Light}>
   <iframe
     id="editor"
     title="Codedamn test"

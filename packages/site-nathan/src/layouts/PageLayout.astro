@@ -1,22 +1,22 @@
 ---
 import 'src/styles/main.scss'
-import { Language } from 'src/types/Language'
+import { Language, Theme, Page } from 'src/types'
 import 'modern-normalize/modern-normalize.css'
 
 import HtmlHead from 'src/components/HtmlHead.astro'
-import { Page } from 'src/types/Page'
 import FooterActions from 'src/components/FooterActions.astro'
 
 interface Props {
   page: Page
   lang: Language
+  theme: Theme
 }
 
-const { page, lang } = Astro.props
+const { page, lang, theme = Theme.Light_Demasie } = Astro.props
 ---
 
-<!DOCTYPE html>
-<html lang={lang} dir="ltr" data-theme="light">
+<!doctype html>
+<html lang={lang} dir="ltr" data-theme={theme}>
   <HtmlHead page={page} lang={lang}>
     <slot name="meta" />
     <slot name="head" />

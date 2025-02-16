@@ -1,22 +1,43 @@
 ---
 import PageLayout from 'src/layouts/PageLayout.astro'
-import NavPalantir from 'src/components/NavPalantir.astro'
-import { Language } from 'src/types/Language'
-import { Page } from 'src/types/Page'
+import { Language, Page } from 'src/types'
+import { t, schema } from 'src/locales'
+
+import DemasieCookies from 'public/svg/demasiecookies.svg'
 
 export function getStaticPaths() {
-  return Object.values(Language).map((lang) => ({ params: { lang } }))
+  return [{ params: undefined }]
 }
 
-type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
+type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params'] & {
+  lang: Language
+}
 
 const { lang } = Astro.params as unknown as Params
-
-const page = Page.Home
+const S = schema[lang]
 ---
 
-<PageLayout page={page} lang={lang}>
-  <NavPalantir lang={lang} />
+<PageLayout page={Page.Home} lang={lang}>
+  <div class="wrapper">
+    <div id="name">
+      {
+        [...S.author.givenName, ' ', ...S.author.familyName].map((char) => {
+          if (!char.trim()) {
+            return <span />
+          }
+          const offset = Math.random() * 400
+          return <span style={`--offset: ${offset}ms;`}>{char}</span>
+        })
+      }
+    </div>
+
+    <div>
+      I don't bake cookies but these guys do!
+      <a href="https://cookiesdemasie.com" target="_blank">
+        <DemasieCookies />
+      </a>
+    </div>
+  </div>
 </PageLayout>
 
 <style lang="scss" is:global>
@@ -36,5 +57,42 @@ const page = Page.Home
     min-height: 100%;
     min-width: 100%;
     overflow: hidden;
+
+    // background: linear-gradient(
+    //   to right bottom,
+    //   var(--theme-primary) 50%,
+    //   var(--theme-background) 50.03%
+    // );
+  }
+</style>
+
+<style lang="scss">
+  .wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #name {
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+  #name > span {
+    font-size: 4rem;
+    font-weight: 600;
+    display: inline-block;
+    transform: translateY(4rem);
+    animation: slideIn 250ms ease-in var(--offset) forwards;
+  }
+  #name > span:empty {
+    width: 1.5rem;
+    min-width: 1rem;
+  }
+  @keyframes slideIn {
+    to {
+      transform: translateY(0);
+    }
   }
 </style>

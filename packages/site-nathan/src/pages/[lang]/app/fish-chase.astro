@@ -1,8 +1,7 @@
 ---
 import PageLayout from 'src/layouts/PageLayout.astro'
 import FishChase from 'src/apps/FishChase/App.svelte'
-import { Language } from 'src/types/Language'
-import { Page } from 'src/types/Page'
+import { Language, Theme, Page } from 'src/types'
 
 export function getStaticPaths() {
   return Object.values(Language).map((lang) => ({ params: { lang } }))
@@ -11,11 +10,9 @@ export function getStaticPaths() {
 type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 
 const { lang } = Astro.params as unknown as Params
-
-const page = Page.App
 ---
 
-<PageLayout page={page} lang={lang}>
+<PageLayout page={Page.App} lang={lang} theme={Theme.Light}>
   <FishChase client:only count={100} />
 </PageLayout>
 

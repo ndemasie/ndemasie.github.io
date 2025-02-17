@@ -3,7 +3,9 @@ import PageLayout from 'src/layouts/PageLayout.astro'
 import { Language, Page, Theme } from 'src/types'
 import { t, schema } from 'src/locales'
 
-import DemasieCookies from 'public/svg/demasiecookies.svg'
+import DemasieCookies from 'public/brand/demasie_cookies/demasiecookies.svg'
+import GithubOctocat from 'public/brand/github/github-mark.svg'
+import LinkedIn from 'public/brand/linkedin/linkedin.svg'
 
 export function getStaticPaths() {
   return [{ params: undefined }]
@@ -19,26 +21,46 @@ const S = schema[lang]
 
 <PageLayout page={Page.HOME} lang={lang} theme={Theme.LIGHT_DEMASIE}>
   <div class="wrapper">
-    <h1 id="name">
-      {
-        [...S.author.givenName, ' ', ...S.author.familyName].map((char) => {
-          if (!char.trim()) {
-            return <span />
-          }
-          const offset = Math.random() * 400
-          return <span style={`--offset: ${offset}ms;`}>{char}</span>
-        })
-      }
-    </h1>
+    <section id="intro">
+      <h1>
+        {
+          [...S.author.givenName, ' ', ...S.author.familyName].map((char) => {
+            if (!char.trim()) {
+              return <span />
+            }
+            const offset = Math.random() * 400
+            return <span style={`--offset: ${offset}ms;`}>{char}</span>
+          })
+        }
+      </h1>
 
-    <h2>Software Developer</h2>
+      <h2>Software Developer</h2>
+    </section>
 
-    <p>
-      I don't bake cookies but these guys do!
-      <a href="https://cookiesdemasie.com" target="_blank">
-        <DemasieCookies />
-      </a>
-    </p>
+    <section>
+      <p>
+        I don't bake cookies but these guys do!
+        <a href="https://cookiesdemasie.com" target="_blank">
+          <DemasieCookies />
+        </a>
+      </p>
+    </section>
+
+    <section id="socials" class="">
+      <ul>
+        <li class="social-icon github">
+          <a class="" href={S.social.github.url} target="_blank">
+            <GithubOctocat />
+          </a>
+        </li>
+
+        <li class="social-icon linkedin">
+          <a class="" href={S.social.linkedin.url} target="_blank">
+            <LinkedIn />
+          </a>
+        </li>
+      </ul>
+    </section>
   </div>
 </PageLayout>
 
@@ -50,19 +72,22 @@ const S = schema[lang]
     justify-content: center;
     align-items: center;
   }
+  section + section {
+    margin-top: 2rem;
+  }
 
-  #name {
+  #intro > h1 {
     overflow: hidden;
     margin-bottom: 8px;
   }
 
-  #name > span {
+  #intro h1 > span {
     display: inline-block;
     transform: translateY(4rem);
     animation: slideIn 250ms ease-in var(--offset) forwards;
   }
 
-  #name > span:empty {
+  #intro h1 > span:empty {
     width: 1.5rem;
     min-width: 1rem;
   }
@@ -71,5 +96,18 @@ const S = schema[lang]
     to {
       transform: translateY(0);
     }
+  }
+
+  #socials ul {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+  #socials .social-icon {
+    height: 80px;
+  }
+  #socials .social-icon svg {
+    height: 100%;
+    color: var(--theme-primary) !important;
   }
 </style>

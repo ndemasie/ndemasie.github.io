@@ -1,4 +1,4 @@
-@use '../abstracts/variables.scss';
+@use './_variables.scss';
 
 .mobile-only {
   @media (min-width: #{variables.$screen-md-min}) {

@@ -1,5 +1,5 @@
-@use "../abstracts/mixins/sizes.scss";
-@use "../abstracts/variables.scss";
+@use "./_sizes.scss";
+@use "./_variables.scss";
 
 body {
   height: 100vh;

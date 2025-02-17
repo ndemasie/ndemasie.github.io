@@ -1,13 +1,6 @@
-@forward 'abstracts/mixins/animations.scss';
-@forward 'abstracts/mixins/micro.scss';
-@forward 'abstracts/mixins/sizes.scss';
-@forward 'abstracts/interactions.scss';
-@forward 'abstracts/variables.scss';
+@forward 'base/_helpers.scss';
+@forward 'base/_fonts.scss';
+@forward 'base/_typography.scss';
+@forward 'base/_theme.scss';
+@forward 'base/_base.scss';
 
-@forward 'base/helpers.scss';
-@forward 'base/fonts.scss';
-@forward 'base/typography.scss';
-@forward 'base/theme.scss';
-@forward 'base/base.scss';
-
-@forward 'components/markdown.scss';

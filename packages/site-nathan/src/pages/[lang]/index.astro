@@ -24,10 +24,14 @@ const S = schema[lang]
     <section id="intro">
       <h1>
         {
-          [...S.author.givenName, ' ', ...S.author.familyName].map((char) => {
-            if (!char.trim()) {
-              return <span />
-            }
+          [...S.author.givenName.trim()].map((char) => {
+            const offset = Math.random() * 400
+            return <span style={`--offset: ${offset}ms;`}>{char}</span>
+          })
+        }
+        <br class="md-" />
+        {
+          [...S.author.familyName.trim()].map((char) => {
             const offset = Math.random() * 400
             return <span style={`--offset: ${offset}ms;`}>{char}</span>
           })
@@ -72,8 +76,9 @@ const S = schema[lang]
     justify-content: center;
     align-items: center;
   }
+
   section + section {
-    margin-top: 2rem;
+    margin-top: 4rem;
   }
 
   #intro > h1 {

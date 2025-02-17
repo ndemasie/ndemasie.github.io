@@ -1,4 +1,4 @@
-@use '../variables.scss';
+@use './_variables.scss';
 
 @mixin sm {
   @media (min-width: #{variables.$screen-sm-min}) {
@@ -21,6 +21,32 @@
 @mixin xl {
   @media (min-width: #{variables.$screen-xl-min}) {
     @content;
+  }
+}
+
+.sm {
+  display: none;
+  @include sm {
+    display: initial;
+  }
+}
+
+.sm- {
+  @include sm {
+    display: none;
+  }
+}
+
+.md {
+  display: none;
+  @include md {
+    display: initial;
+  }
+}
+
+.md- {
+  @include md {
+    display: none;
   }
 }
 

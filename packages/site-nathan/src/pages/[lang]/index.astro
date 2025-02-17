@@ -23,19 +23,22 @@ const S = schema[lang]
   <div class="wrapper">
     <section id="intro">
       <h1>
-        {
-          [...S.author.givenName.trim()].map((char) => {
-            const offset = Math.random() * 400
-            return <span style={`--offset: ${offset}ms;`}>{char}</span>
-          })
-        }
-        <br class="md-" />
-        {
-          [...S.author.familyName.trim()].map((char) => {
-            const offset = Math.random() * 400
-            return <span style={`--offset: ${offset}ms;`}>{char}</span>
-          })
-        }
+        <span class="name">
+          {
+            [...S.author.givenName.trim()].map((char) => {
+              const offset = Math.random() * 400
+              return <span style={`--offset: ${offset}ms;`}>{char}</span>
+            })
+          }
+        </span>
+        <span class="name">
+          {
+            [...S.author.familyName.trim()].map((char) => {
+              const offset = Math.random() * 400
+              return <span style={`--offset: ${offset}ms;`}>{char}</span>
+            })
+          }
+        </span>
       </h1>
 
       <h2>Software Developer</h2>
@@ -69,6 +72,8 @@ const S = schema[lang]
 </PageLayout>
 
 <style lang="scss">
+  @use 'src/styles/base/_sizes' as size;
+
   .wrapper {
     height: 100%;
     display: flex;
@@ -81,18 +86,26 @@ const S = schema[lang]
     margin-top: 4rem;
   }
 
-  #intro > h1 {
-    overflow: hidden;
+  #intro {
     margin-bottom: 8px;
   }
 
-  #intro h1 > span {
-    display: inline-block;
-    transform: translateY(4rem);
-    animation: slideIn 250ms ease-in var(--offset) forwards;
+  #intro .name {
+    display: block;
+    overflow: hidden;
+
+    @include size.md {
+      display: inline-block;
+    }
   }
 
-  #intro h1 > span:empty {
+  #intro h1 .name > span {
+    display: inline-block;
+    transform: translateY(4rem);
+    animation: slideIn 500ms ease-in var(--offset) forwards;
+  }
+
+  #intro h1 .name > span:empty {
     width: 1.5rem;
     min-width: 1rem;
   }

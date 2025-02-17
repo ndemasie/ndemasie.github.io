@@ -19,7 +19,7 @@ const S = schema[lang]
 
 <PageLayout page={Page.HOME} lang={lang} theme={Theme.LIGHT_DEMASIE}>
   <div class="wrapper">
-    <div id="name">
+    <h1 id="name">
       {
         [...S.author.givenName, ' ', ...S.author.familyName].map((char) => {
           if (!char.trim()) {
@@ -29,14 +29,16 @@ const S = schema[lang]
           return <span style={`--offset: ${offset}ms;`}>{char}</span>
         })
       }
-    </div>
+    </h1>
 
-    <div>
+    <h2>Software Developer</h2>
+
+    <p>
       I don't bake cookies but these guys do!
       <a href="https://cookiesdemasie.com" target="_blank">
         <DemasieCookies />
       </a>
-    </div>
+    </p>
   </div>
 </PageLayout>
 
@@ -51,19 +53,20 @@ const S = schema[lang]
 
   #name {
     overflow: hidden;
-    margin-bottom: 4rem;
+    margin-bottom: 8px;
   }
+
   #name > span {
-    font-size: 4rem;
-    font-weight: 600;
     display: inline-block;
     transform: translateY(4rem);
     animation: slideIn 250ms ease-in var(--offset) forwards;
   }
+
   #name > span:empty {
     width: 1.5rem;
     min-width: 1rem;
   }
+
   @keyframes slideIn {
     to {
       transform: translateY(0);

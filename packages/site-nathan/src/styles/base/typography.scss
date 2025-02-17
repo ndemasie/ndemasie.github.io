@@ -1,13 +1,45 @@
 :root {
-  --nav-heading-font-size: 1.2rem;
+  --base-font-size: 16px;
 }
 
-%heading-nav {
-  font-size: var(--nav-heading-font-size);
-  font-weight: 500;
-  line-height: 1;
-  color: var(--theme-primary);
+html,
+body {
+  font-size: var(--base-font-size);
+}
 
-  margin: auto 0.5rem;
-  padding: 0.1em;
+h1 {
+  font-size: 4rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+h2 {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+h4 {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+h5 {
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+h6 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.2;
 }

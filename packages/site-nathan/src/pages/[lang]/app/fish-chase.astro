@@ -12,7 +12,7 @@ type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 const { lang } = Astro.params as unknown as Params
 ---
 
-<PageLayout page={Page.App} lang={lang} theme={Theme.Light}>
+<PageLayout page={Page.APP} lang={lang} theme={Theme.LIGHT}>
   <FishChase client:only count={100} />
 </PageLayout>
 

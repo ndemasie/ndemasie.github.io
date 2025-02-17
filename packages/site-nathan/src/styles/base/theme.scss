@@ -3,16 +3,23 @@
 
 $themes: (
   light: (
-    primary: #bdbfd5,
-    secondary: #b18c19,
-    accent: #f1f1e6,
-    background: #1a1d2d,
+    primary: rgba(189, 191, 213),
+    secondary: rgba(177, 140, 25),
+    accent: rgba(241, 241, 230),
+    background: rgba(26, 29, 45),
   ),
   light-demasie: (
-    primary: #451e0f,
-    secondary: #ff6b46,
+    primary: rgba(69, 30, 15),
+    secondary: rgba(255, 107, 70),
+    accent: rgba(255, 255, 255),
+    background: rgba(255, 210, 0),
+  ),
+
+  light-chicago: (
+    primary:  rgba(255, 255, 255),
+    secondary: rgba(239, 0, 43),
     accent: #fff,
-    background: #ffd200,
+    background:rgba(65, 182, 230),
   ),
 );
 

@@ -12,7 +12,7 @@ interface Props {
   theme: Theme
 }
 
-const { page, lang, theme = Theme.Light_Demasie } = Astro.props
+const { page, lang, theme = Theme.LIGHT } = Astro.props
 ---
 
 <!doctype html>
@@ -26,8 +26,29 @@ const { page, lang, theme = Theme.Light_Demasie } = Astro.props
     <main>
       <slot />
     </main>
+
     <footer>
       <FooterActions lang={lang} />
     </footer>
+
+    <style lang="scss" is:global>
+      body {
+        min-height: 100vh;
+        padding: 0;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      main {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        min-height: 100%;
+        min-width: 100%;
+        overflow: hidden;
+      }
+    </style>
   </body>
 </html>

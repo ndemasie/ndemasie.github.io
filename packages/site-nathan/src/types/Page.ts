@@ -1,7 +1,7 @@
 export enum Page {
-  App = 'app',
-  Blog = 'blog',
+  APP = 'app',
+  BLOG = 'blog',
   CV = 'cv',
-  Tutorial = 'tutorial',
-  Home = 'home',
+  TUTORIAL = 'tutorial',
+  HOME = 'home',
 }

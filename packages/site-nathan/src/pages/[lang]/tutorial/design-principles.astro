@@ -11,7 +11,7 @@ type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 const { lang } = Astro.params as unknown as Params
 ---
 
-<PageLayout page={Page.Tutorial} lang={lang} theme={Theme.Light}>
+<PageLayout page={Page.TUTORIAL} lang={lang} theme={Theme.LIGHT}>
   <iframe
     id="editor"
     title="Codedamn test"

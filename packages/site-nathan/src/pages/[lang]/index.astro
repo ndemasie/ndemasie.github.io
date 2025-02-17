@@ -1,6 +1,6 @@
 ---
 import PageLayout from 'src/layouts/PageLayout.astro'
-import { Language, Page } from 'src/types'
+import { Language, Page, Theme } from 'src/types'
 import { t, schema } from 'src/locales'
 
 import DemasieCookies from 'public/svg/demasiecookies.svg'
@@ -17,7 +17,7 @@ const { lang } = Astro.params as unknown as Params
 const S = schema[lang]
 ---
 
-<PageLayout page={Page.Home} lang={lang}>
+<PageLayout page={Page.HOME} lang={lang} theme={Theme.LIGHT_DEMASIE}>
   <div class="wrapper">
     <div id="name">
       {
@@ -39,32 +39,6 @@ const S = schema[lang]
     </div>
   </div>
 </PageLayout>
-
-<style lang="scss" is:global>
-  body {
-    min-height: 100vh;
-    padding: 0;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  main {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    min-height: 100%;
-    min-width: 100%;
-    overflow: hidden;
-
-    // background: linear-gradient(
-    //   to right bottom,
-    //   var(--theme-primary) 50%,
-    //   var(--theme-background) 50.03%
-    // );
-  }
-</style>
 
 <style lang="scss">
   .wrapper {

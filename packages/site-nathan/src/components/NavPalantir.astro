@@ -12,7 +12,7 @@ type Params = Awaited<ReturnType<typeof getStaticPaths>>[number]['params']
 
 const { lang } = Astro.params as unknown as Params
 
-const page = Page.Home
+const page = Page.HOME
 ---
 
 <PageLayout page={page} lang={lang}>

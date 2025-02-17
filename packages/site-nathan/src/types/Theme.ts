@@ -1,4 +1,5 @@
 export enum Theme {
-  Light = 'light',
-  Light_Demasie = 'light-demasie',
+  LIGHT = 'light',
+  LIGHT_DEMASIE = 'light-demasie',
+  LIGHT_CHICAGO = 'light-chicago',
 }

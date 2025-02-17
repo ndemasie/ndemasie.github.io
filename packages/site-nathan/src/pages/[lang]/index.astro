@@ -75,11 +75,15 @@ const S = schema[lang]
   @use 'src/styles/base/_sizes' as size;
 
   .wrapper {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 6rem 1rem 0;
+
+    @include size.md {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   section + section {

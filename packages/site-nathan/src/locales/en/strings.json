@@ -12,19 +12,11 @@
       "_description": "Assorted apps",
       "title": "Welcome to the apps pages"
     },
-    "blog": {
-      "_title": "Blog",
-      "_description": "A blog",
-      "title": "Welcome to the blog pages"
-    },
     "home": {
       "_title": "Nathan DeMasie",
-      "_description": "Playground for experiments"
-    },
-    "tutorial": {
-      "_title": "Tutorials",
-      "_description": "Some learnings",
-      "title": "Welcome to the tutorials pages"
+      "_description": "Website for tinkering",
+      "jobTitle": "Software Developer",
+      "demasieRedirect": "I don't bake but these guys do!"
     }
   },
   "app": {

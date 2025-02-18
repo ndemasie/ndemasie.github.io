@@ -5,23 +5,15 @@
     "undefined": "Undefiniert"
   },
   "page": {
-    "home": {
-      "_description": "Spielplatz für Experimente"
-    },
     "app": {
       "_title": "Apps",
       "_description": "Diverse Apps",
       "title": "Willkommen bei den Apps-Seiten"
     },
-    "blog": {
-      "_title": "Blog",
-      "_description": "Ein Blog",
-      "title": "Willkommen auf den Blog-Seiten"
-    },
-    "tutorial": {
-      "_title": "Lehrgang",
-      "_description": "",
-      "title": "Willkommen auf den Seiten der Lehrgänge"
+    "home": {
+      "_description": "Website zum Basteln",
+      "jobTitle": "Software Entwickler",
+      "demasieRedirect": "Ich backe nicht, aber sie schon!"
     }
   },
   "app": {

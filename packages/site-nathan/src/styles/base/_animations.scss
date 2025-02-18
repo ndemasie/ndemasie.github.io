@@ -1,12 +1,17 @@
+@use './_sizes.scss';
+
 @mixin highlight-hover {
   & {
     position: relative;
+    margin: 0 -0.5rem;
+    padding: 0 0.5rem;
   }
 
   &::before {
     content: ' ';
+    border-radius: var(--theme-shape-border);
     position: absolute;
-    inset: 0 0 0 0;
+    inset: 0.1em 0;
     background: var(--theme-accent);
     z-index: -1;
     transition: transform 0.3s ease;
@@ -20,5 +25,14 @@
   &:hover::before {
     transform: scaleX(1);
     transform-origin: bottom left;
+  }
+}
+
+@mixin highlight-hover-forward {
+  @include sizes.md- {
+    &::before {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
   }
 }

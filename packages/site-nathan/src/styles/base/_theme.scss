@@ -3,61 +3,77 @@
 
 $themes: (
   light: (
-    primary: rgba(189, 191, 213),
-    secondary: rgba(177, 140, 25),
-    accent: rgba(241, 241, 230),
-    background: rgba(26, 29, 45),
+    colors: (
+      primary: rgba(189, 191, 213),
+      secondary: rgba(177, 140, 25),
+      accent: rgba(241, 241, 230),
+      background: rgba(26, 29, 45),
+    ),
+    shapes: (
+      border: 4px,
+    )
   ),
   light-demasie: (
-    primary: rgba(69, 30, 15),
-    secondary: rgba(255, 107, 70),
-    accent: rgba(255, 255, 255),
-    background: rgba(255, 210, 0),
+    colors: (
+      primary: rgba(69, 30, 15),
+      secondary: rgba(255, 107, 70),
+      accent: rgba(255, 255, 255),
+      background: rgba(255, 210, 0),
+    ),
+    shapes: (
+      border: 0.5rem,
+    )
   ),
-
   light-chicago: (
-    primary:  rgba(255, 255, 255),
-    secondary: rgba(239, 0, 43),
-    accent: #fff,
-    background:rgba(65, 182, 230),
+    colors: (
+      primary:  rgba(255, 255, 255),
+      secondary: rgba(239, 0, 43),
+      accent: #fff,
+      background:rgba(65, 182, 230),
+    ),
+    shapes: (
+      border: 4px,
+    )
   ),
 );
 
 :root {
   @each $theme, $themeVal in $themes {
     &[data-theme='#{$theme}'] {
-      @each $color, $colorVal in $themeVal {
+      @each $color, $colorVal in map.get($themeVal, 'colors') {
         --theme-#{$color}: #{$colorVal};
       }
 
       --theme-primary-hover: #{color.adjust(
-          map.get($themeVal, 'primary'),
+          map.get($themeVal, 'colors', 'primary'),
           $lightness: 10%
         )};
 
       --theme-primary-active: #{color.adjust(
-          map.get($themeVal, 'primary'),
+          map.get($themeVal, 'colors', 'primary'),
           $lightness: 20%
         )};
 
       --transparent: rgb(255 255 255 / 0%);
 
       --theme-background-accent: #{color.adjust(
-        map.get($themeVal, 'background'),
+        map.get($themeVal, 'colors', 'background'),
         $lightness: 10%
       )};
 
       --theme-background-box-shadow: #{color.adjust(
-          map.get($themeVal, 'background'),
+          map.get($themeVal, 'colors', 'background'),
           $lightness: -10%
         )};
 
       --theme-background-gradient: linear-gradient(
         -200deg,
-        #{color.adjust(map.get($themeVal, 'background'), $lightness: 0%)} 50%,
-        #{color.adjust(map.get($themeVal, 'background'), $lightness: 5%)} 80%,
-        #{color.adjust(map.get($themeVal, 'background'), $lightness: 10%)}
+        #{color.adjust(map.get($themeVal, 'colors', 'background'), $lightness: 0%)} 50%,
+        #{color.adjust(map.get($themeVal, 'colors', 'background'), $lightness: 5%)} 80%,
+        #{color.adjust(map.get($themeVal, 'colors', 'background'), $lightness: 10%)}
       );
+
+      --theme-shape-border: #{map.get($themeVal, 'shapes', 'border')};
     }
   }
 }

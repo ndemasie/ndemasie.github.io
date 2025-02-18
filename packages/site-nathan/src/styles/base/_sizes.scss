@@ -12,8 +12,20 @@
   }
 }
 
+@mixin md- {
+  @media (max-width: #{variables.$screen-md-min}) {
+    @content;
+  }
+}
+
 @mixin lg {
   @media (min-width: #{variables.$screen-lg-min}) {
+    @content;
+  }
+}
+
+@mixin lg- {
+  @media (max-width: #{variables.$screen-lg-min}) {
     @content;
   }
 }

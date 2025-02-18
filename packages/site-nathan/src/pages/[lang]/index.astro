@@ -106,11 +106,12 @@ const S = schema[lang]
     }
 
     @include animations.highlight-hover;
+    @include animations.highlight-hover-forward;
   }
 
   #intro h1 .name > span {
     display: inline-block;
-    transform: translateY(4rem);
+    transform: translateY(-4rem);
     animation: slideIn 500ms ease-in var(--offset) forwards;
   }
 
@@ -128,6 +129,7 @@ const S = schema[lang]
   #intro h2 {
     width: fit-content;
     @include animations.highlight-hover;
+    @include animations.highlight-hover-forward;
   }
 
   #socials ul {

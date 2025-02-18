@@ -72,12 +72,13 @@ const S = schema[lang]
 </PageLayout>
 
 <style lang="scss">
-  @use 'src/styles/base/_sizes' as size;
+  @use 'src/styles/base/_sizes';
+  @use 'src/styles/base/_animations';
 
   .wrapper {
     padding: 6rem 1rem 0;
 
-    @include size.md {
+    @include sizes.md {
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -96,11 +97,15 @@ const S = schema[lang]
 
   #intro .name {
     display: block;
+    position: relative;
+    width: fit-content;
     overflow: hidden;
 
-    @include size.md {
+    @include sizes.md {
       display: inline-block;
     }
+
+    @include animations.highlight-hover;
   }
 
   #intro h1 .name > span {
@@ -120,9 +125,15 @@ const S = schema[lang]
     }
   }
 
+  #intro h2 {
+    width: fit-content;
+    @include animations.highlight-hover;
+  }
+
   #socials ul {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 1rem;
   }
   #socials .social-icon {

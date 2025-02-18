@@ -1,0 +1,24 @@
+@mixin highlight-hover {
+  & {
+    position: relative;
+  }
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    inset: 0 0 0 0;
+    background: var(--theme-accent);
+    z-index: -1;
+    transition: transform 0.3s ease;
+  }
+
+  &::before {
+    transform: scaleX(0);
+    transform-origin: bottom right;
+  }
+
+  &:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+}

@@ -8,7 +8,6 @@
   "scripts": {
     "astro:build": "npx astro build",
     "astro:dev": "npx astro dev",
-    "commit": "npx git-cz",
     "dev": "npx astro dev",
     "format:check": "npx prettier --check \"src/**/*.{astro,js,jsx,ts,tsx,css,scss,sass,md}\"",
     "format:write": "npx prettier --write \"src/**/*.{astro,js,jsx,ts,tsx,css,scss,sass,md}\"",

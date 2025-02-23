@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "app": "bash -c 'npm --prefix ./packages/$0 run dev'",
-    "commit": "npx git-cz",
     "dev": "npm run docker:dev & watch:package & npm run watch:webcontainer:edu-i18next-react",
     "docker:clean": "bash ./scripts/docker_functions.sh stop && bash ./scripts/docker_functions.sh clean",
     "docker:dev": "docker compose --file ./docker-compose.dev.yaml up --build --abort-on-container-exit",

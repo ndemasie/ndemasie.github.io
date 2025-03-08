@@ -3,9 +3,12 @@ import * as THREE from 'three'
 import fragmentShader from './fragmentShader.glsl'
 import vertexShader from './vertexShader.glsl'
 
-export class Palantir {
-  public geo = new THREE.SphereGeometry(1, 64, 64)
-  public mat = new THREE.ShaderMaterial({
+import { SceneObject } from '../../types/SceneObject'
+
+export class Palantir implements SceneObject {
+  public geometry = new THREE.SphereGeometry(1, 64, 64)
+
+  public material = new THREE.ShaderMaterial({
     uniforms: {
       time: { value: 0.0 },
       resolution: {
@@ -16,17 +19,19 @@ export class Palantir {
     fragmentShader,
   })
 
-  public mesh = new THREE.Mesh(this.geo, this.mat)
+  public mesh = new THREE.Mesh(this.geometry, this.material)
+
+  constructor() {}
 
   public addToScene(scene: THREE.Scene) {
     scene.add(this.mesh)
   }
 
   public animate() {
-    this.mat.uniforms.time.value += 0.01
+    this.material.uniforms.time.value += 0.01
   }
 
   public resize(width: number, height: number) {
-    this.mat.uniforms.resolution.value.set(width, height)
+    this.material.uniforms.resolution.value.set(width, height)
   }
 }

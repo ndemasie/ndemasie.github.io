@@ -4,25 +4,30 @@ import fragmentShader from './fragmentShader.glsl'
 import vertexShader from './vertexShader.glsl'
 
 export class Sandstorm {
-  public geo = new THREE.SphereGeometry(5.1, 64, 64) // Slightly larger than the planet
-  public mat = new THREE.ShaderMaterial({
+  public geometry = new THREE.SphereGeometry(3.1, 64, 64)
+
+  public material = new THREE.ShaderMaterial({
     transparent: true,
     uniforms: {
       u_time: { value: 0.0 },
       u_opacity: { value: 0.5 },
+      resolution: {
+        value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+      },
     },
     vertexShader,
     fragmentShader,
   })
 
-  public mesh = new THREE.Mesh(this.geo, this.mat)
+  public mesh = new THREE.Mesh(this.geometry, this.material)
+
+  constructor() {}
 
   public addToScene(scene: THREE.Scene) {
     scene.add(this.mesh)
   }
 
   public animate() {
-    this.mesh.rotation.y += 0.002
-    this.mat.uniforms.u_time.value += 0.01
+    this.material.uniforms.u_time.value += 0.01
   }
 }

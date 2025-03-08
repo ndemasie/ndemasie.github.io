@@ -1,14 +1,15 @@
 import * as THREE from 'three'
 
-export class SphereParticles {
-  public geo = new THREE.BufferGeometry()
-  public mat = new THREE.PointsMaterial({
+export class SphereParticles implements SceneObject {
+  public geometry = new THREE.BufferGeometry()
+
+  public material = new THREE.PointsMaterial({
     color: 0xffaa00,
     size: 0.1,
     blending: THREE.AdditiveBlending,
   })
 
-  public points = new THREE.Points(this.geo, this.mat)
+  public points = new THREE.Points(this.geometry, this.material)
 
   public count = 500
 
@@ -37,8 +38,14 @@ export class SphereParticles {
       velocities[i * 3 + 2] = z * 0.02
     }
 
-    this.geo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-    this.geo.setAttribute('velocity', new THREE.BufferAttribute(velocities, 3))
+    this.geometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(positions, 3),
+    )
+    this.geometry.setAttribute(
+      'velocity',
+      new THREE.BufferAttribute(velocities, 3),
+    )
   }
 
   public addToScene(scene: THREE.Scene) {
@@ -46,8 +53,8 @@ export class SphereParticles {
   }
 
   public animate() {
-    const positions = this.geo.attributes.position
-    const velocities = this.geo.attributes.velocity
+    const positions = this.geometry.attributes.position
+    const velocities = this.geometry.attributes.velocity
 
     for (let i = 0; i < this.count; i++) {
       const x = positions.array[i * 3]

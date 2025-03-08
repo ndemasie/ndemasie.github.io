@@ -86,7 +86,7 @@ float noise(vec3 p) {
   vec2 fade_xy = f.xy * f.xy * (3.0 - 2.0 * f.xy);
   vec2 n_xy = mix(n_z.xy, n_z.zw, fade_xy.y);
   float n = mix(n_xy.x, n_xy.y, fade_xy.x);
-  return 2.2 * n;
+  return 2.9 * n;
 }
 
 void main() {
@@ -96,5 +96,5 @@ void main() {
   float intensity = baseNoise + turbulence; // Combine layers
   intensity = smoothstep(0.1, 0.8, intensity); // Add soft edges
   float alpha = intensity * u_opacity; // Control transparency
-  gl_FragColor = vec4(vec3(1.0), alpha); // White clouds
+  gl_FragColor = vec4(vec3(0.1), alpha); // Dark stormy clouds
 }
